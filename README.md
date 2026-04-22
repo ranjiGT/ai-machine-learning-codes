@@ -80,12 +80,12 @@ Create one folder per topic and map it to your YouTube video:
 
 | Topic | Notebook | Run on Binder | YouTube |
 | --- | --- | --- | --- |
-| Linear Regression | `notebooks/01_linear_regression/linear_regression_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/01_linear_regression/linear_regression_starter.ipynb) | [Watch](https://www.youtube.com/@RanjiRaj18/search?query=linear+regression) |
-| Logistic Regression | `notebooks/02_logistic_regression/logistic_regression_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/02_logistic_regression/logistic_regression_starter.ipynb) | [Watch](https://www.youtube.com/@RanjiRaj18/search?query=logistic+regression) |
-| Decision Trees | `notebooks/03_decision_trees/decision_tree_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/03_decision_trees/decision_tree_starter.ipynb) | [Watch](https://www.youtube.com/@RanjiRaj18/search?query=decision+tree) |
-| Random Forest | `notebooks/04_random_forest/random_forest_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/04_random_forest/random_forest_starter.ipynb) | [Watch](https://www.youtube.com/@RanjiRaj18/search?query=random+forest) |
-| KNN | `notebooks/05_knn/knn_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/05_knn/knn_starter.ipynb) | [Watch](https://www.youtube.com/@RanjiRaj18/search?query=knn) |
-| PCA | `notebooks/06_pca/pca_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/06_pca/pca_starter.ipynb) | [Watch](https://www.youtube.com/@RanjiRaj18/search?query=pca) |
+| Linear Regression | `notebooks/01_linear_regression/linear_regression_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/01_linear_regression/linear_regression_starter.ipynb) | [Watch](https://www.youtube.com/watch?v=e9VYOWWP6zM) |
+| Logistic Regression | `notebooks/02_logistic_regression/logistic_regression_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/02_logistic_regression/logistic_regression_starter.ipynb) | [Watch](https://www.youtube.com/watch?v=S4IG2wv9Lnk) |
+| Decision Trees | `notebooks/03_decision_trees/decision_tree_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/03_decision_trees/decision_tree_starter.ipynb) | [Watch](https://www.youtube.com/watch?v=k3SYtpv5y6Y) |
+| Random Forest | `notebooks/04_random_forest/random_forest_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/04_random_forest/random_forest_starter.ipynb) | [Watch](https://www.youtube.com/watch?v=p2arCEdJ8Fk) |
+| KNN | `notebooks/05_knn/knn_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/05_knn/knn_starter.ipynb) | [Watch](https://www.youtube.com/watch?v=Pqo9o0286Qs) |
+| PCA | `notebooks/06_pca/pca_starter.ipynb` | [Open](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/06_pca/pca_starter.ipynb) | [Watch](https://www.youtube.com/watch?v=7bpjiA2VDZE) |
 
 ## Co-Author Setup
 
