@@ -26,13 +26,19 @@ For collaboration with `yatchmaster`:
 
 1. Add `yatchmaster` as a collaborator in repository settings.
 2. Work on a feature branch and open a PR.
-3. If both people contribute to one commit, include this line in the commit message:
+3. This repository includes a commit hook that auto-adds the co-author trailer for `yatchmaster` on every commit.
+4. Enable the hook once per clone:
 
-```text
-Co-authored-by: yatchmaster <their-email@users.noreply.github.com>
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/commit-msg
 ```
 
-You can find the correct no-reply email from the contributor's GitHub profile settings or an existing commit.
+5. If needed, you can still add the trailer manually using this line:
+
+```text
+Co-authored-by: yatchmaster <yatchmaster@users.noreply.github.com>
+```
 
 ## Suggested Commit Format
 

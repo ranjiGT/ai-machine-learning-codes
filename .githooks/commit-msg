@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+msg_file="$1"
+coauthor="Co-authored-by: yatchmaster <yatchmaster@users.noreply.github.com>"
+
+# Skip if trailer already exists (case-insensitive).
+if grep -qi '^Co-authored-by:\s*yatchmaster\s*<yatchmaster@users\.noreply\.github\.com>$' "$msg_file"; then
+  exit 0
+fi
+
+# Ensure a blank line before trailers and append co-author.
+printf '\n%s\n' "$coauthor" >> "$msg_file"

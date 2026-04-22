@@ -42,7 +42,7 @@ This repository is designed for learners who want:
 4. Start Jupyter Lab.
 
 ```bash
-git clone https://github.com/<your-username>/ai-machine-learning-codes.git
+git clone https://github.com/ranjiGT/ai-machine-learning-codes.git
 cd ai-machine-learning-codes
 
 python3 -m venv .venv
@@ -61,10 +61,8 @@ Once the repo is pushed to GitHub, anyone can open notebooks without local setup
 Use this URL format:
 
 ```text
-https://mybinder.org/v2/gh/<your-username>/ai-machine-learning-codes/HEAD
+https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 ```
-
-For this repo, after you push it, replace `<your-username>` with your GitHub username.
 
 ## Topic-to-Video Mapping
 
