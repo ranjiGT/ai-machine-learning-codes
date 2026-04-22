@@ -1,5 +1,8 @@
 # AI & Machine Learning Practical Codes
 
+[![Launch on Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD)
+[![Open Linear Regression Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/01_linear_regression/linear_regression_starter.ipynb)
+
 Practical Python examples for Machine Learning and Data Science topics from my YouTube channel.
 
 - Channel: [RanjiRaj18](https://www.youtube.com/@RanjiRaj18)
