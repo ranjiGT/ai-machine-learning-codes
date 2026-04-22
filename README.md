@@ -76,6 +76,9 @@ Create one folder per topic and map it to your YouTube video:
 | `01_linear_regression` | `linear_regression_starter.ipynb` | Add video URL |
 | `02_logistic_regression` | `logistic_regression_starter.ipynb` | Add video URL |
 | `03_decision_trees` | `decision_tree_starter.ipynb` | Add video URL |
+| `04_random_forest` | `random_forest_starter.ipynb` | Add video URL |
+| `05_knn` | `knn_starter.ipynb` | Add video URL |
+| `06_pca` | `pca_starter.ipynb` | Add video URL |
 
 ## Co-Author Setup
 
