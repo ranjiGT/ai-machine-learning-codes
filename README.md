@@ -67,6 +67,13 @@ Use this URL format:
 https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 ```
 
+### Binder Troubleshooting
+
+- First build can take several minutes. If it times out, retry once.
+- If `HEAD` fails, verify your default branch contains `requirements.txt`, `runtime.txt`, and `environment.yml`.
+- Avoid pinning conflicting Jupyter packages. This repo uses `jupyterlab>=4.3,<5` and does not pin `notebook`.
+- If Binder reports dependency resolution errors, simplify version pins in `requirements.txt` and rebuild.
+
 ## Topic-to-Video Mapping
 
 Create one folder per topic and map it to your YouTube video:
