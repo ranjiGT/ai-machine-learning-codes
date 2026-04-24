@@ -345,49 +345,49 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>47. Active Learning in Machine Learning</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/47_active_learning_intro/active_learning_intro_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/47_active_learning_intro/active_learning_intro_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/fR0n_lwRr0k">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>48. Membership Query Synthesis</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/48_membership_query_synthesis/membership_query_synthesis_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/48_membership_query_synthesis/membership_query_synthesis_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/QNfmIIjMKa8">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>49. Stream-Based Selective Sampling</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/49_stream_based_selective_sampling/stream_based_selective_sampling_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/49_stream_based_selective_sampling/stream_based_selective_sampling_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/yFyAHhcqoAc">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>50. Pool-Based Sampling</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/50_pool_based_sampling/pool_based_sampling_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/50_pool_based_sampling/pool_based_sampling_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/1ZbsjH0J7sk">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>51. Uncertainty Sampling</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/51_uncertainty_sampling/uncertainty_sampling_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/51_uncertainty_sampling/uncertainty_sampling_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/DsdBe0-4-30">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>52. Query by Committee</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/52_query_by_committee/query_by_committee_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/52_query_by_committee/query_by_committee_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/D102aRBkq14">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>53. Expected Model Change</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/53_expected_model_change/expected_model_change_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/53_expected_model_change/expected_model_change_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/MkGfxJn0le0">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>54. Expected Error Reduction</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/54_expected_error_reduction/expected_error_reduction_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/54_expected_error_reduction/expected_error_reduction_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/UsHau0mfSEA">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>55. Variance Reduction in Active Learning</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/55_variance_reduction_active_learning/variance_reduction_active_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/55_variance_reduction_active_learning/variance_reduction_active_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/6dLYRrGSspg">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>56. Information Density in Active Learning</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/56_information_density_active_learning/information_density_active_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/56_information_density_active_learning/information_density_active_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/6q7c6Dlw0JI">▶ Watch</a>
 </td>
 <td></td>
 <td></td>
