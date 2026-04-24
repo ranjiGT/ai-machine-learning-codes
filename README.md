@@ -258,77 +258,77 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>31. Unsupervised Learning - Clustering</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/31_unsupervised_learning_clustering/unsupervised_learning_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/31_unsupervised_learning_clustering/unsupervised_learning_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/MMJZ33NK288">▶ Watch 1</a> &nbsp;·&nbsp; <a href="https://youtu.be/jovMf2hSDTw">▶ Watch 2</a>
 </td>
 <td align="center" width="33%">
 <b>32. K-means Clustering</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/32_kmeans_clustering/kmeans_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/32_kmeans_clustering/kmeans_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/JUXJSbfqeHg">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>33. Bisecting K-means</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/33_bisecting_kmeans/bisecting_kmeans_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/33_bisecting_kmeans/bisecting_kmeans_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/ZvXK1HH16vM">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>34. Cluster Similarity Measures</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/34_cluster_similarity_measures/cluster_similarity_measures_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/34_cluster_similarity_measures/cluster_similarity_measures_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/a8riMSeBtwY">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>35. Fuzzy C-Means</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/35_fuzzy_cmeans/fuzzy_cmeans_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/35_fuzzy_cmeans/fuzzy_cmeans_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/Ed7DFO51U4U">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>36. DBSCAN Technique</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/36_dbscan_technique/dbscan_technique_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/36_dbscan_technique/dbscan_technique_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/ETmqmmhMOR8">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>37. Mean-Shift Clustering</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/37_mean_shift_clustering/mean_shift_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/37_mean_shift_clustering/mean_shift_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/qyl13SvJPso">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>38. Hierarchical Clustering</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/38_hierarchical_clustering/hierarchical_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/38_hierarchical_clustering/hierarchical_clustering_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/q5ifs9xfsRk">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>39. Linkage Measures</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/39_linkage_measures/linkage_measures_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/39_linkage_measures/linkage_measures_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/DfpONiyinf4">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>40. Cluster Validation Techniques</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/40_cluster_validation_techniques/cluster_validation_techniques_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/40_cluster_validation_techniques/cluster_validation_techniques_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/d8MgdChSdyE">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>41. Cohesion and Separation in Cluster</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/41_cohesion_separation_clusters/cohesion_separation_clusters_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/41_cohesion_separation_clusters/cohesion_separation_clusters_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/g5e_r8dw3uc">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>42. Silhouette Coefficient</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/42_silhouette_coefficient/silhouette_coefficient_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/42_silhouette_coefficient/silhouette_coefficient_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/aOnKnLM4eok">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>43. Cophenetic Correlation Coefficient</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/43_cophenetic_correlation_coefficient/cophenetic_correlation_coefficient_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/43_cophenetic_correlation_coefficient/cophenetic_correlation_coefficient_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/BYv2MYGkOVI">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>44. Hopkins Statistic</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/44_hopkins_statistic/hopkins_statistic_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/44_hopkins_statistic/hopkins_statistic_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/50v6Lrl8gw4">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>45. Cluster Purity</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/45_cluster_purity/cluster_purity_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/45_cluster_purity/cluster_purity_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/FKV_SMMnCTk">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>46. Rand Statistic and Jaccard Index</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/46_rand_jaccard_index/rand_jaccard_index_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/46_rand_jaccard_index/rand_jaccard_index_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/8QvGhr6GDZA">▶ Watch</a>
 </td>
 <td></td>
 <td></td>
