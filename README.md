@@ -16,7 +16,7 @@ Practical Python examples for **114 Machine Learning and Data Science topics** f
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">
-    <img src="https://img.youtube.com/vi/N7sx9_nX8Ng/maxresdefault.jpg" alt="ML & Data Science Playlist" width="600"/>
+    <img src="https://img.youtube.com/vi/N7sx9_nX8Ng/hqdefault.jpg" alt="ML & Data Science Playlist" width="600"/>
   </a>
 </p>
 
