@@ -639,49 +639,49 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 </td>
 <td align="center" width="33%">
 <b>98. The Chain Rule</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/98_chain_rule/chain_rule_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/98_chain_rule/chain_rule_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/6oWwHSCDI1Y">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>99. Backpropagation Algorithm</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/99_backpropagation_algorithm/backpropagation_algorithm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/99_backpropagation_algorithm/backpropagation_algorithm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/jIdXHu78XGY">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>100. The Delta Rule</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/100_delta_rule/delta_rule_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/100_delta_rule/delta_rule_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/wvXgjETpDpk">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>101. Vanishing and Exploding Gradients</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/101_vanishing_exploding_gradients/vanishing_exploding_gradients_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/101_vanishing_exploding_gradients/vanishing_exploding_gradients_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/LaOD4u9BZoI">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>102. Step Activation Function</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/102_step_activation_function/step_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/102_step_activation_function/step_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/MdAFlLKd9y0">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>103. Sigmoid Activation Function</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/103_sigmoid_activation_function/sigmoid_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/103_sigmoid_activation_function/sigmoid_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/Jo22NeTIDKU">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>104. Hyperbolic Activation Function</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/104_hyperbolic_activation_function/hyperbolic_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/104_hyperbolic_activation_function/hyperbolic_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/jj4nj9KQ_mk">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>105. ReLU Activation Function</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/105_relu_activation_function/relu_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/105_relu_activation_function/relu_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/b7XGOOVQmDo">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>106. Teacher Forcing in Deep Learning</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/106_teacher_forcing_deep_learning/teacher_forcing_deep_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/106_teacher_forcing_deep_learning/teacher_forcing_deep_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/vQ9_4tlYXSA">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>107. LSTM</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/107_lstm/lstm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/107_lstm/lstm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/x0FH-aeyWMQ">▶ Watch</a>
 </td>
 <td></td>
 </tr>
@@ -697,7 +697,7 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>108. Regression Evaluation Metrics</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/108_regression_evaluation_metrics/regression_evaluation_metrics_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/108_regression_evaluation_metrics/regression_evaluation_metrics_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/J4D1AcKWvIA">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>109. Linear Learning Machines (LLMs)</b><br/>
@@ -733,7 +733,7 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>114. Softmax Activation Function</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/114_softmax_activation_function/softmax_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/114_softmax_activation_function/softmax_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/8xYsz2CyNUU">▶ Watch</a>
 </td>
 </tr>
 </table>
