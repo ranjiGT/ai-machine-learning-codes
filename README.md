@@ -1,5 +1,7 @@
 # AI & Machine Learning Practical Codes
 
+> 📚 **This repository is intended for educational purposes only.** All notebooks are designed to support learning and are companion resources to the YouTube channel.
+
 Practical Python examples for Machine Learning and Data Science topics from my YouTube channel.
 
 - Channel: [RanjiRaj18](https://www.youtube.com/@RanjiRaj18)
