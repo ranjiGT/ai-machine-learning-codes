@@ -2,15 +2,28 @@
 
 > 📚 **This repository is intended for educational purposes only.** All notebooks are designed to support learning and are companion resources to the YouTube channel.
 
-Practical Python examples for Machine Learning and Data Science topics from my YouTube channel.
+Practical Python examples for **114 Machine Learning and Data Science topics** from my YouTube channel.
 
-- Channel: [RanjiRaj18](https://www.youtube.com/@RanjiRaj18)
-- Playlist: [Machine Learning and Data Science Playlist](https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR)
+<p align="center">
+  <a href="https://www.youtube.com/@RanjiRaj18">
+    <img src="https://img.shields.io/badge/YouTube%20Channel-RanjiRaj18-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Channel"/>
+  </a>
+  &nbsp;
+  <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">
+    <img src="https://img.shields.io/badge/Watch%20Playlist-ML%20%26%20Data%20Science-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Playlist"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">
+    <img src="https://img.youtube.com/vi/N7sx9_nX8Ng/maxresdefault.jpg" alt="ML & Data Science Playlist" width="600"/>
+  </a>
+</p>
 
 This repository is designed for learners who want:
-- topic-wise practical code
-- Jupyter notebooks that can run locally
-- one-click cloud execution using Binder
+- 📖 topic-wise practical code
+- 💻 Jupyter notebooks that can run locally
+- ☁️ one-click cloud execution using Binder
 
 ## Repository Goals
 
