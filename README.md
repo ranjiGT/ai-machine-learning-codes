@@ -725,6 +725,21 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 </table>
 
 </details>
+<details>
+<summary><b>🎯 Advanced Activation Functions (114–114)</b></summary>
+<br/>
+
+<table>
+<tr>
+<td align="center" width="33%">
+<b>114. Softmax Activation Function</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/114_softmax_activation_function/softmax_activation_function_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+</td>
+</tr>
+</table>
+
+</details>
+
 
 ## Co-Author Setup
 
