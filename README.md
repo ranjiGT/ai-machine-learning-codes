@@ -573,25 +573,25 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>86. Linear Discriminant Analysis (LDA)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/86_linear_discriminant_analysis/linear_discriminant_analysis_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/86_linear_discriminant_analysis/linear_discriminant_analysis_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/hgajbDa325E">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>87. t-SNE</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/87_t_sne/t_sne_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/87_t_sne/t_sne_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/xLwEo_lGVrk">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>88. Lazy Learning Algorithms</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/88_lazy_learning_algorithms/lazy_learning_algorithms_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/88_lazy_learning_algorithms/lazy_learning_algorithms_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/SB6vVdB8SG8">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>89. Weighted K-NN</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/89_weighted_knn/weighted_knn_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/89_weighted_knn/weighted_knn_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/tD2YGm2rbPw">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>90. Case-Based Reasoning</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/90_case_based_reasoning/case_based_reasoning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/90_case_based_reasoning/case_based_reasoning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/obqgm1xhdeo">▶ Watch</a>
 </td>
 <td></td>
 </tr>
@@ -607,35 +607,35 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>91. Introduction to Deep Neural Networks</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/91_intro_deep_neural_networks/intro_deep_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/91_intro_deep_neural_networks/intro_deep_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/wYD6XF3pq4M">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>92. Structure of a Neuron</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/92_structure_of_a_neuron/structure_of_a_neuron_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/92_structure_of_a_neuron/structure_of_a_neuron_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/t4b2QJWqPPo">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>93. Weight Matrix in Neural Networks</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/93_weight_matrix_neural_networks/weight_matrix_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/93_weight_matrix_neural_networks/weight_matrix_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/hdHrBmcvBPU">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>94. Generalization of Neural Networks</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/94_generalization_neural_networks/generalization_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/94_generalization_neural_networks/generalization_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/zWQ6GK_ZIS0">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>95. Learning Neural Networks</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/95_learning_neural_networks/learning_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/95_learning_neural_networks/learning_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/6qzmPYkMFZU">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>96. Vectorization of Neural Networks</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/96_vectorization_neural_networks/vectorization_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/96_vectorization_neural_networks/vectorization_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/gazHu6qszN0">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>97. Decision Boundary of Neural Networks</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/97_decision_boundary_neural_networks/decision_boundary_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/97_decision_boundary_neural_networks/decision_boundary_neural_networks_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/7G4awaWaj1w">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>98. The Chain Rule</b><br/>
