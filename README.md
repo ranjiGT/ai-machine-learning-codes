@@ -511,53 +511,53 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>75. Concept Learning</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/75_concept_learning/concept_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/75_concept_learning/concept_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/kCvTeckjkn0">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>76. Find-S Algorithm</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/76_find_s_algorithm/find_s_algorithm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/76_find_s_algorithm/find_s_algorithm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/ZcyI621kgak">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>77. Candidate Elimination Algorithm</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/77_candidate_elimination/candidate_elimination_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/77_candidate_elimination/candidate_elimination_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/lev-svuQitA">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>78. Inductive Bias</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/78_inductive_bias/inductive_bias_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/78_inductive_bias/inductive_bias_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/t6ob5suDCtA">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>79. ID3 Algorithm</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/79_id3_algorithm/id3_algorithm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/79_id3_algorithm/id3_algorithm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/GptkDmlXJoA">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>80. Gradient Descent Algorithm</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/80_gradient_descent/gradient_descent_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/80_gradient_descent/gradient_descent_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/8zb9nsi8KzA">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>81. Ridge Regression</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/81_ridge_regression/ridge_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/81_ridge_regression/ridge_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/ulqOfjfSVZM">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>82. Lasso Regression</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/82_lasso_regression/lasso_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/82_lasso_regression/lasso_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/39OoHo1TGiQ">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>83. Polynomial Regression</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/83_polynomial_regression/polynomial_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/83_polynomial_regression/polynomial_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/JV-agdxZ74g">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>84. Isotonic Regression</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/84_isotonic_regression/isotonic_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/84_isotonic_regression/isotonic_regression_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/SQYao8wYEOY">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>85. Elastic Net Regression</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/85_elastic_net/elastic_net_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/85_elastic_net/elastic_net_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/lj7rQqGH0FI">▶ Watch</a>
 </td>
 <td></td>
 </tr>
