@@ -452,49 +452,49 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>65. Laplace Correction</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/65_laplace_correction/laplace_correction_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/65_laplace_correction/laplace_correction_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/mY3765RW6Uw">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>66. Association Rules</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/66_association_rules/association_rules_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/66_association_rules/association_rules_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/2Ouf4u49eCE">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>67. Apriori Principle</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/67_apriori_principle/apriori_principle_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/67_apriori_principle/apriori_principle_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/wL-Kiodx9e0">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>68. Item-set Lattice</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/68_itemset_lattice/itemset_lattice_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/68_itemset_lattice/itemset_lattice_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/wcPeyN1OMJE">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>69. Lift Measure</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/69_lift_measure/lift_measure_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/69_lift_measure/lift_measure_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/FGGlscdeMOQ">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>70. ECLAT</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/70_eclat/eclat_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/70_eclat/eclat_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/ecPEXnZQok0">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>71. Family-Wise Error Rate (FWER)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/71_fwer/fwer_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/71_fwer/fwer_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/vEXp8Yo_o5g">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>72. False Discovery Rate (FDR)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/72_fdr/fdr_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/72_fdr/fdr_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/1C2_S__kcgE">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>73. Singular Value Decomposition (SVD)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/73_svd/svd_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/73_svd/svd_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/4tvw-1HI45s">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>74. Vapnik–Chervonenkis (VC) Dimension</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/74_vc_dimension/vc_dimension_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/74_vc_dimension/vc_dimension_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/K8PUZtF8pZY">▶ Watch</a>
 </td>
 <td></td>
 <td></td>
