@@ -1,10 +1,11 @@
-# AI & Machine Learning Practical Codes
+<div align="center">
 
-> 📚 **This repository is intended for educational purposes only.** All notebooks are designed to support learning and are companion resources to the YouTube channel.
+# 🤖 AI & Machine Learning Practical Codes
 
-Practical Python examples for **114 Machine Learning and Data Science topics** from my YouTube channel.
+> 📚 **This repository is intended for educational purposes only.**
+> All notebooks are designed to support learning and are companion resources to the YouTube channel.
 
-<p align="center">
+<p>
   <a href="https://www.youtube.com/@RanjiRaj18">
     <img src="https://img.shields.io/badge/YouTube%20Channel-RanjiRaj18-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Channel"/>
   </a>
@@ -14,24 +15,43 @@ Practical Python examples for **114 Machine Learning and Data Science topics** f
   </a>
 </p>
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">
-    <img src="https://img.youtube.com/vi/N7sx9_nX8Ng/hqdefault.jpg" alt="ML & Data Science Playlist" width="600"/>
-  </a>
+<p>
+  <img src="https://img.shields.io/badge/Topics-114-blue?style=flat-square" alt="114 Topics"/>
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3"/>
+  <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter"/>
+  <img src="https://img.shields.io/badge/Binder-Ready-E66581?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAM1BMVEXk5ueutLfo6eqrsbTl5+iwtLff4eLZ3N3T1tjJzc/Dxsm7v8K1uby3u76xt7mssLOssbSZhXScAAAAVklEQVQI12NgYGBkYmZhZWPn4OTi5uHl4xcQFBIWERUTl5CUkpaRlZNXUFRSVlFVU9fQ1NLW0dXTNzA0MjYxNTO3sLSytrG1s3dwdHJ2cXVz9/D08gsAFe4Dr5hjBtMAAAAASUVORK5CYII=" alt="Binder Ready"/>
 </p>
 
-This repository is designed for learners who want:
-- 📖 topic-wise practical code
-- 💻 Jupyter notebooks that can run locally
-- ☁️ one-click cloud execution using Binder
+<a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">
+  <img src="https://img.youtube.com/vi/N7sx9_nX8Ng/hqdefault.jpg" alt="ML & Data Science Playlist" width="560" style="border-radius:8px;"/>
+</a>
 
-## Repository Goals
+<br/>
+<i>▲ Click the thumbnail to watch the full playlist</i>
 
-- Keep each topic short, practical, and beginner-friendly.
-- Map every video to runnable Python code.
-- Make it easy for subscribers to fork, run, and learn.
+</div>
 
-## Project Structure
+---
+
+Practical Python examples for **114 Machine Learning and Data Science topics** from my YouTube channel.
+
+### 🎯 What you'll find here
+
+| | |
+|---|---|
+| 📖 | Topic-wise practical code for every lecture |
+| 💻 | Jupyter notebooks runnable locally |
+| ☁️ | One-click cloud execution via Binder |
+| 🎬 | Direct links to companion YouTube videos |
+
+## 🏆 Repository Goals
+
+- 🔹 Keep each topic short, practical, and beginner-friendly.
+- 🔹 Map every video to runnable Python code.
+- 🔹 Make it easy for subscribers to fork, run, and learn.
+
+## 📁 Project Structure
 
 ```text
 .
@@ -49,7 +69,19 @@ This repository is designed for learners who want:
 └── README.md
 ```
 
-## Run Locally (Jupyter)
+## 🚀 Getting Started
+
+### ▶ Option 1 — Run in the Cloud (No Setup Required)
+
+Click any **launch binder** badge on a topic tile below, or launch the whole repo:
+
+[![Launch on Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD)
+
+> ⏳ First build may take a few minutes. If it times out, simply retry.
+
+---
+
+### 💻 Option 2 — Run Locally (Jupyter)
 
 1. Clone the repository.
 2. Create and activate a virtual environment.
@@ -69,26 +101,9 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-## Run in the Cloud (Binder)
+## 📖 Topic-to-Video Mapping
 
-Once the repo is pushed to GitHub, anyone can open notebooks without local setup.
-
-Use this URL format:
-
-```text
-https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
-```
-
-### Binder Troubleshooting
-
-- First build can take several minutes. If it times out, retry once.
-- If `HEAD` fails, verify your default branch contains `requirements.txt`, `runtime.txt`, and `environment.yml`.
-- Avoid pinning conflicting Jupyter packages. This repo uses `jupyterlab>=4.3,<5` and does not pin `notebook`.
-- If Binder reports dependency resolution errors, simplify version pins in `requirements.txt` and rebuild.
-
-## Topic-to-Video Mapping
-
-> 113 topics across 11 themes — click a section to expand. Each tile opens the interactive Binder notebook.
+> **114 topics across 12 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
 
 <details open>
 <summary><b>🟦 Supervised Learning — Core Classifiers (01–17)</b></summary>
@@ -767,11 +782,17 @@ Co-authored-by: yatchmaster <their-email@users.noreply.github.com>
 
 See `CONTRIBUTING.md` for a full workflow.
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome from subscribers and learners.
-Please read `CONTRIBUTING.md` before opening pull requests.
+Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening pull requests.
 
-## License
+## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  <sub>Made with ❤️ for learners · <a href="https://www.youtube.com/@RanjiRaj18">Subscribe on YouTube</a></sub>
+</div>
