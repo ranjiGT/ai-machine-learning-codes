@@ -227,21 +227,21 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>27. Class Imbalance Problem and Solutions</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/27_class_imbalance_problem/class_imbalance_problem_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/27_class_imbalance_problem/class_imbalance_problem_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/TKbqz93ywqU">▶ Watch 1</a> &nbsp;·&nbsp; <a href="https://youtu.be/6DCDxqoRxHQ">▶ Watch 2</a>
 </td>
 <td align="center" width="33%">
 <b>28. SMOTE</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/28_smote/smote_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/28_smote/smote_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/FfMT8Zcw6vs">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>29. ROC and AUC Curves</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/29_roc_auc_curves/roc_auc_curves_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/29_roc_auc_curves/roc_auc_curves_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/UXz6zvvnQD4">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>30. ISO Accuracy Lines</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/30_iso_accuracy_lines/iso_accuracy_lines_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/30_iso_accuracy_lines/iso_accuracy_lines_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/MbKSLwulxg8">▶ Watch</a>
 </td>
 <td></td>
 <td></td>
