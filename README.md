@@ -404,39 +404,39 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 <tr>
 <td align="center" width="33%">
 <b>57. Multi-class Classification (OvR and OvO)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/57_multiclass_ovr_ovo/multiclass_ovr_ovo_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/57_multiclass_ovr_ovo/multiclass_ovr_ovo_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/XNMR6iTHWto">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>58. Multi-label Classification</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/58_multilabel_classification/multilabel_classification_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/58_multilabel_classification/multilabel_classification_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/265-t5HxOR4">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>59. Problem Transformation Methods</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/59_problem_transformation_methods/problem_transformation_methods_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/59_problem_transformation_methods/problem_transformation_methods_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/xyBUrk8CKGM">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>60. Binary Relevance</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/60_binary_relevance/binary_relevance_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/60_binary_relevance/binary_relevance_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/vnObmjMWVd0">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>61. Label Powerset</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/61_label_powerset/label_powerset_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/61_label_powerset/label_powerset_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/g1xUgdCozJ8">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>62. Random K Labelsets (RAkEL)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/62_rakel/rakel_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/62_rakel/rakel_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/_7v_1UvaPr4">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>63. Multi-label Evaluation Metrics</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/63_multilabel_evaluation_metrics/multilabel_evaluation_metrics_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/63_multilabel_evaluation_metrics/multilabel_evaluation_metrics_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/Nurf4gEu3gc">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>64. Multi-Target Classification</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/64_multitarget_classification/multitarget_classification_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/64_multitarget_classification/multitarget_classification_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/m1BelQOYw8I">▶ Watch</a>
 </td>
 <td></td>
 </tr>
