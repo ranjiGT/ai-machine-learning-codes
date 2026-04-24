@@ -701,25 +701,25 @@ https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD
 </td>
 <td align="center" width="33%">
 <b>109. Linear Learning Machines (LLMs)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/109_linear_learning_machines/linear_learning_machines_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/109_linear_learning_machines/linear_learning_machines_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/IpSWVbKMN-w">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>110. Kernel Function and Kernel Matrix</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/110_kernel_function_matrix/kernel_function_matrix_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/110_kernel_function_matrix/kernel_function_matrix_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/l647QGZtX-g">▶ Watch</a>
 </td>
 </tr>
 <tr>
 <td align="center" width="33%">
 <b>111. Semi-Supervised Learning (SSL)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/111_semi_supervised_learning/semi_supervised_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/111_semi_supervised_learning/semi_supervised_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/F2OWE2pLRWE">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>112. Safe Semi-Supervised Learning (SSL)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/112_safe_semi_supervised_learning/safe_semi_supervised_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/112_safe_semi_supervised_learning/safe_semi_supervised_learning_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/7FfbeSf-0L8">▶ Watch</a>
 </td>
 <td align="center" width="33%">
 <b>113. Semi-Supervised SVM (S3VM & TSVM)</b><br/>
-<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/113_s3vm_tsvm/s3vm_tsvm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/watch?v=N7sx9_nX8Ng&list=PLPN-43XehstOjGY6vM6nBpSggHoAv9hkR">▶ Watch</a>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/113_s3vm_tsvm/s3vm_tsvm_starter.ipynb">📓 Open</a> &nbsp;·&nbsp; <a href="https://youtu.be/q2bdQw4Su_U">▶ Watch</a>
 </td>
 </tr>
 </table>
