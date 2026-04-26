@@ -1,0 +1,76 @@
+name: Notebook CI
+
+on:
+  push:
+    paths:
+      - 'notebooks/**/*.ipynb'
+      - 'requirements.txt'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    paths:
+      - 'notebooks/**/*.ipynb'
+      - 'requirements.txt'
+
+jobs:
+  execute-notebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install nbconvert jupyter-client ipykernel
+          python -m ipykernel install --user --name python3
+
+      - name: Find changed notebooks
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            NOTEBOOKS=$(git diff --name-only origin/${{ github.base_ref }}...HEAD \
+              | grep '\.ipynb$' | tr '\n' ' ')
+          else
+            NOTEBOOKS=$(git diff --name-only HEAD~1 HEAD \
+              | grep '\.ipynb$' | tr '\n' ' ')
+          fi
+          echo "notebooks=$NOTEBOOKS" >> "$GITHUB_OUTPUT"
+          echo "Changed notebooks: $NOTEBOOKS"
+
+      - name: Execute changed notebooks
+        if: steps.changed.outputs.notebooks != ''
+        run: |
+          FAILED=0
+          for nb in ${{ steps.changed.outputs.notebooks }}; do
+            echo "▶ Executing: $nb"
+            jupyter nbconvert \
+              --to notebook \
+              --execute \
+              --ExecutePreprocessor.timeout=300 \
+              --ExecutePreprocessor.kernel_name=python3 \
+              --inplace "$nb" || { echo "❌ FAILED: $nb"; FAILED=1; }
+          done
+          exit $FAILED
+
+      - name: Strip outputs before upload
+        if: always()
+        run: |
+          pip install nbstripout -q
+          find notebooks/ -name '*.ipynb' -exec nbstripout {} \;
+
+      - name: Upload executed notebooks on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-notebooks
+          path: notebooks/**/*.ipynb
+          retention-days: 7

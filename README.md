@@ -36,6 +36,8 @@
 
 Practical Python examples for **115 Machine Learning and Data Science topics** from my YouTube channel.
 
+> **Difficulty legend:** &nbsp; 🟢 Beginner &nbsp;·&nbsp; 🟡 Intermediate &nbsp;·&nbsp; 🔴 Advanced
+
 ### 🎯 What you'll find here
 
 | | |
@@ -109,8 +111,10 @@ jupyter lab
 > **114 topics across 12 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
 
 <details open>
-<summary><b>🟦 Supervised Learning — Core Classifiers (01–17)</b></summary>
+<summary><b>🟦 Supervised Learning — Core Classifiers (01–17)</b> &nbsp;·&nbsp; 🟢 Beginner → 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Python basics, NumPy, pandas. Start here if you are new to ML.
 
 <table>
 <tr>
@@ -199,8 +203,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🟨 Probabilistic & Rule-Based Methods (18–26)</b></summary>
+<summary><b>🟨 Probabilistic & Rule-Based Methods (18–26)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 01–07 (core classifiers).
 
 <table>
 <tr>
@@ -250,8 +256,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🟧 Class Imbalance & Evaluation Curves (27–30)</b></summary>
+<summary><b>🟧 Class Imbalance & Evaluation Curves (27–30)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 01–07, 11 (cross-validation).
 
 <table>
 <tr>
@@ -281,8 +289,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🟩 Clustering (31–46)</b></summary>
+<summary><b>🟩 Clustering (31–46)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 06 (PCA), 11 (cross-validation). No labelled data required.
 
 <table>
 <tr>
@@ -368,8 +378,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🟪 Active Learning (47–56)</b></summary>
+<summary><b>🟪 Active Learning (47–56)</b> &nbsp;·&nbsp; 🔴 Advanced</summary>
 <br/>
+
+> **Prerequisites:** Topics 01–17, 27–30 (evaluation).
 
 <table>
 <tr>
@@ -427,8 +439,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🔵 Multi-label & Multi-class Classification (57–64)</b></summary>
+<summary><b>🔵 Multi-label & Multi-class Classification (57–64)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 01–07, 11.
 
 <table>
 <tr>
@@ -475,8 +489,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🟫 Pattern Mining & Statistical Theory (65–74)</b></summary>
+<summary><b>🟫 Pattern Mining & Statistical Theory (65–74)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 07 (Naive Bayes), basic probability.
 
 <table>
 <tr>
@@ -534,8 +550,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>⬛ Concept Learning, Algorithms & Regression (75–85)</b></summary>
+<summary><b>⬛ Concept Learning, Algorithms & Regression (75–85)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 01, 03 (Decision Trees), 11.
 
 <table>
 <tr>
@@ -596,8 +614,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🔶 Dimensionality Reduction & Lazy Learning (86–90)</b></summary>
+<summary><b>🔶 Dimensionality Reduction & Lazy Learning (86–90)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 05 (KNN), 06 (PCA).
 
 <table>
 <tr>
@@ -630,8 +650,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🔴 Deep Learning (91–107)</b></summary>
+<summary><b>🔴 Deep Learning (91–107)</b> &nbsp;·&nbsp; 🔴 Advanced</summary>
 <br/>
+
+> **Prerequisites:** Topics 22–23 (Neural Networks), 80 (Gradient Descent). Familiarity with NumPy recommended.
 
 <table>
 <tr>
@@ -720,8 +742,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>⚫ Advanced & Semi-Supervised Methods (108–113)</b></summary>
+<summary><b>⚫ Advanced & Semi-Supervised Methods (108–113)</b> &nbsp;·&nbsp; 🔴 Advanced</summary>
 <br/>
+
+> **Prerequisites:** Topics 01–30, 91–107 (Deep Learning basics).
 
 <table>
 <tr>
@@ -756,8 +780,10 @@ jupyter lab
 
 </details>
 <details>
-<summary><b>🎯 Advanced Activation Functions (114–114)</b></summary>
+<summary><b>🎯 Advanced Activation Functions (114–114)</b> &nbsp;·&nbsp; 🔴 Advanced</summary>
 <br/>
+
+> **Prerequisites:** Topics 91–107 (Deep Learning).
 
 <table>
 <tr>
@@ -771,8 +797,10 @@ jupyter lab
 </details>
 
 <details>
-<summary><b>🏁 End-to-End Real-World Project (115)</b></summary>
+<summary><b>🏁 End-to-End Real-World Project (115)</b> &nbsp;·&nbsp; 🟡 Intermediate</summary>
 <br/>
+
+> **Prerequisites:** Topics 01–30 recommended. This notebook deliberately revisits concepts from across the course.
 
 A capstone notebook that applies the concepts from the entire course to a real dataset.  
 We predict **Heart Disease** using the UCI Cleveland dataset, walking through every stage a practitioner faces:
