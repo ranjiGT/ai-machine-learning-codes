@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/Topics-114-blue?style=flat-square" alt="114 Topics"/>
+  <img src="https://img.shields.io/badge/Topics-115-blue?style=flat-square" alt="115 Topics"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"/>
   <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3"/>
   <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter"/>
@@ -34,7 +34,7 @@
 
 ---
 
-Practical Python examples for **114 Machine Learning and Data Science topics** from my YouTube channel.
+Practical Python examples for **115 Machine Learning and Data Science topics** from my YouTube channel.
 
 ### 🎯 What you'll find here
 
@@ -56,8 +56,11 @@ Practical Python examples for **114 Machine Learning and Data Science topics** f
 ```text
 .
 ├── notebooks/
-│   └── 01_linear_regression/
-│       └── linear_regression_starter.ipynb
+│   ├── 01_linear_regression/
+│   │   └── linear_regression_starter.ipynb
+│   ├── ... (topics 02–114)
+│   └── 115_real_world_project/
+│       └── real_world_project_starter.ipynb   ← End-to-end capstone
 ├── src/
 │   ├── data/
 │   ├── ml_basics/
@@ -761,6 +764,36 @@ jupyter lab
 <td align="center" width="33%">
 <b>114. Softmax Activation Function</b><br/>
 <a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/Deep%20Learning/114_softmax_activation_function/softmax_activation_function_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a> &nbsp;·&nbsp; <a href="https://youtu.be/8xYsz2CyNUU"><img src="https://img.shields.io/badge/YouTube-FF0000?style=flat&logo=youtube&logoColor=white" alt="Watch"/></a>
+</td>
+</tr>
+</table>
+
+</details>
+
+<details>
+<summary><b>🏁 End-to-End Real-World Project (115)</b></summary>
+<br/>
+
+A capstone notebook that applies the concepts from the entire course to a real dataset.  
+We predict **Heart Disease** using the UCI Cleveland dataset, walking through every stage a practitioner faces:
+
+> **EDA → Preprocessing → PCA → SMOTE → Multi-model benchmarking → Hyperparameter tuning → ROC/AUC → Feature importance**
+
+| Concept | Topics revisited |
+|---|---|
+| Hold-out split & scaling | 01, 13 |
+| PCA visualisation | 06 |
+| SMOTE for class imbalance | 28 |
+| 5-fold cross-validation | 11 |
+| GridSearchCV tuning | 14 |
+| ROC-AUC evaluation | 29 |
+| Classification report | 63, 108 |
+
+<table>
+<tr>
+<td align="center" width="33%">
+<b>115. End-to-End Real-World ML Project</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/115_real_world_project/real_world_project_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
 </td>
 </tr>
 </table>
