@@ -9,6 +9,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.4.0] — 2026-04-27
+
+### Added
+- **Topic 117** — Stream-Based & Adaptive Learning: Gama's adaptive learning definition, sufficient statistics on streams, recursive mean (Welford), ADWIN drift detection, online learning with `SGDClassifier.partial_fit`, Hoeffding Tree bound, and prequential evaluation.
+
+---
+
 ## [1.3.0] — 2026-04-26
 
 ### Added
