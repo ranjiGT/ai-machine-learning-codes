@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/Topics-115-blue?style=flat-square" alt="115 Topics"/>
+  <img src="https://img.shields.io/badge/Topics-116-blue?style=flat-square" alt="116 Topics"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"/>
   <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3"/>
   <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter"/>
@@ -34,7 +34,7 @@
 
 ---
 
-Practical Python examples for **115 Machine Learning and Data Science topics** from my YouTube channel.
+Practical Python examples for **116 Machine Learning and Data Science topics** from my YouTube channel.
 
 > **Difficulty legend:** &nbsp; 🟢 Beginner &nbsp;·&nbsp; 🟡 Intermediate &nbsp;·&nbsp; 🔴 Advanced
 
@@ -61,8 +61,10 @@ Practical Python examples for **115 Machine Learning and Data Science topics** f
 │   ├── 01_linear_regression/
 │   │   └── linear_regression_starter.ipynb
 │   ├── ... (topics 02–114)
-│   └── 115_real_world_project/
-│       └── real_world_project_starter.ipynb   ← End-to-end capstone
+│   ├── 115_real_world_project/
+│   │   └── real_world_project_starter.ipynb   ← End-to-end capstone
+│   └── 116_advanced_time_series_ml/
+│       └── advanced_time_series_ml_starter.ipynb
 ├── src/
 │   ├── data/
 │   ├── ml_basics/
@@ -108,7 +110,7 @@ jupyter lab
 
 ## 📖 Topic-to-Video Mapping
 
-> **114 topics across 12 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
+> **116 topics across 13 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
 
 <details open>
 <summary><b>🟦 Supervised Learning — Core Classifiers (01–17)</b> &nbsp;·&nbsp; 🟢 Beginner → 🟡 Intermediate</summary>
@@ -822,6 +824,34 @@ We predict **Heart Disease** using the UCI Cleveland dataset, walking through ev
 <td align="center" width="33%">
 <b>115. End-to-End Real-World ML Project</b><br/>
 <a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/115_real_world_project/real_world_project_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+</tr>
+</table>
+
+</details>
+
+<details>
+<summary><b>📈 Advanced Time Series ML (116)</b> &nbsp;·&nbsp; 🔴 Advanced</summary>
+<br/>
+
+> **Prerequisites:** Topics 01, 11, 14, and basic understanding of lag/rolling features.
+
+A practical advanced notebook focused on modern ML workflows for forecasting:
+
+> **TimeSeriesSplit → Lag/Rolling features → RF/HistGB/SVR → Multi-step recursive forecasting**
+
+| Concept | Topics revisited |
+|---|---|
+| Time-aware validation | 11 |
+| Model tuning mindset | 14 |
+| Feature engineering | 01, 80 |
+| Forecast diagnostics | 108 |
+
+<table>
+<tr>
+<td align="center" width="33%">
+<b>116. Advanced Time Series Analysis in ML</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/116_advanced_time_series_ml/advanced_time_series_ml_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
 </td>
 </tr>
 </table>
