@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/Topics-124-blue?style=flat-square" alt="124 Topics"/>
+  <img src="https://img.shields.io/badge/Topics-125-blue?style=flat-square" alt="125 Topics"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"/>
   <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3"/>
   <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter"/>
@@ -71,7 +71,8 @@ Practical Python examples for **116 Machine Learning and Data Science topics** f
 │   ├── 121_drift_detection/
 │   ├── 122_monic/
 │   ├── 123_shap_values/
-│   └── 124_arima_sarima/
+│   ├── 124_arima_sarima/
+│   └── 125_clustream/
 ├── src/
 │   ├── data/
 │   ├── ml_basics/
@@ -117,7 +118,7 @@ jupyter lab
 
 ## 📖 Topic-to-Video Mapping
 
-> **124 topics across 13 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
+> **125 topics across 13 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
 
 <details open>
 <summary><b>🟦 Supervised Learning — Core Classifiers (01–17)</b> &nbsp;·&nbsp; 🟢 Beginner → 🟡 Intermediate</summary>
@@ -896,6 +897,14 @@ A practical advanced notebook focused on modern ML workflows for forecasting:
 <b>124. ARIMA &amp; SARIMA</b><br/>
 <a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/124_arima_sarima/arima_sarima_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
 </td>
+</tr>
+<tr>
+<td align="center" width="33%">
+<b>125. CluStream</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/125_clustream/clustream_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+<td></td>
+<td></td>
 </tr>
 </table>
 
