@@ -9,6 +9,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.0] — 2026-04-27
+
+### Added
+- **Topic 118** — DenStream: density-based stream clustering with fading function, micro-cluster sufficient statistics, online phase, offline DBSCAN phase.
+- **Topic 119** — ADWIN (deep dive): full ADWIN algorithm, abrupt/gradual drift detection, δ trade-off table, ADWIN as model-reset controller.
+- **Topic 120** — VFDT & CVFDT: Hoeffding bound derivation, VFDT leaf implementation, CVFDT sliding-window adaptation, comparison with batch decision trees.
+- **Topic 121** — Concept Drift Detection: DDM, EDDM, and Page-Hinkley Test; visual comparison and detector summary table.
+- **Topic 122** — MONIC: cluster overlap computation, transition taxonomy (survive/split/merge/appear/disappear), overlap matrix heatmap, centroid trajectory tracking.
+- **Topic 123** — SHAP Values: Shapley value theory, TreeExplainer, LinearExplainer, bar/beeswarm/waterfall/dependence plots, SHAP vs permutation importance.
+- **Topic 124** — ARIMA & SARIMA: ADF stationarity test, ACF/PACF order selection, ARIMA baseline, SARIMA with seasonal terms, residual diagnostics, walk-forward validation.
+- `shap>=0.46` and `statsmodels>=0.14` added to `requirements.txt`.
+
+---
+
 ## [1.4.0] — 2026-04-27
 
 ### Added

@@ -4,5 +4,7 @@ scikit-learn==1.5.2
 matplotlib==3.9.2
 seaborn==0.13.2
 imbalanced-learn==0.12.4
+shap>=0.46
+statsmodels>=0.14
 nbstripout>=0.7
 jupyterlab>=4.3,<5
