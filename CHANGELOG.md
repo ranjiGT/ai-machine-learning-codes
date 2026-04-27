@@ -9,6 +9,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.6.0] — 2026-04-27
+
+### Added
+- **Topic 125** — CluStream: micro-cluster sufficient statistics (CF1x/CF2x/CF1t/CF2t/n), online point assignment with RMSD boundary, staleness-based slot management, offline weighted k-means macro-clustering, pyramidal time frame snapshot storage, time-window drift query, ARI vs q analysis, comparison with DenStream and batch k-means.
+
+---
+
 ## [1.5.0] — 2026-04-27
 
 ### Added
