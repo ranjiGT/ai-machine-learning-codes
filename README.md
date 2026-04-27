@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/Topics-117-blue?style=flat-square" alt="117 Topics"/>
+  <img src="https://img.shields.io/badge/Topics-124-blue?style=flat-square" alt="124 Topics"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"/>
   <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3"/>
   <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter"/>
@@ -64,9 +64,14 @@ Practical Python examples for **116 Machine Learning and Data Science topics** f
 │   ├── 115_real_world_project/
 │   │   └── real_world_project_starter.ipynb   ← End-to-end capstone
 │   ├── 116_advanced_time_series_ml/
-│   │   └── advanced_time_series_ml_starter.ipynb
-│   └── 117_stream_adaptive_learning/
-│       └── stream_adaptive_learning_starter.ipynb
+│   ├── 117_stream_adaptive_learning/
+│   ├── 118_denstream/
+│   ├── 119_adwin/
+│   ├── 120_vfdt_cvfdt/
+│   ├── 121_drift_detection/
+│   ├── 122_monic/
+│   ├── 123_shap_values/
+│   └── 124_arima_sarima/
 ├── src/
 │   ├── data/
 │   ├── ml_basics/
@@ -112,7 +117,7 @@ jupyter lab
 
 ## 📖 Topic-to-Video Mapping
 
-> **117 topics across 13 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
+> **124 topics across 13 themes** — click a section to expand. Each tile links to the interactive Binder notebook and its companion YouTube video.
 
 <details open>
 <summary><b>🟦 Supervised Learning — Core Classifiers (01–17)</b> &nbsp;·&nbsp; 🟢 Beginner → 🟡 Intermediate</summary>
@@ -858,6 +863,38 @@ A practical advanced notebook focused on modern ML workflows for forecasting:
 <td align="center" width="33%">
 <b>117. Stream-Based &amp; Adaptive Learning</b><br/>
 <a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/117_stream_adaptive_learning/stream_adaptive_learning_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+<td align="center" width="33%">
+<b>118. DenStream</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/118_denstream/denstream_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+</tr>
+<tr>
+<td align="center" width="33%">
+<b>119. ADWIN</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/119_adwin/adwin_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+<td align="center" width="33%">
+<b>120. VFDT &amp; CVFDT</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/120_vfdt_cvfdt/vfdt_cvfdt_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+<td align="center" width="33%">
+<b>121. Concept Drift Detection</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/121_drift_detection/drift_detection_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+</tr>
+<tr>
+<td align="center" width="33%">
+<b>122. MONIC</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/122_monic/monic_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+<td align="center" width="33%">
+<b>123. SHAP Values</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/123_shap_values/shap_values_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
+</td>
+<td align="center" width="33%">
+<b>124. ARIMA &amp; SARIMA</b><br/>
+<a href="https://mybinder.org/v2/gh/ranjiGT/ai-machine-learning-codes/HEAD?urlpath=lab/tree/notebooks/124_arima_sarima/arima_sarima_starter.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="launch binder"/></a>
 </td>
 </tr>
 </table>
