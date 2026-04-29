@@ -671,6 +671,391 @@
     .quick ol { margin-left: 20px; color: var(--text-muted); font-size: 14px; }
     .quick li { margin-bottom: 7px; }
 
+    /* ── Progress tracker ─────────────────────────────────────── */
+    .topic-card.studied {
+      border-color: var(--mint);
+      box-shadow: 0 0 0 1.5px rgba(34,197,94,0.3);
+    }
+    .studied-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--mint);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .progress-bar-wrap {
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      height: 7px;
+      margin: 8px 0 0;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--mint), var(--ocean));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+    .progress-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── Compare mode ─────────────────────────────────────────── */
+    .compare-btn {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--card-alt);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .compare-btn.selected {
+      background: rgba(249,115,22,0.15);
+      border-color: var(--sunset);
+      color: var(--sunset);
+    }
+    .compare-bar {
+      display: none;
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 18px;
+      z-index: 500;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .compare-bar.visible { display: flex; }
+    .compare-bar-label { color: var(--text-muted); }
+    .compare-bar-topics { display: flex; gap: 8px; flex-wrap: wrap; }
+    .compare-bar-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.35);
+      color: var(--sunset);
+      border-radius: 8px;
+      padding: 3px 8px;
+      font-size: 12px;
+    }
+    .compare-bar-chip button {
+      background: none; border: none; color: var(--sunset);
+      cursor: pointer; font-size: 13px; line-height: 1; padding: 0;
+    }
+    .compare-now-btn {
+      background: var(--sunset);
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .compare-now-btn:hover { opacity: 0.88; }
+    .compare-modal-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .compare-col {
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .compare-col h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: var(--sunset);
+    }
+    .compare-row { margin-bottom: 10px; }
+    .compare-row label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .compare-row p { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+    /* ── Search highlight ─────────────────────────────────────── */
+    .hl { background: rgba(245,158,11,0.35); border-radius: 3px; padding: 0 1px; }
+
+    /* ── Complexity heatmap ───────────────────────────────────── */
+    .heatmap-section {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .heatmap-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .heatmap-table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 700px;
+      font-size: 12px;
+    }
+    .heatmap-table th {
+      background: var(--card-alt);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 11px;
+      padding: 7px 10px;
+      text-align: left;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .heatmap-table td {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      text-align: center;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .heatmap-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .hm-name { text-align: left !important; font-weight: 700; color: var(--text); font-size: 12px; }
+    .hm-green  { background: rgba(34,197,94,0.18);  color: #4ade80; }
+    .hm-yellow { background: rgba(245,158,11,0.18); color: #fbbf24; }
+    .hm-red    { background: rgba(239,68,68,0.18);  color: #f87171; }
+    .hm-blue   { background: rgba(8,145,178,0.18);  color: #38bdf8; }
+    .hm-yes    { color: #4ade80; }
+    .hm-no     { color: #f87171; }
+    .hm-partial { color: #fbbf24; }
+    [data-theme="light"] .hm-green  { background: rgba(34,197,94,0.12);  color: #166534; }
+    [data-theme="light"] .hm-yellow { background: rgba(245,158,11,0.12); color: #92400e; }
+    [data-theme="light"] .hm-red    { background: rgba(239,68,68,0.12);  color: #991b1b; }
+    [data-theme="light"] .hm-blue   { background: rgba(8,145,178,0.12);  color: #0e4a64; }
+    [data-theme="light"] .hm-yes    { color: #166534; }
+    [data-theme="light"] .hm-no     { color: #991b1b; }
+    [data-theme="light"] .hm-partial { color: #92400e; }
+
+    /* ── Decision flowchart ───────────────────────────────────── */
+    .flowchart-section {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .flow-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .flow-node {
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .flow-question {
+      border-left: 3px solid var(--gold);
+      color: var(--gold);
+    }
+    .flow-answer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-left: 16px;
+    }
+    .flow-result {
+      background: rgba(8,145,178,0.1);
+      border: 1px solid rgba(8,145,178,0.3);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .flow-result strong { color: var(--ocean); display: block; font-size: 13px; margin-bottom: 3px; }
+    .flow-result span { color: var(--text-muted); }
+    .flow-yesno {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 4px;
+    }
+    .flow-yes { color: var(--mint); }
+    .flow-no  { color: var(--ruby); }
+    @media (max-width: 600px) { .flow-answer { grid-template-columns: 1fr; } }
+
+    /* ── Glossary panel ───────────────────────────────────────── */
+    .glossary-section {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .glossary-search {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--card-alt);
+      color: var(--text);
+      padding: 9px 12px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    .glossary-item {
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--ocean);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .glossary-term {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ocean);
+      margin-bottom: 4px;
+    }
+    .glossary-def {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    [data-theme="light"] .glossary-term { color: #0a4e64; }
+
+    /* ── Interview Q&A in modal ───────────────────────────────── */
+    .modal-qa { margin-bottom: 8px; }
+    .modal-qa .qa-q {
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
+    .modal-qa .qa-a {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── Keyboard shortcuts help ──────────────────────────────── */
+    .kbd-help {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 200;
+    }
+    .kbd-help-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+    .kbd-panel {
+      display: none;
+      position: absolute;
+      bottom: 44px; right: 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      min-width: 220px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      font-size: 12px;
+    }
+    .kbd-panel.open { display: block; }
+    .kbd-panel h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); margin-bottom: 8px; font-weight: 800; }
+    .kbd-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .kbd-row kbd {
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--text);
+    }
+    .kbd-row span { color: var(--text-muted); font-size: 12px; }
+    @media (max-width: 700px) { .kbd-help { bottom: 80px; } }
+
+    /* ── Formula search mode ──────────────────────────────────── */
+    .search-mode-toggle {
+      display: flex;
+      gap: 4px;
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 3px;
+    }
+    .smt-btn {
+      border: none;
+      border-radius: 7px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: none;
+      color: var(--text-muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .smt-btn.active {
+      background: var(--card);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* ── @media print ─────────────────────────────────────────── */
+    @media print {
+      #math-bg, .toggle, .kbd-help, .compare-bar,
+      .socials, .stage-filters, .topic-controls,
+      .modal-overlay, .flowchart-section, .glossary-section,
+      .heatmap-section, .roadmap { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .header { padding: 12px 0; }
+      h1 { font-size: 22px !important; }
+      .cards { page-break-inside: avoid; }
+      .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
+      .topic-grid { max-height: none !important; grid-template-columns: repeat(3, 1fr) !important; }
+      .topic-card { break-inside: avoid; border: 1px solid #ccc; }
+      .gradient { -webkit-text-fill-color: #000 !important; }
+    }
+
     footer {
       text-align: center;
       color: var(--text-muted);
@@ -1057,7 +1442,18 @@
       <p class="section-copy">Every topic in the repo is shown below with a mini visual, one-line meaning, and a quick mathematical expression.</p>
       <div class="topic-controls">
         <input id="topic-search" class="topic-search" type="text" placeholder="Search topic name, e.g. svm, pca, drift..." />
+        <div class="search-mode-toggle">
+          <button class="smt-btn active" id="smt-name" onclick="setSearchMode('name')">Name</button>
+          <button class="smt-btn" id="smt-formula" onclick="setSearchMode('formula')">Formula</button>
+        </div>
         <div class="topic-count" id="topic-count">125 topics</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        <div>
+          <div class="progress-bar-wrap" style="width:180px;"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+          <div class="progress-label" id="progress-label">0 / 125 studied</div>
+        </div>
+        <button onclick="clearStudied()" style="font-size:11px;background:none;border:1px solid var(--line);color:var(--text-muted);border-radius:7px;padding:4px 9px;cursor:pointer;">Reset progress</button>
       </div>
       <div class="stage-filters" id="stage-filters"></div>
       <div id="topic-grid" class="topic-grid"></div>
@@ -1072,11 +1468,72 @@
         <li>Week 4: Pick one advanced branch: Deep Learning (Stage 11) or Streams (Stage 13).</li>
       </ol>
     </section>
+
+    <!-- Complexity Heatmap -->
+    <section class="heatmap-section">
+      <h2 class="section-title" style="font-size:22px;">Algorithm Comparison Heatmap</h2>
+      <p class="section-copy">Quick-reference grid of key properties across major algorithms.</p>
+      <div class="heatmap-wrap">
+        <table class="heatmap-table">
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Train Complexity</th>
+              <th>Predict Complexity</th>
+              <th>Interpretable</th>
+              <th>Handles Non-linear</th>
+              <th>Missing Values</th>
+              <th>Scalable (large n)</th>
+              <th>Works with Few Samples</th>
+            </tr>
+          </thead>
+          <tbody id="heatmap-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Decision Flowchart -->
+    <section class="flowchart-section">
+      <h2 class="section-title" style="font-size:22px;">Which Algorithm Should I Use?</h2>
+      <p class="section-copy">Follow the questions below to find the best starting point for your problem.</p>
+      <div id="flowchart-tree" class="flow-tree"></div>
+    </section>
+
+    <!-- Glossary -->
+    <section class="glossary-section">
+      <h2 class="section-title" style="font-size:22px;">ML Glossary</h2>
+      <p class="section-copy">Key terms explained concisely — search by name or definition.</p>
+      <input id="glossary-search" class="glossary-search" type="text" placeholder="Search terms, e.g. bias, kernel, epoch..." />
+      <div class="glossary-grid" id="glossary-grid"></div>
+    </section>
   </main>
 
   <footer>
     Built for this repository by Ranji Raj. Source notebooks in <a class="inline" href="https://github.com/ranjiGT/ai-machine-learning-codes" target="_blank" rel="noopener noreferrer">ai-machine-learning-codes</a>.
   </footer>
+
+  <!-- Compare floating bar -->
+  <div class="compare-bar" id="compare-bar">
+    <span class="compare-bar-label">Compare:</span>
+    <div class="compare-bar-topics" id="compare-bar-topics"></div>
+    <button class="compare-now-btn" onclick="openCompareModal()">Compare ▶</button>
+    <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;" onclick="clearCompare()">✕</button>
+  </div>
+
+  <!-- Keyboard shortcut help -->
+  <div class="kbd-help">
+    <button class="kbd-help-btn" title="Keyboard shortcuts" onclick="toggleKbdPanel()">⌨</button>
+    <div class="kbd-panel" id="kbd-panel">
+      <h4>Keyboard Shortcuts</h4>
+      <div class="kbd-row"><kbd>/</kbd><span>Focus search</span></div>
+      <div class="kbd-row"><kbd>j</kbd><span>Next topic card</span></div>
+      <div class="kbd-row"><kbd>k</kbd><span>Prev topic card</span></div>
+      <div class="kbd-row"><kbd>Enter</kbd><span>Open focused card</span></div>
+      <div class="kbd-row"><kbd>Esc</kbd><span>Close modal / clear</span></div>
+      <div class="kbd-row"><kbd>c</kbd><span>Compare selected</span></div>
+      <div class="kbd-row"><kbd>p</kbd><span>Print cheat cards</span></div>
+    </div>
+  </div>
 
   <!-- Topic detail modal -->
   <div id="topic-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
@@ -1519,133 +1976,6 @@
       renderTopics(document.getElementById("topic-search")?.value || "");
     }
 
-    function renderTopics(filterText = "") {
-      const q = filterText.trim().toLowerCase();
-      const topicGrid = document.getElementById("topic-grid");
-      topicGrid.innerHTML = "";
-      topicGrid.className = ""; // remove flat grid class — groups handle layout
-
-      // Filter and bucket by stage
-      const buckets = {};
-      let total = 0;
-
-      allTopicSlugs.forEach((slug) => {
-        if (q && !slug.toLowerCase().includes(q)) return;
-        const { num, title } = parseSlug(slug);
-        const stage = stageFor(num);
-        if (activeStage !== "all" && stage !== activeStage) return;
-        if (!buckets[stage]) buckets[stage] = [];
-        buckets[stage].push({ slug, num, title, stage });
-        total++;
-      });
-
-      const stageOrder = ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12","S13"];
-
-      stageOrder.forEach((s) => {
-        const items = buckets[s];
-        if (!items || items.length === 0) return;
-
-        const group = document.createElement("div");
-        group.className = "topic-group";
-        group.dataset.stage = s;
-
-        const header = document.createElement("div");
-        header.className = "topic-group-header";
-        header.innerHTML = `
-          <span class="topic-group-badge">${s}</span>
-          <span class="topic-group-title">${STAGE_LABELS[s]}</span>
-          <span class="topic-group-count">${items.length} topic${items.length > 1 ? "s" : ""}</span>
-          <span class="topic-group-chevron">&#9660;</span>
-        `;
-        header.addEventListener("click", () => group.classList.toggle("collapsed"));
-
-        const grid = document.createElement("div");
-        grid.className = "topic-grid";
-
-        items.forEach(({ slug, num, title, stage }) => {
-          const p = topicProfile(title);
-          const card = document.createElement("article");
-          card.className = "topic-card";
-          card.setAttribute("tabindex", "0");
-          card.setAttribute("role", "button");
-          card.setAttribute("aria-label", `Open details for ${title}`);
-          card.innerHTML = `
-            <div class="illus">${illustration(p.kind)}</div>
-            <div>
-              <div class="topic-head">
-                <span class="topic-num">${String(num).padStart(2, "0")}</span>
-                <span class="topic-num">${stage}</span>
-                <div class="topic-name">${title}</div>
-              </div>
-              <div class="topic-desc">${p.desc}</div>
-              <div class="formula">\\(${p.formula}\\)</div>
-              <div class="topic-note">Tap to view details</div>
-            </div>
-          `;
-          card.addEventListener("click", () => openTopicModal(num, title, slug, p));
-          card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") openTopicModal(num, title, slug, p); });
-          grid.appendChild(card);
-        });
-
-        group.appendChild(header);
-        group.appendChild(grid);
-        topicGrid.appendChild(group);
-      });
-
-      if (window.MathJax && window.MathJax.typesetPromise) {
-        window.MathJax.typesetPromise([topicGrid]);
-      }
-
-      document.getElementById("topic-count").textContent = `${total} topics`;
-    }
-
-    function openTopicModal(num, title, slug, p) {
-      const modal = document.getElementById("topic-modal");
-      const content = document.getElementById("modal-content");
-      const notebookUrl = `https://github.com/ranjiGT/ai-machine-learning-codes/tree/main/notebooks/${slug}`;
-      const useCasesHTML = p.useCases ? p.useCases.map(u => `<span class="modal-tag">${u}</span>`).join("") : "";
-      const relatedHTML = p.related ? p.related.map(r => `<span class="modal-tag">${r}</span>`).join("") : "";
-
-      content.innerHTML = `
-        <div class="modal-illus">
-          <div class="illus" style="width:64px;height:64px;border-radius:14px;">${illustration(p.kind)}</div>
-          <div>
-            <div>
-              <span class="modal-topic-num">${String(num).padStart(2, "0")}</span>
-              <span class="modal-topic-num">${stageFor(num)}</span>
-            </div>
-            <div class="modal-title" id="modal-title-text">${title}</div>
-          </div>
-        </div>
-        <div class="modal-formula">\\(${p.formula}\\)</div>
-        <div class="modal-section">
-          <h4>What is it?</h4>
-          <p>${p.longDesc || p.desc}</p>
-        </div>
-        ${useCasesHTML ? `<div class="modal-section"><h4>Key Use-Cases</h4><div class="modal-tags">${useCasesHTML}</div></div>` : ""}
-        <div class="modal-section">
-          <h4>When to use</h4>
-          <p>${p.whenUse || "Applies in general supervised/unsupervised settings."}</p>
-        </div>
-        <div class="modal-section">
-          <h4>When NOT to use</h4>
-          <p>${p.whenNot || "Avoid when the method's core assumptions are violated."}</p>
-        </div>
-        ${relatedHTML ? `<div class="modal-section"><h4>Related Topics</h4><div class="modal-tags">${relatedHTML}</div></div>` : ""}
-        <a class="modal-notebook-link" href="${notebookUrl}" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
-          Open Notebook in GitHub
-        </a>
-      `;
-      modal.classList.add("open");
-      if (window.MathJax && window.MathJax.typesetPromise) {
-        window.MathJax.typesetPromise([content]);
-      }
-      document.addEventListener("keydown", handleModalKey);
-    }
-
     function closeTopicModal() {
       document.getElementById("topic-modal").classList.remove("open");
       document.removeEventListener("keydown", handleModalKey);
@@ -1775,6 +2105,635 @@
     if (savedTheme) {
       document.documentElement.setAttribute("data-theme", savedTheme);
     }
+
+    // ── Search mode (name vs formula) ────────────────────────────────────
+    let searchMode = "name"; // "name" | "formula"
+    function setSearchMode(mode) {
+      searchMode = mode;
+      document.getElementById("smt-name").classList.toggle("active", mode === "name");
+      document.getElementById("smt-formula").classList.toggle("active", mode === "formula");
+      document.getElementById("topic-search").placeholder = mode === "formula"
+        ? "Search formula symbols, e.g. sigma, argmax, gradient..."
+        : "Search topic name, e.g. svm, pca, drift...";
+      renderTopics(document.getElementById("topic-search").value);
+    }
+
+    // ── Progress tracker ─────────────────────────────────────────────────
+    function getStudied() {
+      try { return JSON.parse(localStorage.getItem("ml-studied") || "{}"); } catch { return {}; }
+    }
+    function saveStudied(obj) { localStorage.setItem("ml-studied", JSON.stringify(obj)); }
+    function isStudied(slug) { return !!getStudied()[slug]; }
+    function toggleStudied(slug, e) {
+      e.stopPropagation();
+      const s = getStudied();
+      if (s[slug]) delete s[slug]; else s[slug] = 1;
+      saveStudied(s);
+      updateProgress();
+      // re-render current topic card's studied state
+      document.querySelectorAll(".topic-card").forEach(card => {
+        if (card.dataset.slug === slug) {
+          card.classList.toggle("studied", !!getStudied()[slug]);
+          const badge = card.querySelector(".studied-badge");
+          if (badge) badge.style.display = getStudied()[slug] ? "flex" : "none";
+        }
+      });
+    }
+    function clearStudied() {
+      localStorage.removeItem("ml-studied");
+      updateProgress();
+      document.querySelectorAll(".topic-card").forEach(c => {
+        c.classList.remove("studied");
+        const b = c.querySelector(".studied-badge"); if (b) b.style.display = "none";
+      });
+    }
+    function updateProgress() {
+      const studied = Object.keys(getStudied()).length;
+      const total = allTopicSlugs.length;
+      const pct = Math.round((studied / total) * 100);
+      document.getElementById("progress-fill").style.width = pct + "%";
+      document.getElementById("progress-label").textContent = `${studied} / ${total} studied`;
+    }
+
+    // ── Compare mode ─────────────────────────────────────────────────────
+    let compareSet = [];
+    function toggleCompare(slug, title, e) {
+      e.stopPropagation();
+      const idx = compareSet.findIndex(x => x.slug === slug);
+      if (idx > -1) {
+        compareSet.splice(idx, 1);
+      } else {
+        if (compareSet.length >= 3) { alert("You can compare up to 3 topics at once."); return; }
+        compareSet.push({ slug, title });
+      }
+      updateCompareBar();
+      // update button states across all rendered cards
+      document.querySelectorAll(".compare-btn").forEach(btn => {
+        if (btn.dataset.slug === slug) btn.classList.toggle("selected", compareSet.some(x => x.slug === slug));
+      });
+    }
+    function updateCompareBar() {
+      const bar = document.getElementById("compare-bar");
+      const chips = document.getElementById("compare-bar-topics");
+      bar.classList.toggle("visible", compareSet.length > 0);
+      chips.innerHTML = compareSet.map(item =>
+        `<span class="compare-bar-chip">${item.title.length > 18 ? item.title.slice(0,16)+'…' : item.title}
+          <button onclick="toggleCompare('${item.slug}','${item.title.replace(/'/g,"\\'")}',event)">✕</button>
+        </span>`
+      ).join("");
+    }
+    function clearCompare() {
+      compareSet = [];
+      updateCompareBar();
+      document.querySelectorAll(".compare-btn").forEach(btn => btn.classList.remove("selected"));
+    }
+    function openCompareModal() {
+      if (compareSet.length < 2) { alert("Select at least 2 topics to compare."); return; }
+      const items = compareSet.map(({ slug }) => {
+        const { num, title } = parseSlug(slug);
+        const p = topicProfile(title);
+        return { num, title, slug, p };
+      });
+
+      const cols = items.map(({ num, title, p }) => `
+        <div class="compare-col">
+          <h3>${String(num).padStart(2,"0")} · ${title}</h3>
+          <div class="compare-row"><label>Description</label><p>${p.longDesc || p.desc}</p></div>
+          <div class="compare-row"><label>Formula</label><p style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9ee5ff">\\(${p.formula}\\)</p></div>
+          <div class="compare-row"><label>When to Use</label><p>${p.whenUse}</p></div>
+          <div class="compare-row"><label>When NOT to Use</label><p>${p.whenNot}</p></div>
+          <div class="compare-row"><label>Use Cases</label><p>${(p.useCases||[]).join(", ")}</p></div>
+        </div>
+      `).join("");
+
+      const content = document.getElementById("modal-content");
+      content.innerHTML = `
+        <div style="margin-bottom:14px;">
+          <div class="modal-title" id="modal-title-text">Side-by-Side Comparison</div>
+          <p style="font-size:13px;color:var(--text-muted);">Comparing ${items.length} algorithms</p>
+        </div>
+        <div class="compare-modal-grid" style="grid-template-columns:repeat(${items.length},1fr)">${cols}</div>
+      `;
+      document.getElementById("topic-modal").classList.add("open");
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([content]);
+      }
+      document.addEventListener("keydown", handleModalKey);
+    }
+
+    // ── Keyboard shortcuts ────────────────────────────────────────────────
+    let focusedCardIdx = -1;
+    function getAllCards() { return Array.from(document.querySelectorAll(".topic-card")); }
+    function setFocusedCard(idx) {
+      const cards = getAllCards();
+      if (cards.length === 0) return;
+      focusedCardIdx = Math.max(0, Math.min(idx, cards.length - 1));
+      cards.forEach((c, i) => c.style.outline = i === focusedCardIdx ? "2px solid var(--ocean)" : "");
+      cards[focusedCardIdx].scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    function toggleKbdPanel() {
+      document.getElementById("kbd-panel").classList.toggle("open");
+    }
+    document.addEventListener("keydown", (e) => {
+      const tag = document.activeElement.tagName;
+      const inInput = tag === "INPUT" || tag === "TEXTAREA";
+      if (e.key === "/" && !inInput) {
+        e.preventDefault();
+        document.getElementById("topic-search").focus();
+        return;
+      }
+      if (e.key === "Escape" && !inInput) {
+        document.getElementById("kbd-panel").classList.remove("open");
+        document.getElementById("topic-search").blur();
+        focusedCardIdx = -1;
+        getAllCards().forEach(c => c.style.outline = "");
+        return;
+      }
+      if (e.key === "j" && !inInput) {
+        setFocusedCard(focusedCardIdx < 0 ? 0 : focusedCardIdx + 1);
+        return;
+      }
+      if (e.key === "k" && !inInput) {
+        setFocusedCard(focusedCardIdx <= 0 ? 0 : focusedCardIdx - 1);
+        return;
+      }
+      if (e.key === "Enter" && !inInput && focusedCardIdx >= 0) {
+        const card = getAllCards()[focusedCardIdx];
+        if (card) card.click();
+        return;
+      }
+      if (e.key === "c" && !inInput && compareSet.length >= 2) {
+        openCompareModal();
+        return;
+      }
+      if (e.key === "p" && !inInput) {
+        window.print();
+      }
+    });
+
+    // ── Complexity Heatmap ────────────────────────────────────────────────
+    const HEATMAP_DATA = [
+      { name: "Linear Regression",    trainC: "O(nd²)",    predC: "O(d)",     interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "✓" },
+      { name: "Logistic Regression",  trainC: "O(ndi)",    predC: "O(d)",     interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "✓" },
+      { name: "Decision Tree",        trainC: "O(nd logn)",predC: "O(logn)",  interp: "✓", nonlinear: "✓", missing: "~", scalable: "~", fewSamples: "✓" },
+      { name: "Random Forest",        trainC: "O(T·nd logn)",predC:"O(T·logn)",interp:"~", nonlinear: "✓", missing: "~", scalable: "✓", fewSamples: "~" },
+      { name: "SVM (linear)",         trainC: "O(n²d)",    predC: "O(SVd)",   interp: "~", nonlinear: "✗", missing: "✗", scalable: "✗", fewSamples: "✓" },
+      { name: "SVM (RBF kernel)",     trainC: "O(n²-n³)",  predC: "O(SVd)",   interp: "✗", nonlinear: "✓", missing: "✗", scalable: "✗", fewSamples: "✓" },
+      { name: "KNN",                  trainC: "O(1)",       predC: "O(nd)",    interp: "✓", nonlinear: "✓", missing: "✗", scalable: "✗", fewSamples: "~" },
+      { name: "Naive Bayes",          trainC: "O(nd)",      predC: "O(dc)",    interp: "✓", nonlinear: "✗", missing: "~", scalable: "✓", fewSamples: "✓" },
+      { name: "K-Means",              trainC: "O(nKdi)",    predC: "O(Kd)",    interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "~" },
+      { name: "DBSCAN",               trainC: "O(n logn)",  predC: "O(n)",     interp: "~", nonlinear: "✓", missing: "✗", scalable: "~", fewSamples: "✓" },
+      { name: "Neural Network (MLP)", trainC: "O(nepochs)", predC: "O(Ld)",    interp: "✗", nonlinear: "✓", missing: "✗", scalable: "✓", fewSamples: "✗" },
+      { name: "LSTM",                 trainC: "O(T·n)",     predC: "O(T)",     interp: "✗", nonlinear: "✓", missing: "✗", scalable: "~", fewSamples: "✗" },
+      { name: "PCA",                  trainC: "O(nd²)",     predC: "O(dk)",    interp: "~", nonlinear: "✗", missing: "✗", scalable: "~", fewSamples: "✓" },
+      { name: "Gradient Boosting",    trainC: "O(T·nd logn)",predC:"O(T·logn)",interp:"~", nonlinear: "✓", missing: "✓", scalable: "~", fewSamples: "~" },
+      { name: "ARIMA",                trainC: "O(n·p)",     predC: "O(p)",     interp: "✓", nonlinear: "✗", missing: "✗", scalable: "~", fewSamples: "~" },
+    ];
+    function complexityClass(val) {
+      if (!val || val.length > 10) return "";
+      if (val.includes("n²") || val.includes("n³") || val.includes("n³")) return "hm-red";
+      if (val.includes("n logn") || val.includes("nKd") || val.includes("nd")) return "hm-yellow";
+      return "hm-green";
+    }
+    function boolClass(val) {
+      if (val === "✓") return "hm-yes";
+      if (val === "✗") return "hm-no";
+      return "hm-partial";
+    }
+    (function buildHeatmap() {
+      const tbody = document.getElementById("heatmap-body");
+      if (!tbody) return;
+      HEATMAP_DATA.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="hm-name">${row.name}</td>
+          <td class="${complexityClass(row.trainC)}">${row.trainC}</td>
+          <td class="${complexityClass(row.predC)}">${row.predC}</td>
+          <td class="${boolClass(row.interp)}">${row.interp}</td>
+          <td class="${boolClass(row.nonlinear)}">${row.nonlinear}</td>
+          <td class="${boolClass(row.missing)}">${row.missing}</td>
+          <td class="${boolClass(row.scalable)}">${row.scalable}</td>
+          <td class="${boolClass(row.fewSamples)}">${row.fewSamples}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    })();
+
+    // ── Decision Flowchart ────────────────────────────────────────────────
+    (function buildFlowchart() {
+      const el = document.getElementById("flowchart-tree");
+      if (!el) return;
+      const nodes = [
+        { q: "Is your target variable labelled (do you have ground truth)?",
+          yes: { q: "Is the target continuous (a number) or categorical (a class)?",
+            yes: { label: "Linear / Polynomial / Ridge / Lasso Regression", note: "Predicts numeric values; start with Linear Regression" },
+            no:  { q: "How many classes are there?",
+              yes: { label: "Logistic Regression / SVM / Random Forest", note: "Binary classification — try Logistic first, then SVM or RF" },
+              no:  { label: "Softmax / OvR / OvO / Multi-label methods", note: "Multi-class or multi-label — use RF or Neural Net + OvR" }
+            }
+          },
+          no: { q: "Do you want to discover groups or reduce dimensions?",
+            yes: { label: "K-Means / DBSCAN / Hierarchical Clustering", note: "Clustering — try K-Means first, DBSCAN if clusters are irregular" },
+            no:  { label: "PCA / t-SNE / LDA", note: "Dimensionality reduction for visualisation or preprocessing" }
+          }
+        }
+      ];
+
+      function renderNode(node, depth) {
+        if (!node) return "";
+        if (node.label) {
+          return `<div class="flow-result" style="margin-left:${depth*12}px">
+            <strong>→ ${node.label}</strong>
+            <span>${node.note}</span>
+          </div>`;
+        }
+        return `
+          <div class="flow-node flow-question" style="margin-left:${depth*12}px">❓ ${node.q}</div>
+          <div class="flow-answer" style="margin-left:${depth*12+8}px">
+            <div>
+              <div class="flow-yesno flow-yes">YES ↓</div>
+              ${renderNode(node.yes, depth+1)}
+            </div>
+            <div>
+              <div class="flow-yesno flow-no">NO ↓</div>
+              ${renderNode(node.no, depth+1)}
+            </div>
+          </div>
+        `;
+      }
+      el.innerHTML = renderNode(nodes[0], 0);
+
+      // Additional quick-decision questions
+      el.innerHTML += `
+        <div class="flow-node flow-question" style="margin-top:16px">❓ Is your data arriving as a continuous stream or does it drift over time?</div>
+        <div class="flow-answer">
+          <div><div class="flow-yesno flow-yes">YES ↓</div>
+            <div class="flow-result"><strong>→ VFDT / ADWIN / DenStream / CluStream</strong><span>Stream learning — use ADWIN for drift detection</span></div>
+          </div>
+          <div><div class="flow-yesno flow-no">NO ↓</div>
+            <div class="flow-result"><strong>→ Standard batch ML</strong><span>Use cross-validation and the methods above</span></div>
+          </div>
+        </div>
+        <div class="flow-node flow-question" style="margin-top:16px">❓ Do you have very few labelled samples but lots of unlabelled data?</div>
+        <div class="flow-answer">
+          <div><div class="flow-yesno flow-yes">YES ↓</div>
+            <div class="flow-result"><strong>→ Semi-supervised (S3VM, Safe SSL) or Active Learning</strong><span>Label only the most informative samples first</span></div>
+          </div>
+          <div><div class="flow-yesno flow-no">NO ↓</div>
+            <div class="flow-result"><strong>→ Standard supervised learning</strong><span>See decision tree above</span></div>
+          </div>
+        </div>
+      `;
+    })();
+
+    // ── Glossary ──────────────────────────────────────────────────────────
+    const GLOSSARY = [
+      { term: "Bias",              def: "Error from wrong assumptions in the model; leads to underfitting." },
+      { term: "Variance",          def: "Error from sensitivity to small fluctuations in training data; leads to overfitting." },
+      { term: "Bias-Variance Tradeoff", def: "The tension between a model's bias and variance — reducing one tends to increase the other." },
+      { term: "Overfitting",       def: "Model learns training data too well, including noise; poor generalisation." },
+      { term: "Underfitting",      def: "Model is too simple to capture the underlying pattern." },
+      { term: "Regularisation",    def: "Adding a penalty term to the loss function to reduce model complexity (L1 = Lasso, L2 = Ridge)." },
+      { term: "Cross-Validation",  def: "Splitting data into k folds to estimate model performance on unseen data." },
+      { term: "Hyperparameter",    def: "A parameter set before training (e.g., learning rate, k in KNN), not learned from data." },
+      { term: "Feature Engineering", def: "Creating or transforming input features to improve model performance." },
+      { term: "Gradient Descent",  def: "Iterative optimisation algorithm that moves parameters in the direction of steepest loss reduction." },
+      { term: "Learning Rate (η)", def: "Step size used in gradient descent; too large diverges, too small is slow." },
+      { term: "Epoch",             def: "One full pass through the entire training dataset during neural network training." },
+      { term: "Batch Size",        def: "Number of training samples processed before model parameters are updated." },
+      { term: "Backpropagation",   def: "Algorithm for computing gradients in neural networks via the chain rule." },
+      { term: "Activation Function", def: "Non-linear function applied to neuron output (ReLU, Sigmoid, Tanh)." },
+      { term: "Dropout",           def: "Regularisation technique that randomly deactivates neurons during training to reduce overfitting." },
+      { term: "Softmax",           def: "Function that converts a vector of scores into a probability distribution over classes." },
+      { term: "Loss Function",     def: "Measures the difference between model predictions and actual targets (MSE, Cross-Entropy)." },
+      { term: "Precision",         def: "Fraction of positive predictions that are actually correct: TP / (TP + FP)." },
+      { term: "Recall (Sensitivity)", def: "Fraction of actual positives correctly identified: TP / (TP + FN)." },
+      { term: "F1 Score",          def: "Harmonic mean of precision and recall: 2·P·R / (P + R)." },
+      { term: "ROC Curve",         def: "Plot of True Positive Rate vs False Positive Rate across all thresholds." },
+      { term: "AUC",               def: "Area Under the ROC Curve; 1.0 = perfect, 0.5 = random classifier." },
+      { term: "Confusion Matrix",  def: "Table showing TP, TN, FP, FN counts to assess classification performance." },
+      { term: "Entropy",           def: "Measure of impurity or disorder in a set: H(S) = -Σ p·log₂(p)." },
+      { term: "Gini Impurity",     def: "Alternative impurity measure for decision trees: 1 - Σ pᵢ²." },
+      { term: "Information Gain",  def: "Reduction in entropy after splitting a dataset on a feature." },
+      { term: "Kernel (SVM)",      def: "Function that computes the inner product in a higher-dimensional feature space without explicit mapping." },
+      { term: "Support Vectors",   def: "Training points closest to the decision boundary in an SVM." },
+      { term: "Principal Component", def: "Direction of maximum variance in PCA; the eigenvectors of the covariance matrix." },
+      { term: "Eigenvalue",        def: "Scalar indicating how much variance a principal component explains." },
+      { term: "Manifold",          def: "Low-dimensional curved surface embedded in a high-dimensional space where data lies." },
+      { term: "Silhouette Score",  def: "Cluster quality metric: (b − a) / max(a,b), where a = intra-cluster, b = nearest-cluster distance." },
+      { term: "Inertia",           def: "Sum of squared distances from each point to its cluster centroid in K-Means." },
+      { term: "SHAP Value",        def: "Shapley-based attribution of how much each feature contributed to a single prediction." },
+      { term: "Concept Drift",     def: "Change in the statistical properties of a target variable over time in stream data." },
+      { term: "Ensemble",          def: "Combination of multiple models to produce better predictions than any single model." },
+      { term: "Bagging",           def: "Bootstrap AGGregatING — training multiple models on random samples; reduces variance." },
+      { term: "Boosting",          def: "Sequential ensemble where each model corrects errors of the previous one; reduces bias." },
+      { term: "Stacking",          def: "Ensemble method that trains a meta-learner on the outputs of multiple base learners." },
+      { term: "Transfer Learning", def: "Using knowledge from a pre-trained model on a new, related task." },
+      { term: "Tokenisation",      def: "Splitting text into units (tokens) such as words or subwords for NLP models." },
+      { term: "Normalisation",     def: "Scaling features to [0,1]; removes scale differences but preserves distribution shape." },
+      { term: "Standardisation",   def: "Transforming features to zero mean and unit variance: (x − μ) / σ." },
+      { term: "One-Hot Encoding",  def: "Representing categorical variables as binary vectors with a 1 in the active class position." },
+      { term: "Sparse Matrix",     def: "Matrix with mostly zero entries; common in text/NLP feature spaces." },
+      { term: "Latent Variable",   def: "Hidden variable not directly observed but inferred from observable data." },
+      { term: "Prior / Posterior", def: "Prior: belief before observing data. Posterior: updated belief after applying Bayes' theorem." },
+      { term: "Gradient Vanishing", def: "Problem in deep networks where gradients become extremely small during backpropagation, stopping learning." },
+      { term: "LSTM",              def: "Long Short-Term Memory — RNN variant with gates to preserve long-range temporal dependencies." },
+    ];
+
+    function buildGlossary(filter) {
+      const grid = document.getElementById("glossary-grid");
+      if (!grid) return;
+      const q = (filter || "").trim().toLowerCase();
+      const items = q
+        ? GLOSSARY.filter(g => g.term.toLowerCase().includes(q) || g.def.toLowerCase().includes(q))
+        : GLOSSARY;
+      grid.innerHTML = items.map(g => `
+        <div class="glossary-item">
+          <div class="glossary-term">${g.term}</div>
+          <div class="glossary-def">${g.def}</div>
+        </div>
+      `).join("");
+    }
+    buildGlossary();
+    document.getElementById("glossary-search")?.addEventListener("input", e => buildGlossary(e.target.value));
+
+    // ── Dataset suggestions per topic ─────────────────────────────────────
+    function datasetsFor(title) {
+      const t = title.toLowerCase();
+      if (t.includes("regression") && !t.includes("logistic")) return ["Boston Housing", "California Housing", "Ames Iowa Housing"];
+      if (t.includes("logistic") || t.includes("classification")) return ["Iris", "Breast Cancer (Wisconsin)", "Titanic"];
+      if (t.includes("tree") || t.includes("forest") || t.includes("ensemble")) return ["Iris", "Adult Income", "Titanic"];
+      if (t.includes("knn") || t.includes("neighbor")) return ["Iris", "Wine Quality", "MNIST (small)"];
+      if (t.includes("svm") || t.includes("support vector") || t.includes("kernel")) return ["Breast Cancer", "Digits (sklearn)", "Fashion-MNIST"];
+      if (t.includes("cluster") || t.includes("kmeans") || t.includes("dbscan")) return ["Mall Customers", "Wholesale Customers", "MNIST (unsupervised)"];
+      if (t.includes("pca") || t.includes("svd") || t.includes("t-sne")) return ["MNIST", "Faces (Olivetti)", "Wine"];
+      if (t.includes("bayes") || t.includes("naive")) return ["20 Newsgroups", "SMS Spam Collection", "IMDB Sentiment"];
+      if (t.includes("neural") || t.includes("deep") || t.includes("lstm")) return ["MNIST", "CIFAR-10", "IMDb Reviews"];
+      if (t.includes("time series") || t.includes("arima")) return ["Airline Passengers", "Air Quality (UCI)", "Stock Prices (Yahoo Finance)"];
+      if (t.includes("stream") || t.includes("drift") || t.includes("adwin")) return ["SEA Concepts (synthetic)", "STAGGER (synthetic)", "Electricity Market"];
+      if (t.includes("association") || t.includes("apriori") || t.includes("eclat")) return ["Online Retail (UCI)", "Groceries (Kaggle)", "MovieLens"];
+      if (t.includes("multi") || t.includes("label")) return ["Emotions Music", "Scene Image (Tsoumakas)", "Medical (NLP)"];
+      if (t.includes("active learning") || t.includes("uncertainty") || t.includes("query")) return ["Pool-based experiment (any)", "20 Newsgroups", "Handwritten Digits"];
+      if (t.includes("semi supervised")) return ["Two Moons (synthetic)", "MNIST (partially labelled)", "CiteSeer"];
+      if (t.includes("shap") || t.includes("explain")) return ["Titanic", "California Housing", "Bank Marketing"];
+      return ["Iris", "Titanic", "Boston Housing"];
+    }
+
+    // ── Hyperparameter guide ──────────────────────────────────────────────
+    function hyperparamsFor(title) {
+      const t = title.toLowerCase();
+      if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic") && !t.includes("ridge") && !t.includes("lasso")))
+        return [{ p: "fit_intercept", desc: "Whether to fit the bias term. Usually true." }, { p: "normalize (deprecated)", desc: "Scale features first; use StandardScaler instead." }];
+      if (t.includes("ridge")) return [{ p: "alpha (λ)", desc: "Regularisation strength. Larger = simpler model. Try: 0.01, 0.1, 1, 10." }];
+      if (t.includes("lasso")) return [{ p: "alpha (λ)", desc: "Controls sparsity. Larger = more zero weights. Try: 0.001 – 1." }];
+      if (t.includes("logistic")) return [{ p: "C", desc: "Inverse of regularisation strength. Small C = strong penalty. Try: 0.01, 0.1, 1." }, { p: "solver", desc: "liblinear (small), lbfgs (multi-class), saga (large data)." }];
+      if (t.includes("tree")) return [{ p: "max_depth", desc: "Limit tree depth to prevent overfitting. Try: 3–10." }, { p: "min_samples_split", desc: "Min samples to split a node. Higher = simpler tree." }, { p: "criterion", desc: "gini or entropy — usually similar results." }];
+      if (t.includes("random forest") || t.includes("forest")) return [{ p: "n_estimators", desc: "Number of trees. More = better until diminishing returns. Try: 100–500." }, { p: "max_features", desc: "Features per split. sqrt(d) for classification, d/3 for regression." }, { p: "max_depth", desc: "Depth of each tree. None (full) or limit to reduce overfitting." }];
+      if (t.includes("knn") || t.includes("neighbor")) return [{ p: "n_neighbors (k)", desc: "Number of neighbours. Small k = complex boundary; large k = smooth. Try: 3, 5, 11." }, { p: "weights", desc: "uniform or distance — distance weights closer points more." }, { p: "metric", desc: "euclidean (default), manhattan, minkowski." }];
+      if (t.includes("svm") || t.includes("support vector")) return [{ p: "C", desc: "Regularisation. Small C = soft margin (more misclassification allowed). Try: 0.1, 1, 10, 100." }, { p: "kernel", desc: "linear, rbf, poly, sigmoid. Start with rbf." }, { p: "gamma", desc: "RBF width. scale (default), auto, or specific value. Larger = tighter fit." }];
+      if (t.includes("kmeans") || t.includes("k-means")) return [{ p: "n_clusters (K)", desc: "Number of clusters. Use elbow method or silhouette score to choose." }, { p: "init", desc: "k-means++ (smart initialisation) or random." }, { p: "n_init", desc: "Number of restarts. Default 10; higher is more stable." }];
+      if (t.includes("dbscan")) return [{ p: "eps", desc: "Neighbourhood radius. Use k-distance plot to estimate." }, { p: "min_samples", desc: "Min points to form a core point. Try: 2*d as a rule." }];
+      if (t.includes("neural") || t.includes("deep") || t.includes("mlp")) return [{ p: "learning_rate (η)", desc: "Step size. Too high diverges; too low is slow. Try: 1e-4 – 1e-2." }, { p: "batch_size", desc: "Samples per update. 32 or 64 is a safe default." }, { p: "hidden_layers", desc: "Start with 1–2 hidden layers; increase for complex data." }, { p: "dropout", desc: "0.2–0.5 reduces overfitting in deeper networks." }];
+      if (t.includes("gradient") || t.includes("boosting") || t.includes("xgb")) return [{ p: "n_estimators", desc: "Number of boosting rounds. More = better but risk overfitting." }, { p: "learning_rate (η)", desc: "Shrinks each tree's contribution. Lower = needs more estimators. 0.01–0.3." }, { p: "max_depth", desc: "Depth of each tree. 3–6 is typical for boosting." }, { p: "subsample", desc: "Fraction of training samples per round. 0.5–0.9 helps regularise." }];
+      if (t.includes("pca")) return [{ p: "n_components", desc: "Number of components to keep. Or set to variance explained (e.g., 0.95)." }];
+      if (t.includes("arima")) return [{ p: "p (AR order)", desc: "Number of lag observations. Check PACF plot." }, { p: "d (differencing)", desc: "Degree of differencing for stationarity. Usually 0, 1, or 2." }, { p: "q (MA order)", desc: "Moving average terms. Check ACF plot." }];
+      return null;
+    }
+
+    // ── Interview Q&A ─────────────────────────────────────────────────────
+    function interviewQAFor(title) {
+      const t = title.toLowerCase();
+      if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic")))
+        return [
+          { q: "What are the assumptions of linear regression?", a: "Linearity, independence of errors, homoscedasticity, normality of residuals, no multicollinearity." },
+          { q: "How does Ridge differ from Lasso?", a: "Ridge (L2) shrinks all coefficients; Lasso (L1) can zero-out coefficients producing a sparse model." },
+        ];
+      if (t.includes("logistic"))
+        return [
+          { q: "Why use log-loss instead of MSE for classification?", a: "MSE gives flat gradients for wrong confident predictions; log-loss penalises them heavily, making training more effective." },
+          { q: "How do you handle multi-class logistic regression?", a: "Use Softmax (multinomial) or One-vs-Rest (OvR) strategy." },
+        ];
+      if (t.includes("decision tree") || t.includes("id3"))
+        return [
+          { q: "How does a decision tree choose the best split?", a: "By maximising Information Gain (ID3) or minimising Gini impurity (CART)." },
+          { q: "How do you prevent overfitting in decision trees?", a: "Pruning, limiting max_depth, increasing min_samples_split/leaf." },
+        ];
+      if (t.includes("random forest") || t.includes("ensemble"))
+        return [
+          { q: "How does Random Forest reduce variance?", a: "By averaging many decorrelated trees trained on bootstrap samples with random feature subsets." },
+          { q: "What is Out-of-Bag (OOB) error?", a: "Error estimated using samples not selected in each bootstrap; a free cross-validation estimate." },
+        ];
+      if (t.includes("svm") || t.includes("support vector"))
+        return [
+          { q: "What is the kernel trick?", a: "Implicitly maps data to a higher-dimensional space using a kernel function, enabling non-linear separation without explicit computation." },
+          { q: "What does the C hyperparameter control?", a: "Trade-off between maximising margin and minimising classification error. Small C = softer margin." },
+        ];
+      if (t.includes("knn") || t.includes("neighbor"))
+        return [
+          { q: "Why does KNN suffer in high dimensions?", a: "The 'curse of dimensionality' — distances become less meaningful as dimensions grow; all points appear equidistant." },
+          { q: "Is KNN a lazy learner? Why?", a: "Yes — no training phase; it memorises data and defers all computation to prediction time." },
+        ];
+      if (t.includes("neural") || t.includes("deep") || t.includes("backprop"))
+        return [
+          { q: "What problem can vanishing gradients cause?", a: "Early layers receive near-zero gradients, preventing them from learning; solved by ReLU, batch norm, or residual connections." },
+          { q: "Why use mini-batch gradient descent?", a: "Balances the noise of SGD and efficiency of batch GD; provides stable convergence and allows GPU parallelism." },
+        ];
+      if (t.includes("kmeans") || t.includes("cluster"))
+        return [
+          { q: "What is the main limitation of K-Means?", a: "Assumes spherical, equal-sized clusters; sensitive to outliers and requires k specified in advance." },
+          { q: "How do you choose the right k?", a: "Elbow method (inertia vs k), Silhouette score, or Gap statistic." },
+        ];
+      if (t.includes("pca") || t.includes("principal component"))
+        return [
+          { q: "What does each principal component represent?", a: "A direction of maximum remaining variance in the data, orthogonal to all previous components." },
+          { q: "When should you NOT use PCA?", a: "When features are already interpretable and you need them to stay meaningful; PCA creates linear combinations." },
+        ];
+      if (t.includes("bayes") || t.includes("naive"))
+        return [
+          { q: "Why is Naive Bayes called 'naive'?", a: "It assumes all features are conditionally independent given the class label — rarely true in practice but often works well." },
+          { q: "What is Laplace smoothing used for?", a: "To avoid zero-probability for unseen feature values; adds a small constant to all counts." },
+        ];
+      return null;
+    }
+
+    // ── Override renderTopics to include new features ─────────────────────
+    function renderTopics(filterText = "") {
+      const q = filterText.trim().toLowerCase();
+      const topicGrid = document.getElementById("topic-grid");
+      topicGrid.innerHTML = "";
+      topicGrid.className = "";
+
+      const buckets = {};
+      let total = 0;
+
+      allTopicSlugs.forEach((slug) => {
+        const { num, title } = parseSlug(slug);
+        const p = topicProfile(title);
+
+        if (q) {
+          if (searchMode === "name" && !slug.toLowerCase().includes(q) && !title.toLowerCase().includes(q)) return;
+          if (searchMode === "formula" && !p.formula.toLowerCase().includes(q) && !p.desc.toLowerCase().includes(q)) return;
+        }
+
+        const stage = stageFor(num);
+        if (activeStage !== "all" && stage !== activeStage) return;
+        if (!buckets[stage]) buckets[stage] = [];
+        buckets[stage].push({ slug, num, title, stage, p });
+        total++;
+      });
+
+      const stageOrder = ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12","S13"];
+
+      stageOrder.forEach((s) => {
+        const items = buckets[s];
+        if (!items || items.length === 0) return;
+
+        const group = document.createElement("div");
+        group.className = "topic-group";
+        group.dataset.stage = s;
+
+        const header = document.createElement("div");
+        header.className = "topic-group-header";
+        header.innerHTML = `
+          <span class="topic-group-badge">${s}</span>
+          <span class="topic-group-title">${STAGE_LABELS[s]}</span>
+          <span class="topic-group-count">${items.length} topic${items.length > 1 ? "s" : ""}</span>
+          <span class="topic-group-chevron">&#9660;</span>
+        `;
+        header.addEventListener("click", () => group.classList.toggle("collapsed"));
+
+        const grid = document.createElement("div");
+        grid.className = "topic-grid";
+
+        items.forEach(({ slug, num, title, stage, p }) => {
+          const studied = isStudied(slug);
+          const inCompare = compareSet.some(x => x.slug === slug);
+          const card = document.createElement("article");
+          card.className = "topic-card" + (studied ? " studied" : "");
+          card.dataset.slug = slug;
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", `Open details for ${title}`);
+
+          // Highlight matching text
+          let displayName = title;
+          if (q && searchMode === "name" && title.toLowerCase().includes(q)) {
+            const idx = title.toLowerCase().indexOf(q);
+            displayName = title.slice(0, idx) + `<mark class="hl">${title.slice(idx, idx + q.length)}</mark>` + title.slice(idx + q.length);
+          }
+
+          card.innerHTML = `
+            <div class="illus">${illustration(p.kind)}</div>
+            <div style="min-width:0">
+              <div class="topic-head" style="justify-content:space-between">
+                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                  <span class="topic-num">${String(num).padStart(2, "0")}</span>
+                  <span class="topic-num">${stage}</span>
+                  <div class="topic-name">${displayName}</div>
+                </div>
+                <span class="studied-badge" title="Mark as studied" style="display:${studied ? "flex" : "none"}">✓</span>
+              </div>
+              <div class="topic-desc">${p.desc}</div>
+              <div class="formula">\\(${p.formula}\\)</div>
+              <div class="topic-note">Tap to view details</div>
+              <div style="display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;">
+                <button class="compare-btn${inCompare ? " selected" : ""}" data-slug="${slug}"
+                  onclick="toggleCompare('${slug}','${title.replace(/'/g,"\\'")}',event)">
+                  ${inCompare ? "✓ Comparing" : "+ Compare"}
+                </button>
+                <button class="compare-btn" onclick="toggleStudied('${slug}',event)" style="${studied ? "border-color:var(--mint);color:var(--mint)" : ""}">
+                  ${studied ? "✓ Studied" : "Mark studied"}
+                </button>
+              </div>
+            </div>
+          `;
+          card.addEventListener("click", () => openTopicModal(num, title, slug, p));
+          card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") openTopicModal(num, title, slug, p); });
+          grid.appendChild(card);
+        });
+
+        group.appendChild(header);
+        group.appendChild(grid);
+        topicGrid.appendChild(group);
+      });
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([topicGrid]);
+      }
+
+      document.getElementById("topic-count").textContent = `${total} topics`;
+      focusedCardIdx = -1;
+    }
+
+    // ── Override openTopicModal to include all new sections ───────────────
+    function openTopicModal(num, title, slug, p) {
+      const modal = document.getElementById("topic-modal");
+      const content = document.getElementById("modal-content");
+      const notebookUrl = `https://github.com/ranjiGT/ai-machine-learning-codes/tree/main/notebooks/${slug}`;
+      const useCasesHTML = p.useCases ? p.useCases.map(u => `<span class="modal-tag">${u}</span>`).join("") : "";
+      const relatedHTML = p.related ? p.related.map(r => `<span class="modal-tag">${r}</span>`).join("") : "";
+      const datasets = datasetsFor(title);
+      const datasetsHTML = datasets.map(d => `<span class="modal-tag">${d}</span>`).join("");
+      const hparams = hyperparamsFor(title);
+      const hparamsHTML = hparams ? hparams.map(h =>
+        `<div style="margin-bottom:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9ee5ff">${h.p}</span><br><span style="font-size:13px;color:var(--text-muted)">${h.desc}</span></div>`
+      ).join("") : null;
+      const qa = interviewQAFor(title);
+      const qaHTML = qa ? qa.map(item =>
+        `<div class="modal-qa"><div class="qa-q">Q: ${item.q}</div><div class="qa-a">A: ${item.a}</div></div>`
+      ).join("") : null;
+      const studied = isStudied(slug);
+
+      content.innerHTML = `
+        <div class="modal-illus">
+          <div class="illus" style="width:64px;height:64px;border-radius:14px;">${illustration(p.kind)}</div>
+          <div style="flex:1;min-width:0">
+            <div>
+              <span class="modal-topic-num">${String(num).padStart(2, "0")}</span>
+              <span class="modal-topic-num">${stageFor(num)}</span>
+            </div>
+            <div class="modal-title" id="modal-title-text">${title}</div>
+            <button onclick="toggleStudied('${slug}',event)" style="margin-top:6px;font-size:12px;font-weight:700;background:${studied ? "rgba(34,197,94,0.15)" : "var(--card-alt)"};border:1px solid ${studied ? "rgba(34,197,94,0.5)" : "var(--line)"};color:${studied ? "var(--mint)" : "var(--text-muted)"};border-radius:8px;padding:4px 10px;cursor:pointer;">
+              ${studied ? "✓ Marked as Studied" : "Mark as Studied"}
+            </button>
+          </div>
+        </div>
+        <div class="modal-formula">\\(${p.formula}\\)</div>
+        <div class="modal-section">
+          <h4>What is it?</h4>
+          <p>${p.longDesc || p.desc}</p>
+        </div>
+        ${useCasesHTML ? `<div class="modal-section"><h4>Key Use-Cases</h4><div class="modal-tags">${useCasesHTML}</div></div>` : ""}
+        <div class="modal-section">
+          <h4>When to use</h4>
+          <p>${p.whenUse || "Applies in general supervised/unsupervised settings."}</p>
+        </div>
+        <div class="modal-section">
+          <h4>When NOT to use</h4>
+          <p>${p.whenNot || "Avoid when the method's core assumptions are violated."}</p>
+        </div>
+        <div class="modal-section">
+          <h4>Try it on these datasets</h4>
+          <div class="modal-tags">${datasetsHTML}</div>
+        </div>
+        ${hparamsHTML ? `<div class="modal-section"><h4>Key Hyperparameters</h4>${hparamsHTML}</div>` : ""}
+        ${relatedHTML ? `<div class="modal-section"><h4>Related Topics</h4><div class="modal-tags">${relatedHTML}</div></div>` : ""}
+        ${qaHTML ? `<div class="modal-section"><h4>Interview Q&amp;A</h4>${qaHTML}</div>` : ""}
+        <a class="modal-notebook-link" href="${notebookUrl}" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Open Notebook in GitHub
+        </a>
+      `;
+      modal.classList.add("open");
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([content]);
+      }
+      document.addEventListener("keydown", handleModalKey);
+    }
+
+    updateProgress();
   </script>
 </body>
 </html>
