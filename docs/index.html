@@ -2273,26 +2273,26 @@
 
     // ── Complexity Heatmap ────────────────────────────────────────────────
     const HEATMAP_DATA = [
-      { name: "Linear Regression",    trainC: "O(nd²)",    predC: "O(d)",     interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "✓" },
-      { name: "Logistic Regression",  trainC: "O(ndi)",    predC: "O(d)",     interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "✓" },
-      { name: "Decision Tree",        trainC: "O(nd logn)",predC: "O(logn)",  interp: "✓", nonlinear: "✓", missing: "~", scalable: "~", fewSamples: "✓" },
-      { name: "Random Forest",        trainC: "O(T·nd logn)",predC:"O(T·logn)",interp:"~", nonlinear: "✓", missing: "~", scalable: "✓", fewSamples: "~" },
-      { name: "SVM (linear)",         trainC: "O(n²d)",    predC: "O(SVd)",   interp: "~", nonlinear: "✗", missing: "✗", scalable: "✗", fewSamples: "✓" },
-      { name: "SVM (RBF kernel)",     trainC: "O(n²-n³)",  predC: "O(SVd)",   interp: "✗", nonlinear: "✓", missing: "✗", scalable: "✗", fewSamples: "✓" },
-      { name: "KNN",                  trainC: "O(1)",       predC: "O(nd)",    interp: "✓", nonlinear: "✓", missing: "✗", scalable: "✗", fewSamples: "~" },
-      { name: "Naive Bayes",          trainC: "O(nd)",      predC: "O(dc)",    interp: "✓", nonlinear: "✗", missing: "~", scalable: "✓", fewSamples: "✓" },
-      { name: "K-Means",              trainC: "O(nKdi)",    predC: "O(Kd)",    interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "~" },
-      { name: "DBSCAN",               trainC: "O(n logn)",  predC: "O(n)",     interp: "~", nonlinear: "✓", missing: "✗", scalable: "~", fewSamples: "✓" },
-      { name: "Neural Network (MLP)", trainC: "O(nepochs)", predC: "O(Ld)",    interp: "✗", nonlinear: "✓", missing: "✗", scalable: "✓", fewSamples: "✗" },
-      { name: "LSTM",                 trainC: "O(T·n)",     predC: "O(T)",     interp: "✗", nonlinear: "✓", missing: "✗", scalable: "~", fewSamples: "✗" },
-      { name: "PCA",                  trainC: "O(nd²)",     predC: "O(dk)",    interp: "~", nonlinear: "✗", missing: "✗", scalable: "~", fewSamples: "✓" },
-      { name: "Gradient Boosting",    trainC: "O(T·nd logn)",predC:"O(T·logn)",interp:"~", nonlinear: "✓", missing: "✓", scalable: "~", fewSamples: "~" },
-      { name: "ARIMA",                trainC: "O(n·p)",     predC: "O(p)",     interp: "✓", nonlinear: "✗", missing: "✗", scalable: "~", fewSamples: "~" },
+      { name: "Linear Regression",    trainC: "\\(O(nd^2)\\)",       predC: "\\(O(d)\\)",          complexity: "quad",   interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "✓" },
+      { name: "Logistic Regression",  trainC: "\\(O(n \\cdot di)\\)",  predC: "\\(O(d)\\)",          complexity: "linear", interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "✓" },
+      { name: "Decision Tree",        trainC: "\\(O(nd \\log n)\\)",   predC: "\\(O(\\log n)\\)",    complexity: "loglin", interp: "✓", nonlinear: "✓", missing: "~", scalable: "~", fewSamples: "✓" },
+      { name: "Random Forest",        trainC: "\\(O(T \\cdot nd \\log n)\\)", predC: "\\(O(T \\log n)\\)", complexity: "loglin", interp: "~", nonlinear: "✓", missing: "~", scalable: "✓", fewSamples: "~" },
+      { name: "SVM (linear)",         trainC: "\\(O(n^2 d)\\)",        predC: "\\(O(|SV| \\cdot d)\\)", complexity: "quad", interp: "~", nonlinear: "✗", missing: "✗", scalable: "✗", fewSamples: "✓" },
+      { name: "SVM (RBF kernel)",     trainC: "\\(O(n^2\\!-\\!n^3)\\)", predC: "\\(O(|SV| \\cdot d)\\)", complexity: "cubic", interp: "✗", nonlinear: "✓", missing: "✗", scalable: "✗", fewSamples: "✓" },
+      { name: "KNN",                  trainC: "\\(O(1)\\)",            predC: "\\(O(nd)\\)",         complexity: "linear", interp: "✓", nonlinear: "✓", missing: "✗", scalable: "✗", fewSamples: "~" },
+      { name: "Naive Bayes",          trainC: "\\(O(nd)\\)",           predC: "\\(O(dc)\\)",         complexity: "linear", interp: "✓", nonlinear: "✗", missing: "~", scalable: "✓", fewSamples: "✓" },
+      { name: "K-Means",              trainC: "\\(O(nKdi)\\)",         predC: "\\(O(Kd)\\)",         complexity: "linear", interp: "✓", nonlinear: "✗", missing: "✗", scalable: "✓", fewSamples: "~" },
+      { name: "DBSCAN",               trainC: "\\(O(n \\log n)\\)",    predC: "\\(O(n)\\)",          complexity: "loglin", interp: "~", nonlinear: "✓", missing: "✗", scalable: "~", fewSamples: "✓" },
+      { name: "Neural Network (MLP)", trainC: "\\(O(n_{\\text{ep}} \\cdot L \\cdot d)\\)", predC: "\\(O(Ld)\\)", complexity: "loglin", interp: "✗", nonlinear: "✓", missing: "✗", scalable: "✓", fewSamples: "✗" },
+      { name: "LSTM",                 trainC: "\\(O(T \\cdot n)\\)",    predC: "\\(O(T)\\)",          complexity: "loglin", interp: "✗", nonlinear: "✓", missing: "✗", scalable: "~", fewSamples: "✗" },
+      { name: "PCA",                  trainC: "\\(O(nd^2)\\)",         predC: "\\(O(dk)\\)",         complexity: "quad",   interp: "~", nonlinear: "✗", missing: "✗", scalable: "~", fewSamples: "✓" },
+      { name: "Gradient Boosting",    trainC: "\\(O(T \\cdot nd \\log n)\\)", predC: "\\(O(T \\log n)\\)", complexity: "loglin", interp: "~", nonlinear: "✓", missing: "✓", scalable: "~", fewSamples: "~" },
+      { name: "ARIMA",                trainC: "\\(O(n \\cdot p)\\)",    predC: "\\(O(p)\\)",          complexity: "linear", interp: "✓", nonlinear: "✗", missing: "✗", scalable: "~", fewSamples: "~" },
     ];
-    function complexityClass(val) {
-      if (!val || val.length > 10) return "";
-      if (val.includes("n²") || val.includes("n³") || val.includes("n³")) return "hm-red";
-      if (val.includes("n logn") || val.includes("nKd") || val.includes("nd")) return "hm-yellow";
+    function complexityClass(row_complexity) {
+      if (row_complexity === "cubic") return "hm-red";
+      if (row_complexity === "quad")  return "hm-red";
+      if (row_complexity === "loglin") return "hm-yellow";
       return "hm-green";
     }
     function boolClass(val) {
@@ -2307,8 +2307,8 @@
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td class="hm-name">${row.name}</td>
-          <td class="${complexityClass(row.trainC)}">${row.trainC}</td>
-          <td class="${complexityClass(row.predC)}">${row.predC}</td>
+          <td class="${complexityClass(row.complexity)}">${row.trainC}</td>
+          <td class="${complexityClass(row.complexity)}">${row.predC}</td>
           <td class="${boolClass(row.interp)}">${row.interp}</td>
           <td class="${boolClass(row.nonlinear)}">${row.nonlinear}</td>
           <td class="${boolClass(row.missing)}">${row.missing}</td>
@@ -2317,6 +2317,7 @@
         `;
         tbody.appendChild(tr);
       });
+      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([tbody]);
     })();
 
     // ── Decision Flowchart ────────────────────────────────────────────────
