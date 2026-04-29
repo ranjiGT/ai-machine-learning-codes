@@ -46,6 +46,12 @@ A visual map of all 125 topics with illustrations, formulas, and stage-by-stage 
 
 > **What's inside:** 125 topic cards · 13 learning stages · click-to-expand modals with formulas, use-cases, and notebook links · dark/light theme · mobile-friendly layout
 
+<div align="center">
+
+[![Website Preview](https://api.microlink.io/?url=https%3A%2F%2Franjigt.github.io%2Fai-machine-learning-codes%2F&screenshot=true&meta=false&embed=screenshot.url&waitFor=3000)](https://ranjigt.github.io/ai-machine-learning-codes/)
+
+</div>
+
 ---
 
 Practical Python examples for **116 Machine Learning and Data Science topics** from my YouTube channel.
