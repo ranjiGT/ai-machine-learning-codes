@@ -1946,6 +1946,9 @@
     };
 
     let activeStage = "all";
+    let compareSet = [];
+    let searchMode = "name";
+    let focusedCardIdx = -1;
 
     // Build stage filter pills
     (function buildPills() {
@@ -2107,7 +2110,6 @@
     }
 
     // ── Search mode (name vs formula) ────────────────────────────────────
-    let searchMode = "name"; // "name" | "formula"
     function setSearchMode(mode) {
       searchMode = mode;
       document.getElementById("smt-name").classList.toggle("active", mode === "name");
@@ -2156,7 +2158,6 @@
     }
 
     // ── Compare mode ─────────────────────────────────────────────────────
-    let compareSet = [];
     function toggleCompare(slug, title, e) {
       e.stopPropagation();
       const idx = compareSet.findIndex(x => x.slug === slug);
@@ -2222,7 +2223,6 @@
     }
 
     // ── Keyboard shortcuts ────────────────────────────────────────────────
-    let focusedCardIdx = -1;
     function getAllCards() { return Array.from(document.querySelectorAll(".topic-card")); }
     function setFocusedCard(idx) {
       const cards = getAllCards();
