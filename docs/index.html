@@ -1719,14 +1719,6 @@
 
     function topicProfile(title) {
       const t = title.toLowerCase();
-      if (t.includes("regression") || t.includes("linear")) {
-        return { kind: "line", desc: "Fits a continuous relationship between inputs and output.", formula: "\\hat{y} = \\mathbf{w}^T \\mathbf{x} + b",
-          longDesc: "Linear regression models the relationship between a dependent variable and one or more independent variables by fitting a linear equation. It minimises the sum of squared residuals to find optimal weights.",
-          useCases: ["House price prediction", "Sales forecasting", "Risk scoring"],
-          whenUse: "Target is continuous and the relationship is approximately linear.",
-          whenNot: "Avoid when the target is categorical or the relationship is highly non-linear.",
-          related: ["Logistic Regression", "Ridge/Lasso", "PCA"] };
-      }
       if (t.includes("logistic") || t.includes("sigmoid") || t.includes("softmax")) {
         return { kind: "curve", desc: "Maps model score to class probability.", formula: "P(y=1\\mid \\mathbf{x}) = \\sigma(\\mathbf{w}^T \\mathbf{x})",
           longDesc: "Logistic regression applies the sigmoid function to a linear combination of features, producing a probability score used for binary or multi-class classification.",
@@ -1734,6 +1726,14 @@
           whenUse: "Binary or multi-class classification with interpretable probability outputs.",
           whenNot: "Avoid when decision boundary is highly non-linear without feature engineering.",
           related: ["Linear Regression", "Naive Bayes", "SVM"] };
+      }
+      if (t.includes("regression") || t.includes("linear")) {
+        return { kind: "line", desc: "Fits a continuous relationship between inputs and output.", formula: "\\hat{y} = \\mathbf{w}^T \\mathbf{x} + b",
+          longDesc: "Linear regression models the relationship between a dependent variable and one or more independent variables by fitting a linear equation. It minimises the sum of squared residuals to find optimal weights.",
+          useCases: ["House price prediction", "Sales forecasting", "Risk scoring"],
+          whenUse: "Target is continuous and the relationship is approximately linear.",
+          whenNot: "Avoid when the target is categorical or the relationship is highly non-linear.",
+          related: ["Logistic Regression", "Ridge/Lasso", "PCA"] };
       }
       if (t.includes("tree") || t.includes("id3") || t.includes("impurity")) {
         return { kind: "tree", desc: "Splits data recursively by maximizing information gain.", formula: "IG(S, A) = H(S) - \\sum_{v \\in Values(A)} \\frac{|S_v|}{|S|} H(S_v)",
