@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ML Learning Path — Mind Map</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0f1117;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #e0e0e0;
+    overflow-x: auto;
+  }
+  h1 {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 1.6rem;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+  }
+  .map {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 24px 48px;
+    justify-content: center;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  .stage {
+    border-radius: 12px;
+    overflow: hidden;
+    width: 260px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .stage-header {
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.4px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stage-header .badge {
+    background: rgba(255,255,255,0.18);
+    border-radius: 30px;
+    padding: 2px 8px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .stage-body {
+    background: #181c24;
+    padding: 10px 12px;
+  }
+  .topic {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 3px 0;
+    font-size: 0.78rem;
+    color: #c8d0dd;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .topic:last-child { border-bottom: none; }
+  .topic .num {
+    font-size: 0.65rem;
+    color: #666;
+    min-width: 26px;
+    font-variant-numeric: tabular-nums;
+  }
+  .book-note {
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.04);
+    border-left: 3px solid;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    color: #aab4cc;
+    line-height: 1.5;
+  }
+  .legend {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #999;
+  }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+<h1>🤖 ML Learning Path — 125 Topics</h1>
+<p class="subtitle">github.com/ranjiGT/ai-machine-learning-codes &nbsp;·&nbsp; youtube.com/@RanjiRaj18</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2ecc71"></div>Beginner</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div>Intermediate</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div>Advanced</div>
+</div>
+
+<div class="map" id="map"></div>
+
+<script>
+const stages = [
+  {
+    label: "Stage 1 — Supervised Learning Foundations",
+    color: "#2980b9",
+    level: "Beginner → Intermediate",
+    topics: [
+      ["01","Linear Regression"],["02","Logistic Regression"],["03","Decision Trees"],
+      ["04","Random Forest"],["05","KNN"],["06","PCA"],["07","Naive Bayes"],
+      ["08","Underfitting vs Overfitting"],["09","Reduced Error Pruning"],
+      ["10","Random Sampling"],["11","Cross-Validation"],["12","Nested Cross-Validation"],
+      ["13","Hold-Out Method"],["14","Hyperparameter Tuning"],["15","Bootstrap Evaluation"],
+      ["16","Ensemble Methods"],["17","Hunt's Algorithm"]
+    ],
+    books: "📖 Intro to Data Mining — Tan et al.\n📖 ISL — James, Witten et al."
+  },
+  {
+    label: "Stage 2 — Probabilistic & Neural Methods",
+    color: "#8e44ad",
+    level: "Intermediate",
+    topics: [
+      ["18","Impurity Measures"],["19","Rule-Based Classifier"],["20","Sequential Covering"],
+      ["21","Bayesian Belief Networks"],["22","Artificial Neural Networks"],
+      ["23","Feed-Forward NNs"],["24","Support Vector Machine"],
+      ["25","Maximal Margin Classifier"],["26","Non-Linear SVM"]
+    ],
+    books: "📖 Machine Learning — Tom M. Mitchell\n📖 Data Mining — Tan et al."
+  },
+  {
+    label: "Stage 3 — Evaluation & Imbalanced Data",
+    color: "#e74c3c",
+    level: "Intermediate",
+    topics: [
+      ["27","Class Imbalance Problem"],["28","SMOTE"],
+      ["29","ROC & AUC Curves"],["30","ISO Accuracy Lines"]
+    ],
+    books: "📖 Learning from Imbalanced Data Sets — Fernández et al."
+  },
+  {
+    label: "Stage 4 — Unsupervised Learning & Clustering",
+    color: "#16a085",
+    level: "Intermediate",
+    topics: [
+      ["31","Intro to Clustering"],["32","K-Means"],["33","Bisecting K-Means"],
+      ["34","Cluster Similarity Measures"],["35","Fuzzy C-Means"],["36","DBSCAN"],
+      ["37","Mean Shift"],["38","Hierarchical Clustering"],["39","Linkage Measures"],
+      ["40","Cluster Validation"],["41","Cohesion & Separation"],["42","Silhouette Coefficient"],
+      ["43","Cophenetic Correlation"],["44","Hopkins Statistic"],
+      ["45","Cluster Purity"],["46","Rand & Jaccard Index"]
+    ],
+    books: "📖 Intro to Data Mining — Tan et al.\n📖 PRML — Bishop Ch. 9"
+  },
+  {
+    label: "Stage 5 — Active Learning",
+    color: "#d35400",
+    level: "Advanced",
+    topics: [
+      ["47","Active Learning Intro"],["48","Membership Query Synthesis"],
+      ["49","Stream-Based Selective Sampling"],["50","Pool-Based Sampling"],
+      ["51","Uncertainty Sampling"],["52","Query by Committee"],
+      ["53","Expected Model Change"],["54","Expected Error Reduction"],
+      ["55","Variance Reduction"],["56","Information Density"]
+    ],
+    books: "📖 Active Learning — Burr Settles (free online)"
+  },
+  {
+    label: "Stage 6 — Multi-Label Classification",
+    color: "#c0392b",
+    level: "Intermediate",
+    topics: [
+      ["57","Multiclass OvR/OvO"],["58","Multi-Label Classification"],
+      ["59","Problem Transformation Methods"],["60","Binary Relevance"],
+      ["61","Label Powerset"],["62","RAkEL"],["63","Multi-Label Evaluation Metrics"],
+      ["64","Multi-Target Classification"],["65","Laplace Correction"]
+    ],
+    books: "📖 Mining Multi-label Data — Tsoumakas & Katakis"
+  },
+  {
+    label: "Stage 7 — Association Rules & Statistics",
+    color: "#1a5276",
+    level: "Intermediate",
+    topics: [
+      ["66","Association Rules"],["67","Apriori Principle"],["68","Itemset Lattice"],
+      ["69","Lift Measure"],["70","ECLAT"],["71","FWER"],["72","FDR"]
+    ],
+    books: "📖 Intro to Data Mining — Tan et al. Ch. 6"
+  },
+  {
+    label: "Stage 8 — ML Theory & Concept Learning",
+    color: "#7d3c98",
+    level: "Advanced",
+    topics: [
+      ["73","SVD"],["74","VC Dimension"],["75","Concept Learning"],
+      ["76","Find-S Algorithm"],["77","Candidate Elimination"],
+      ["78","Inductive Bias"],["79","ID3 Algorithm"]
+    ],
+    books: "📖 Machine Learning — Tom M. Mitchell Ch. 1–3, 7"
+  },
+  {
+    label: "Stage 9 — Regression Variants & Dim. Reduction",
+    color: "#b7950b",
+    level: "Intermediate → Advanced",
+    topics: [
+      ["80","Gradient Descent"],["81","Ridge Regression"],["82","Lasso Regression"],
+      ["83","Polynomial Regression"],["84","Isotonic Regression"],["85","Elastic Net"],
+      ["86","LDA"],["87","t-SNE"],
+      ["108","Regression Evaluation Metrics"],["109","Linear Learning Machines"],
+      ["110","Kernel Function Matrix"]
+    ],
+    books: "📖 ISL / ESL — James et al. / Hastie et al."
+  },
+  {
+    label: "Stage 10 — Lazy & Case-Based Learning",
+    color: "#117a65",
+    level: "Intermediate",
+    topics: [
+      ["88","Lazy Learning Algorithms"],["89","Weighted KNN"],
+      ["90","Case-Based Reasoning"]
+    ],
+    books: "📖 Machine Learning — Tom M. Mitchell Ch. 8"
+  },
+  {
+    label: "Stage 11 — Deep Learning",
+    color: "#e74c3c",
+    level: "Advanced",
+    topics: [
+      ["91","Intro to Deep Neural Networks"],["92","Structure of a Neuron"],
+      ["93","Weight Matrix"],["94","Generalization in NNs"],
+      ["95","Learning in NNs"],["96","Vectorization"],
+      ["97","Decision Boundary"],["98","Chain Rule"],
+      ["99","Backpropagation"],["100","Delta Rule"],
+      ["101","Vanishing/Exploding Gradients"],["102","Step Activation"],
+      ["103","Sigmoid Activation"],["104","Tanh Activation"],
+      ["105","ReLU Activation"],["106","Teacher Forcing"],
+      ["107","LSTM"],["114","Softmax Activation"]
+    ],
+    books: "📖 Deep Learning — Goodfellow, Bengio & Courville Ch. 6–10"
+  },
+  {
+    label: "Stage 12 — Semi-Supervised Learning",
+    color: "#27ae60",
+    level: "Advanced",
+    topics: [
+      ["111","Semi-Supervised Learning Intro"],
+      ["112","Safe Semi-Supervised Learning"],
+      ["113","S3VM / TSVM"]
+    ],
+    books: "📖 Semi-Supervised Learning — Chapelle et al. (free online)"
+  },
+  {
+    label: "Stage 13 — Streaming, Drift & Explainability",
+    color: "#2e86c1",
+    level: "Advanced",
+    topics: [
+      ["116","Advanced Time Series ML"],["117","Stream-Based & Adaptive Learning"],
+      ["118","DenStream"],["119","ADWIN"],["120","VFDT / CVFDT"],
+      ["121","Concept Drift Detection"],["122","MONIC"],
+      ["123","SHAP Values"],["124","ARIMA & SARIMA"],["125","CluStream"]
+    ],
+    books: "📖 Data Stream Mining — Bifet et al.\n📖 Interpretable ML — Christoph Molnar"
+  },
+  {
+    label: "Capstone & Real-World Projects",
+    color: "#636e72",
+    level: "Advanced",
+    topics: [
+      ["115","End-to-End Real-World ML Project"]
+    ],
+    books: "📖 Apply all stages: EDA → Modelling → Deployment"
+  }
+];
+
+const map = document.getElementById('map');
+
+stages.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'stage';
+  card.style.borderTop = `3px solid ${s.color}`;
+
+  const header = document.createElement('div');
+  header.className = 'stage-header';
+  header.style.background = s.color + '22';
+  header.innerHTML = `<span style="color:${s.color};flex:1">${s.label}</span><span class="badge" style="background:${s.color}33;color:${s.color}">${s.level}</span>`;
+
+  const body = document.createElement('div');
+  body.className = 'stage-body';
+
+  s.topics.forEach(([num, name]) => {
+    const t = document.createElement('div');
+    t.className = 'topic';
+    t.innerHTML = `<span class="num">${num}</span><span>${name}</span>`;
+    body.appendChild(t);
+  });
+
+  const book = document.createElement('div');
+  book.className = 'book-note';
+  book.style.borderColor = s.color;
+  book.style.whiteSpace = 'pre-line';
+  book.textContent = s.books;
+  body.appendChild(book);
+
+  card.appendChild(header);
+  card.appendChild(body);
+  map.appendChild(card);
+});
+</script>
+</body>
+</html>
