@@ -34,6 +34,20 @@
 
 ---
 
+## 🌐 Live Cheatsheet Website
+
+A visual map of all 125 topics with illustrations, formulas, and stage-by-stage grouping — optimised for desktop and mobile.
+
+<div align="center">
+
+[![Open Website](https://img.shields.io/badge/Open%20Website-ML%20Cheatsheet-0891b2?style=for-the-badge&logo=github&logoColor=white)](https://ranjigt.github.io/ai-machine-learning-codes/)
+
+</div>
+
+> **What's inside:** 125 topic cards · 13 learning stages · click-to-expand modals with formulas, use-cases, and notebook links · dark/light theme · mobile-friendly layout
+
+---
+
 Practical Python examples for **116 Machine Learning and Data Science topics** from my YouTube channel.
 
 > **Difficulty legend:** &nbsp; 🟢 Beginner &nbsp;·&nbsp; 🟡 Intermediate &nbsp;·&nbsp; 🔴 Advanced
