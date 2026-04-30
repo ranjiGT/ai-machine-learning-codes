@@ -1742,7 +1742,7 @@
       }
       if (t.includes("hyperbolic")) {
         return { kind: "curve", desc: "Zero-centered sigmoid-shaped activation ranging from -1 to 1; preferred over sigmoid in RNNs.", formula: "\\tanh(z) = \\frac{e^z - e^{-z}}{e^z + e^{-z}}, \\quad \\tanh'(z) = 1 - \\tanh^2(z)",
-          longDesc: "Hyperbolic tangent (tanh) is a rescaled sigmoid: tanh(z) = 2\u03c3(2z) \u2212 1. Its zero-centered output avoids the all-positive gradient updates of sigmoid, leading to faster convergence in practice. Still saturates at \u00b11, causing vanishing gradients in very deep networks. Standard activation inside LSTM gates and RNN hidden states.",
+          longDesc: "Hyperbolic tangent (tanh) is a rescaled sigmoid: \\(\\tanh(z) = 2\\sigma(2z)-1\\). Its zero-centered output avoids the all-positive gradient updates of sigmoid, leading to faster convergence in practice. Still saturates at \\(\\pm 1\\), causing vanishing gradients in very deep networks. Standard activation inside LSTM gates and RNN hidden states.",
           useCases: ["RNN hidden state activations", "LSTM internal activations", "Shallow network hidden layers"],
           whenUse: "When zero-centered activations are needed; standard inside RNN and LSTM architectures.",
           whenNot: "Deep feedforward networks \u2014 still saturates causing vanishing gradients; use ReLU or variants.",
@@ -1750,7 +1750,7 @@
       }
       if (t.includes("relu")) {
         return { kind: "curve", desc: "max(0,z): sparse, non-saturating activation that avoids vanishing gradients for positive inputs.", formula: "\\text{ReLU}(z) = \\max(0, z), \\quad \\frac{d}{dz} = \\mathbf{1}[z > 0]",
-          longDesc: "ReLU (Rectified Linear Unit) is the dominant hidden-layer activation in modern deep learning. Gradient = 1 for z > 0 avoids saturation enabling effective training in deep networks. Drawback: dying ReLU \u2014 neurons with consistently negative pre-activations output zero forever. Variants (Leaky ReLU, ELU, GELU) address this with small non-zero negative slopes.",
+          longDesc: "ReLU (Rectified Linear Unit) is the dominant hidden-layer activation in modern deep learning. Gradient \\(= 1\\) for \\(z > 0\\) avoids saturation enabling effective training in deep networks. Drawback: dying ReLU \u2014 neurons with consistently negative pre-activations output zero forever. Variants (Leaky ReLU, ELU, GELU) address this with small non-zero negative slopes.",
           useCases: ["Deep CNN hidden layers", "MLP hidden layers", "Default activation for feedforward networks"],
           whenUse: "Default first choice for hidden layers in any deep network.",
           whenNot: "Output layers (use sigmoid/softmax/linear); dying ReLU risk with very large learning rates.",
@@ -1758,9 +1758,9 @@
       }
       if (t.includes("softmax") && t.includes("activation")) {
         return { kind: "curve", desc: "Converts raw logits to a probability distribution over C classes summing to 1.", formula: "\\text{softmax}(z_j) = \\frac{e^{z_j}}{\\sum_{k=1}^{C} e^{z_k}}",
-          longDesc: "Softmax is the multi-class generalization of sigmoid. It exponentiates each logit and normalizes to produce a valid probability distribution. Paired with cross-entropy loss the combined gradient simplifies to (\u0177 \u2212 y), making it numerically clean. Numerically stable implementation subtracts max(z) before exponentiating to prevent overflow.",
+          longDesc: "Softmax is the multi-class generalization of sigmoid. It exponentiates each logit and normalizes to produce a valid probability distribution. Paired with cross-entropy loss the combined gradient simplifies to \\(\\hat{y} - y\\), making it numerically clean. Numerically stable implementation subtracts \\(\\max(z)\\) before exponentiating to prevent overflow.",
           useCases: ["Multi-class classification output layer", "Attention score normalization", "Language model token probabilities"],
-          whenUse: "Multi-class classification output where classes are mutually exclusive (C \u2265 2).",
+          whenUse: "Multi-class classification output where classes are mutually exclusive (\\(C \\geq 2\\)).",
           whenNot: "Multi-label tasks (use independent sigmoid per class); regression outputs.",
           related: ["Sigmoid Activation Function", "Cross-Entropy Loss", "Logistic Regression", "Attention Mechanism"] };
       }
@@ -1774,7 +1774,7 @@
       }
       if ((t.includes("vc") && t.includes("dimension")) || t.includes("vapnik")) {
         return { kind: "chart", desc: "Measures the expressiveness of a hypothesis class: the largest set of points it can shatter.", formula: "VC(\\mathcal{H}) = \\max\\{m : \\Pi_{\\mathcal{H}}(m) = 2^m\\}",
-          longDesc: "Vapnik-Chervonenkis (VC) dimension is the largest number of points a hypothesis class can shatter — correctly classify in all 2ⁿ possible binary labelings. Higher VC dimension means a more expressive model class but greater risk of overfitting. It supports theoretical generalization bounds via Structural Risk Minimization.",
+          longDesc: "Vapnik-Chervonenkis (VC) dimension is the largest number of points a hypothesis class can shatter — correctly classify in all \\(2^n\\) possible binary labelings. Higher VC dimension means a more expressive model class but greater risk of overfitting. It supports theoretical generalization bounds via Structural Risk Minimization.",
           useCases: ["Generalization bound proofs", "Comparing model capacity", "PAC learning framework"],
           whenUse: "Theoretical analysis of model complexity; supports generalization guarantees via structural risk minimization.",
           whenNot: "VC bounds are often very loose in practice; use cross-validation for empirical generalization estimates.",
@@ -1798,7 +1798,7 @@
       }
       if (t.includes("ridge")) {
         return { kind: "line", desc: "Adds L2 penalty to regression shrinking all coefficients toward zero to reduce overfitting.", formula: "\\hat{\\boldsymbol{\\beta}} = \\arg\\min_{\\boldsymbol{\\beta}} \\|\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta}\\|^2 + \\lambda\\|\\boldsymbol{\\beta}\\|^2",
-          longDesc: "Ridge regression (Tikhonov regularization) adds an L2 penalty λ‖β‖² to the OLS objective, shrinking all coefficients toward zero but never to exactly zero. The closed-form solution (X^TX + λI)⁻¹X^Ty is always invertible, solving the multicollinearity problem. λ controls the bias-variance tradeoff.",
+          longDesc: "Ridge regression (Tikhonov regularization) adds an L2 penalty \\(\\lambda\\|\\boldsymbol{\\beta}\\|^2\\) to the OLS objective, shrinking all coefficients toward zero but never to exactly zero. The closed-form solution \\((\\mathbf{X}^T\\mathbf{X}+\\lambda\\mathbf{I})^{-1}\\mathbf{X}^T\\mathbf{y}\\) is always invertible, solving the multicollinearity problem. \\(\\lambda\\) controls the bias-variance tradeoff.",
           useCases: ["Multicollinear feature sets", "High-dimensional regression", "Preventing OLS overfitting"],
           whenUse: "When features are correlated or all are believed relevant; closed-form solution is computationally efficient.",
           whenNot: "When you need feature selection (sparse solutions); use Lasso or Elastic Net instead.",
@@ -1814,7 +1814,7 @@
       }
       if (t.includes("polynomial")) {
         return { kind: "curve", desc: "Extends linear regression with polynomial feature transformations to fit non-linear relationships.", formula: "\\hat{y} = w_0 + w_1 x + w_2 x^2 + \\cdots + w_d x^d",
-          longDesc: "Polynomial regression maps inputs to polynomial terms (x, x², …, x^d) then applies standard linear regression. The model is non-linear in features but linear in parameters, preserving the OLS closed-form solution. Degree d is the key hyperparameter; too high leads to overfitting, too low underfits.",
+          longDesc: "Polynomial regression maps inputs to polynomial terms \\(x, x^2, \\ldots, x^d\\) then applies standard linear regression. The model is non-linear in features but linear in parameters, preserving the OLS closed-form solution. Degree \\(d\\) is the key hyperparameter; too high leads to overfitting, too low underfits.",
           useCases: ["Non-linear trend fitting", "Physical process modeling", "Curved residual correction"],
           whenUse: "When residuals from linear regression show a clear curved pattern; known smooth monotonic or single-peak relationships.",
           whenNot: "High degrees overfit and extrapolate poorly; prefer splines, kernel methods, or tree ensembles for complex curves.",
@@ -1830,7 +1830,7 @@
       }
       if (t.includes("elastic")) {
         return { kind: "line", desc: "Combines L1 and L2 penalties balancing feature selection sparsity and coefficient stability.", formula: "\\min_{\\boldsymbol{\\beta}} \\|\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta}\\|^2 + \\lambda \\!\\left[\\alpha\\|\\boldsymbol{\\beta}\\|_1 + \\tfrac{1-\\alpha}{2}\\|\\boldsymbol{\\beta}\\|^2\\right]",
-          longDesc: "Elastic Net combines Lasso (L1) and Ridge (L2) penalties via mixing parameter α ∈ [0,1]. At α=1 it is pure Lasso; at α=0 it is pure Ridge. It handles correlated features better than Lasso alone (which picks one arbitrarily from a correlated group) while still encouraging sparsity.",
+          longDesc: "Elastic Net combines Lasso (L1) and Ridge (L2) penalties via mixing parameter \\(\\alpha \\in [0,1]\\). At \\(\\alpha=1\\) it is pure Lasso; at \\(\\alpha=0\\) it is pure Ridge. It handles correlated features better than Lasso alone (which picks one arbitrarily from a correlated group) while still encouraging sparsity.",
           useCases: ["Correlated feature groups", "High-dimensional genomics", "Grouped variable selection"],
           whenUse: "When features are correlated and you need both sparse solutions and coefficient stability.",
           whenNot: "Adds a second tunable hyperparameter (α); if features are independent, Lasso suffices; if all are relevant, Ridge suffices.",
@@ -1878,7 +1878,7 @@
       }
       if (t.includes("hunt")) {
         return { kind: "tree", desc: "Recursive tree-building procedure underpinning ID3, C4.5, and CART.", formula: "\\text{if } D \\text{ pure}: \\text{leaf}; \\text{ else } A^*=\\arg\\max_A IG(D,A) \\rightarrow \\text{split recursively}",
-          longDesc: "Hunt's Algorithm is the recursive partitioning skeleton used by ID3, C4.5, and CART. Starting at the root with the full training set, it picks the best attribute A* by an impurity criterion, creates child branches, and recurses on each partition. Recursion terminates when a node is pure, too small, or reaches a depth limit. The choice of impurity measure (entropy → ID3, Gini → CART, gain ratio → C4.5) distinguishes the concrete algorithms built on this framework.",
+          longDesc: "Hunt's Algorithm is the recursive partitioning skeleton used by ID3, C4.5, and CART. Starting at the root with the full training set, it picks the best attribute \\(A^*\\) by an impurity criterion, creates child branches, and recurses on each partition. Recursion terminates when a node is pure, too small, or reaches a depth limit. The choice of impurity measure (entropy → ID3, Gini → CART, gain ratio → C4.5) distinguishes the concrete algorithms built on this framework.",
           useCases: ["Foundation of all decision tree learning algorithms", "Understanding ID3/CART/C4.5 mechanics", "Teaching recursive tree construction"],
           whenUse: "Conceptually central whenever building a decision tree; Hunt's procedure is the backbone specialised by ID3, CART, and C4.5.",
           whenNot: "Not used as a standalone implementation; choose ID3/CART/C4.5 for real-world use with concrete stopping and pruning rules.",
@@ -1918,15 +1918,15 @@
       }
       if (t.includes("lazy")) {
         return { kind: "cluster", desc: "Defers model construction to query time by memorising all training instances.", formula: "\\hat{y}(\\mathbf{x}_q) = \\text{Retrieve}(\\mathbf{x}_q, \\mathcal{D}_{train})",
-          longDesc: "Lazy learning algorithms (instance-based methods) skip the training phase entirely and memorise all examples verbatim. All computation is deferred to prediction time by finding the most similar stored instances. Zero training cost but O(n) prediction cost; the model instantly reflects any new added example without retraining.",
+          longDesc: "Lazy learning algorithms (instance-based methods) skip the training phase entirely and memorise all examples verbatim. All computation is deferred to prediction time by finding the most similar stored instances. Zero training cost but \\(O(n)\\) prediction cost; the model instantly reflects any new added example without retraining.",
           useCases: ["KNN classification and regression", "Locally weighted regression", "Online learning with rapid updates"],
           whenUse: "Concept drift is expected; adding new classes/examples requires no retraining; fast incremental updates needed.",
-          whenNot: "Real-time prediction with large datasets \u2014 O(n) prediction cost; high memory footprint; slow query time.",
+          whenNot: "Real-time prediction with large datasets \u2014 \\(O(n)\\) prediction cost; high memory footprint; slow query time.",
           related: ["KNN", "Weighted KNN", "Case Based Reasoning", "Distance Measures"] };
       }
       if (t.includes("weighted") && t.includes("knn")) {
         return { kind: "cluster", desc: "KNN variant where closer neighbours have more influence via inverse-distance weighting.", formula: "\\hat{y} = \\arg\\max_c \\sum_{i=1}^k w_i \\cdot \\mathbf{1}[y_i=c], \\quad w_i = \\frac{1}{d(\\mathbf{x}, \\mathbf{x}_i)^p}",
-          longDesc: "Weighted KNN assigns each of the k nearest neighbours a weight proportional to how close they are \u2014 commonly 1/d or 1/d\u00b2. Closer neighbours get more voting power, reducing the influence of distant neighbours within the k-neighbourhood. Significantly outperforms uniform KNN when the decision boundary is locally non-uniform or outliers exist near neighbourhood edges.",
+          longDesc: "Weighted KNN assigns each of the k nearest neighbours a weight proportional to how close they are \u2014 commonly \\(1/d\\) or \\(1/d^2\\). Closer neighbours get more voting power, reducing the influence of distant neighbours within the k-neighbourhood. Significantly outperforms uniform KNN when the decision boundary is locally non-uniform or outliers exist near neighbourhood edges.",
           useCases: ["Spatial prediction", "Recommendation systems", "Medical record matching"],
           whenUse: "When nearby instances are more reliable than distant ones; distance metric is well-calibrated and features are normalized.",
           whenNot: "When the distance metric is poorly calibrated; all distances become similar in high-dimensional spaces.",
@@ -1950,10 +1950,10 @@
       }
       if (t.includes("svd")) {
         return { kind: "matrix", desc: "Decomposes any matrix into orthogonal left/right bases and singular values.", formula: "\\mathbf{X} = \\mathbf{U}\\boldsymbol{\\Sigma}\\mathbf{V}^T",
-          longDesc: "Singular Value Decomposition (SVD) factorizes any m×n matrix into orthonormal left singular vectors U (m×m), diagonal matrix Σ of non-negative singular values, and orthonormal right singular vectors V (n×n). PCA is a special case of truncated SVD applied to the centered data matrix. Truncated SVD keeps only the top-k singular vectors for efficient dimensionality reduction.",
+          longDesc: "Singular Value Decomposition (SVD) factorizes any \\(m \\times n\\) matrix into orthonormal left singular vectors \\(\\mathbf{U}\\) (\\(m \\times m\\)), diagonal matrix \\(\\boldsymbol{\\Sigma}\\) of non-negative singular values, and orthonormal right singular vectors \\(\\mathbf{V}\\) (\\(n \\times n\\)). PCA is a special case of truncated SVD applied to the centered data matrix. Truncated SVD keeps only the top-k singular vectors for efficient dimensionality reduction.",
           useCases: ["Dimensionality reduction", "Latent Semantic Analysis (LSA)", "Matrix completion", "Recommender systems"],
           whenUse: "When you need to decompose any rectangular matrix; backbone of PCA, LSA, and low-rank approximation algorithms.",
-          whenNot: "Full SVD is O(min(m,n)³); use randomized or truncated SVD for large sparse matrices.",
+          whenNot: "Full SVD is \\(O(\\min(m,n)^3)\\); use randomized or truncated SVD for large sparse matrices.",
           related: ["PCA", "Linear Discriminant Analysis", "Kernel Function Matrix", "t-SNE"] };
       }
       if (t.includes("discriminant")) {
@@ -2022,7 +2022,7 @@
       }
       if (t.includes("underfitting") || (t.includes("overfitting") && !t.includes("neural") && !t.includes("tree") && !t.includes("ridge") && !t.includes("lasso") && !t.includes("polynomial"))) {
         return { kind: "chart", desc: "Bias-variance tradeoff: underfitting = high bias, overfitting = high variance.", formula: "\\text{MSE} = \\text{Bias}^2[\\hat{f}] + \\text{Var}[\\hat{f}] + \\sigma^2",
-          longDesc: "Underfitting (high bias) occurs when a model is too simple to capture the underlying pattern — poor on both train and test. Overfitting (high variance) occurs when a model memorises training noise — low train error but high test error. The bias-variance decomposition shows Expected Error = Bias² + Variance + irreducible noise. Learning curves (train vs. validation loss as dataset size grows) diagnose which regime the model is in.",
+          longDesc: "Underfitting (high bias) occurs when a model is too simple to capture the underlying pattern — poor on both train and test. Overfitting (high variance) occurs when a model memorises training noise — low train error but high test error. The bias-variance decomposition shows Expected Error = \\(\\text{Bias}^2 + \\text{Var} + \\sigma^2\\) (irreducible noise). Learning curves (train vs. validation loss as dataset size grows) diagnose which regime the model is in.",
           useCases: ["Model complexity selection", "Regularisation decision-making", "Learning curve analysis", "Diagnosing model failures"],
           whenUse: "Fundamental to every ML project — always compare train vs. validation loss before finalising a model.",
           whenNot: "Not a direct algorithm; once diagnosed, address with regularisation, pruning, ensemble methods, or more data.",
@@ -2030,7 +2030,7 @@
       }
       if (t.includes("random") && t.includes("sampling") && !t.includes("forest")) {
         return { kind: "chart", desc: "Drawing random subsets of data for evaluation or resampling-based learning.", formula: "D_s \\sim \\text{Uniform}(D,\\, m), \\quad |D_s| = m",
-          longDesc: "Random sampling draws m examples uniformly from D. Simple random sampling without replacement and bootstrap sampling (with replacement, ~63.2% unique examples) are the two key variants. It underpins bootstrap evaluation, bagging, SGD mini-batch formation, and large-scale preprocessing. Stratified random sampling additionally preserves class proportions.",
+          longDesc: "Random sampling draws m examples uniformly from D. Simple random sampling without replacement and bootstrap sampling (with replacement, \\(\\approx 63.2\\%\\) unique examples) are the two key variants. It underpins bootstrap evaluation, bagging, SGD mini-batch formation, and large-scale preprocessing. Stratified random sampling additionally preserves class proportions.",
           useCases: ["Bootstrap evaluation", "Bagging / Random Forest tree construction", "SGD mini-batch formation", "Large-scale data preprocessing"],
           whenUse: "When the full dataset is too large for exact computation, or when multiple independent samples are needed for ensemble or statistical estimation.",
           whenNot: "When data is very small and every example matters; when class proportions must be exactly preserved (use stratified sampling).",
@@ -2038,15 +2038,15 @@
       }
       if (t.includes("nested") && t.includes("cross")) {
         return { kind: "chart", desc: "Two-loop cross-validation providing an unbiased generalisation estimate while tuning hyperparameters.", formula: "\\hat{E} = \\frac{1}{K_o}\\sum_{i=1}^{K_o}\\min_{\\lambda} CV_{inner}(D_{train}^{(i)}, \\lambda)",
-          longDesc: "Nested Cross-Validation uses an outer loop (K_o folds) for unbiased performance reporting and an inner loop (K_i folds) for hyperparameter selection. For each outer fold, the inner CV selects λ* on the outer training partition only; the chosen model is evaluated on the outer test fold. This ensures reported performance is not contaminated by the hyperparameter search, eliminating the optimistic bias of standard CV-then-test.",
+          longDesc: "Nested Cross-Validation uses an outer loop (K_o folds) for unbiased performance reporting and an inner loop (K_i folds) for hyperparameter selection. For each outer fold, the inner CV selects \\(\\lambda^*\\) on the outer training partition only; the chosen model is evaluated on the outer test fold. This ensures reported performance is not contaminated by the hyperparameter search, eliminating the optimistic bias of standard CV-then-test.",
           useCases: ["Unbiased model evaluation with hyperparameter tuning", "Small-sample scientific benchmarking", "Algorithm comparison studies"],
           whenUse: "When you need a statistically rigorous generalisation estimate AND are tuning hyperparameters; essential for small datasets.",
-          whenNot: "Computationally expensive (K_o × K_i × fit_cost); not needed when data is large enough for a stable separate test set.",
+          whenNot: "Computationally expensive (\\(K_o \\times K_i \\times \\text{fit\\_cost}\\)); not needed when data is large enough for a stable separate test set.",
           related: ["Cross Validation", "Holdout Method", "Hyperparameter Tuning", "Bootstrap Evaluation"] };
       }
       if (t.includes("holdout") || (t.includes("hold") && t.includes("out") && !t.includes("hold-out"))) {
         return { kind: "chart", desc: "Single train-test split to estimate generalisation performance.", formula: "D = D_{train} \\cup D_{test}, \\quad D_{train} \\cap D_{test} = \\emptyset",
-          longDesc: "The Holdout Method partitions the dataset once into a training set (70–80%) and a test set (20–30%). The model is trained on D_train and evaluated once on D_test. It is fast and simple but produces a high-variance estimate when data is scarce. In practice, a three-way split (train / validation / test) separates model selection from final reporting.",
+          longDesc: "The Holdout Method partitions the dataset once into a training set (70–80%) and a test set (20–30%). The model is trained on \\(D_{train}\\) and evaluated once on \\(D_{test}\\). It is fast and simple but produces a high-variance estimate when data is scarce. In practice, a three-way split (train / validation / test) separates model selection from final reporting.",
           useCases: ["Quick model evaluation on large datasets", "Final performance reporting", "Baseline evaluation in industry pipelines"],
           whenUse: "When data is abundant (≥10 000 examples) giving a stable estimate; or for fast iteration during development.",
           whenNot: "On small datasets — use k-fold cross-validation for lower-variance estimates with full data utilisation.",
@@ -2054,7 +2054,7 @@
       }
       if (t.includes("hyperparameter")) {
         return { kind: "chart", desc: "Searching the hyperparameter space to minimise validation error.", formula: "\\lambda^* = \\arg\\min_{\\lambda \\in \\Lambda} \\hat{E}_{val}(h_{\\lambda})",
-          longDesc: "Hyperparameter tuning finds the configuration λ* that minimises estimated generalisation error. Grid Search evaluates all combinations on a predefined grid. Random Search samples configurations at random (often more efficient in high dimensions). Bayesian Optimisation builds a surrogate model of the objective to guide search toward promising regions. All tuning must be performed inside a cross-validation loop to avoid test-set leakage.",
+          longDesc: "Hyperparameter tuning finds the configuration \\(\\lambda^*\\) that minimises estimated generalisation error. Grid Search evaluates all combinations on a predefined grid. Random Search samples configurations at random (often more efficient in high dimensions). Bayesian Optimisation builds a surrogate model of the objective to guide search toward promising regions. All tuning must be performed inside a cross-validation loop to avoid test-set leakage.",
           useCases: ["Optimising learning rate, regularisation strength, tree depth", "Neural architecture search", "Model selection pipelines", "AutoML frameworks"],
           whenUse: "Always tune at least the most sensitive hyperparameters before reporting final model performance.",
           whenNot: "For exploratory work where a reasonable default suffices; when the model is already at practical performance limits.",
@@ -2062,7 +2062,7 @@
       }
       if (t.includes("bootstrap")) {
         return { kind: "chart", desc: "Resampling with replacement to estimate model performance and confidence intervals.", formula: "\\hat{\\theta}_{.632} = 0.368\\,\\hat{\\theta}_{train} + 0.632\\,\\hat{\\theta}_{oob}",
-          longDesc: "Bootstrap evaluation draws B datasets of size n with replacement from D. Each D^(b) trains the model; Out-of-Bag (OOB) examples — ≈36.8% of D not drawn — form the test set. The .632 estimator corrects for optimistic bias: err_.632 = 0.368 × train_err + 0.632 × oob_err. The empirical distribution of θ̂^(b) directly yields percentile confidence intervals for any performance metric.",
+          longDesc: "Bootstrap evaluation draws B datasets of size n with replacement from D. Each \\(D^{(b)}\\) trains the model; Out-of-Bag (OOB) examples — \\(\\approx 36.8\\%\\) of D not drawn — form the test set. The .632 estimator corrects for optimistic bias: \\(\\hat{e}_{.632} = 0.368\\,\\hat{e}_{train} + 0.632\\,\\hat{e}_{oob}\\). The empirical distribution of \\(\\hat{\\theta}^{(b)}\\) directly yields percentile confidence intervals for any performance metric.",
           useCases: ["Confidence intervals for accuracy/AUC", "Small-sample model evaluation", "Ensemble learning (bagging)", "Statistical tests on model differences"],
           whenUse: "When confidence intervals on performance metrics are needed, or when data is too small for stable k-fold estimates.",
           whenNot: "On large datasets where k-fold CV provides stable estimates more cheaply; when computational budget is tight.",
@@ -2070,7 +2070,7 @@
       }
       if (t.includes("cross") || t.includes("hold-out") || t.includes("validation")) {
         return { kind: "chart", desc: "Estimates generalization error by evaluating on unseen data.", formula: "E_{gen} = \\mathbb{E}[L(h, D_{test})]",
-          longDesc: "Cross-validation partitions data into k folds, training on k-1 and testing on 1, repeating k times. Hold-out uses a single train-test split. Both prevent overfitting estimation by ensuring unbiased performance estimates.",
+          longDesc: "Cross-validation partitions data into k folds, training on \\(k-1\\) and testing on 1, repeating k times. Hold-out uses a single train-test split. Both prevent overfitting estimation by ensuring unbiased performance estimates.",
           useCases: ["Model selection", "Hyperparameter tuning", "Generalization estimation"],
           whenUse: "Always split data before evaluation; k-fold (k=5-10) is standard; stratified for imbalanced data.",
           whenNot: "Not needed for very large datasets where a single split suffices; but still recommended.",
@@ -2086,7 +2086,7 @@
       }
       if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means"))) {
         return { kind: "cluster", desc: "Divisive hierarchical variant of K-Means that repeatedly splits one cluster into two.", formula: "C^* = \\arg\\max_{C_j} SSE(C_j), \\quad C_j \\rightarrow C_{j1}, C_{j2}",
-          longDesc: "Bisecting K-Means starts with one cluster and iteratively chooses a cluster to split using K=2 until the target number of clusters is reached. It often yields better global structure than one-shot K-Means and is popular in large text clustering.",
+          longDesc: "Bisecting K-Means starts with one cluster and iteratively chooses a cluster to split using \\(K=2\\) until the target number of clusters is reached. It often yields better global structure than one-shot K-Means and is popular in large text clustering.",
           useCases: ["Large document clustering", "Hierarchical partitioning", "Scalable segmentation"],
           whenUse: "When you need K clusters with improved partition quality over vanilla K-Means.",
           whenNot: "When non-spherical or variable-density clusters dominate the data.",
@@ -2129,7 +2129,7 @@
           longDesc: "Hierarchical clustering creates a tree of nested clusters (dendrogram). Agglomerative variants start with singletons and merge; divisive variants split from the top. It is interpretable and supports multi-resolution analysis.",
           useCases: ["Taxonomy discovery", "Gene expression analysis", "Small-to-medium exploratory clustering"],
           whenUse: "When hierarchical relationships and cut-level flexibility are important.",
-          whenNot: "Very large datasets due to O(n^2) memory/time in common implementations.",
+          whenNot: "Very large datasets due to \\(O(n^2)\\) memory/time in common implementations.",
           related: ["Linkage Measures", "Cophenetic Correlation Coefficient", "Cluster Validation Techniques"] };
       }
       if (t.includes("linkage")) {
@@ -2374,14 +2374,14 @@
       }
       if (t.includes("lift")) {
         return { kind: "bars", desc: "Rule-interest metric measuring dependence beyond chance co-occurrence.", formula: "lift(A \\Rightarrow B) = \\frac{P(A \\cap B)}{P(A)P(B)}",
-          longDesc: "Lift compares observed joint occurrence to what would be expected under independence. lift > 1 indicates positive association, lift = 1 independence, lift < 1 negative association. It should be interpreted with support and confidence to avoid spurious rare rules.",
+          longDesc: "Lift compares observed joint occurrence to what would be expected under independence. \\(lift > 1\\) indicates positive association, lift \\(= 1\\) independence, lift \\(< 1\\) negative association. It should be interpreted with support and confidence to avoid spurious rare rules.",
           useCases: ["Prioritizing business rules", "Recommendation ranking", "Association rule filtering"],
           whenUse: "After rule generation to rank non-trivial associations.",
           whenNot: "As a standalone metric without minimum support/confidence controls.",
           related: ["Association Rules", "Apriori Principle", "ECLAT", "Confidence"] };
       }
       if (t.includes("association")) {
-        return { kind: "bars", desc: "Discovers frequent itemsets and implication rules in transactional data.", formula: "A \\Rightarrow B,\\; conf = P(B|A),\\; supp = P(A \\cap B)",
+        return { kind: "bars", desc: "Discovers frequent itemsets and implication rules in transactional data.", formula: "A \\Rightarrow B,\\; conf = P(B\\mid A),\\; supp = P(A \\cap B)",
           longDesc: "Association rule mining finds co-occurrence patterns and derives if-then rules from baskets or events. Typical workflow: mine frequent itemsets (Apriori/ECLAT), generate rules, then rank with confidence, lift, and leverage.",
           useCases: ["Market basket analysis", "Cross-selling", "Web clickstream analysis"],
           whenUse: "Transactional data where interpretable co-occurrence rules provide business value.",
@@ -2438,7 +2438,7 @@
       }
       if (t.includes("vanishing") || t.includes("exploding")) {
         return { kind: "network", desc: "Training failure modes where backpropagated gradients shrink to near zero or grow without bound through deep layers.", formula: "\\nabla_{\\mathbf{W}^{(1)}} \\mathcal{L} = \\prod_{l=2}^{L} \\mathbf{W}^{(l)T} \\cdot \\boldsymbol{\\delta}^{(L)}",
-          longDesc: "During backpropagation through L layers, gradients involve products of L weight matrices and activation derivatives. Values consistently < 1 cause exponential vanishing; values consistently > 1 cause exploding gradients. Solutions: ReLU activations, LSTM additive cell state updates, batch normalisation, gradient clipping, and Xavier/He initialisation.",
+          longDesc: "During backpropagation through L layers, gradients involve products of L weight matrices and activation derivatives. Values consistently \\(< 1\\) cause exponential vanishing; values consistently \\(> 1\\) cause exploding gradients. Solutions: ReLU activations, LSTM additive cell state updates, batch normalisation, gradient clipping, and Xavier/He initialisation.",
           useCases: ["Diagnosing deep network training failure", "Motivating LSTM design", "Selecting initialisation strategies"],
           whenUse: "Monitor gradient norms during training; apply solutions proactively in deep/recurrent architectures.",
           whenNot: "Not a method — a failure mode to diagnose. Use gradient norm monitoring and TensorBoard.",
@@ -2470,7 +2470,7 @@
       }
       if (t.includes("neuron") && !t.includes("neural")) {
         return { kind: "network", desc: "Each artificial neuron computes a weighted sum of inputs then applies a non-linear activation function.", formula: "z = \\mathbf{w}^T\\mathbf{x} + b, \\quad a = \\sigma(z)",
-          longDesc: "An artificial neuron computes a pre-activation z = wᵀx + b (dot product plus bias) then passes it through a non-linear activation σ to produce output a. Multiple neurons per layer form a weight matrix; stacking layers creates a deep network capable of learning hierarchical feature representations.",
+          longDesc: "An artificial neuron computes a pre-activation \\(z = \\mathbf{w}^T\\mathbf{x}+b\\) (dot product plus bias) then passes it through a non-linear activation σ to produce output a. Multiple neurons per layer form a weight matrix; stacking layers creates a deep network capable of learning hierarchical feature representations.",
           useCases: ["Understanding neural forward pass", "Single-unit learning analysis", "Custom neuron design"],
           whenUse: "The foundational building block of all neural networks; prerequisite for understanding every DNN architecture.",
           whenNot: "Not a standalone algorithm — neurons are components within a neural network.",
@@ -3480,7 +3480,7 @@
       if (t.includes("cluster similarity") || t.includes("clutser similarity")) return [{ p: "similarity_index", desc: "Rand, ARI, Jaccard, NMI, or VI depending on objective." }, { p: "label_alignment", desc: "Whether permutation alignment is required before comparison." }, { p: "pair_sampling", desc: "Subsample pairs for large datasets to reduce compute." }];
       if (t.includes("cluster purity") || (t.includes("purity") && t.includes("cluster"))) return [{ p: "n_clusters", desc: "Purity tends to increase with larger K; report alongside metric." }, { p: "majority_mapping", desc: "Rule for assigning each cluster to a label." }, { p: "class_weighting", desc: "Optional weighting for imbalanced class distributions." }];
       if (t.includes("rand") || t.includes("jaccard")) return [{ p: "index_type", desc: "Rand, Adjusted Rand, or Jaccard." }, { p: "chance_correction", desc: "Use adjusted variants when comparing different K values." }, { p: "reference_partition", desc: "Ground truth or baseline clustering for comparison." }];
-      if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) return [{ p: "base_estimator", desc: "Binary classifier used in decomposition (SVM, Logistic Regression, etc.)." }, { p: "strategy", desc: "OvR (K models) vs OvO (K(K-1)/2 models) tradeoff between speed and pairwise granularity." }, { p: "class_weight", desc: "Balances minority classes in binary subproblems." }];
+      if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) return [{ p: "base_estimator", desc: "Binary classifier used in decomposition (SVM, Logistic Regression, etc.)." }, { p: "strategy", desc: "OvR (K models) vs OvO (\\(K(K-1)/2\\) models) tradeoff between speed and pairwise granularity." }, { p: "class_weight", desc: "Balances minority classes in binary subproblems." }];
       if (t.includes("problem") && t.includes("transformation")) return [{ p: "method", desc: "Transformation type: Binary Relevance, Label Powerset, Classifier Chains, or RAkEL." }, { p: "base_estimator", desc: "Underlying learner for transformed tasks." }, { p: "threshold", desc: "Decision threshold for converting scores to labels." }];
       if (t.includes("binary") && t.includes("relevance")) return [{ p: "base_estimator", desc: "Per-label classifier choice (often linear models for scalability)." }, { p: "threshold", desc: "Label-specific probability threshold (global 0.5 is often suboptimal)." }, { p: "class_weight", desc: "Handles per-label imbalance." }];
       if (t.includes("label") && t.includes("powerset")) return [{ p: "min_combination_freq", desc: "Optional pruning of rare label combinations to reduce class sparsity." }, { p: "base_estimator", desc: "Classifier over transformed multiclass label-combination space." }, { p: "class_weight", desc: "Compensates imbalance across label-combination classes." }];
@@ -3501,7 +3501,7 @@
       if (t.includes("iso") && t.includes("accuracy"))
         return [
           { q: "What does an ISO Accuracy (iso-cost) line represent in ROC space?", a: "It represents all operating points with equal expected utility/cost for fixed class priors and error costs." },
-          { q: "How is the slope of an iso-cost line determined?", a: "By the relative cost and prevalence: m = C_FP(1-pi)/(C_FN pi). Different operating assumptions yield different preferred thresholds." },
+          { q: "How is the slope of an iso-cost line determined?", a: "By the relative cost and prevalence: \\(m = C_{FP}(1-\\pi)/(C_{FN}\\pi)\\). Different operating assumptions yield different preferred thresholds." },
         ];
       if (t.includes("class") && t.includes("imbalance"))
         return [
@@ -3570,13 +3570,13 @@
         ];
       if (t.includes("elastic"))
         return [
-          { q: "What does the l1_ratio parameter in Elastic Net control?", a: "The mixing proportion: l1_ratio=1 is pure Lasso, l1_ratio=0 is pure Ridge. Values between 0 and 1 blend both penalties." },
+          { q: "What does the l1_ratio parameter in Elastic Net control?", a: "The mixing proportion: \\(l1\\_ratio=1\\) is pure Lasso, \\(l1\\_ratio=0\\) is pure Ridge. Values between 0 and 1 blend both penalties." },
           { q: "When is Elastic Net preferred over Lasso?", a: "When features are correlated in groups; Elastic Net tends to include or exclude correlated features together rather than arbitrarily selecting one." },
         ];
       if (t.includes("polynomial"))
         return [
           { q: "Is polynomial regression a linear model?", a: "Linear in parameters (weights), not in features. It fits a curve but uses standard OLS to estimate weights, making it a linear model in the regression sense." },
-          { q: "How does degree affect the bias-variance tradeoff?", a: "Low degree = high bias (underfitting); high degree = high variance (overfitting). Choose degree via cross-validation." },
+          { q: "How does degree affect the bias-variance tradeoff?", a: "Low degree \\(=\\) high bias (underfitting); high degree \\(=\\) high variance (overfitting). Choose degree via cross-validation." },
         ];
       if (t.includes("isotonic"))
         return [
@@ -3586,16 +3586,16 @@
       if (t.includes("regression evaluation") || (t.includes("regression") && t.includes("evaluation")))
         return [
           { q: "When should you prefer MAE over RMSE?", a: "When you want a robust metric that is less sensitive to large outlier errors; MAE weights all errors equally while RMSE squares them." },
-          { q: "Can R² be negative?", a: "Yes. R² < 0 means the model performs worse than a simple mean baseline. It is not bounded below zero." },
+          { q: "Can R² be negative?", a: "Yes. \\(R^2 < 0\\) means the model performs worse than a simple mean baseline. It is not bounded below zero." },
         ];
       if (t.includes("vc") && t.includes("dimension"))
         return [
-          { q: "What does it mean to shatter a set of points?", a: "A hypothesis class shatters a set if it can correctly classify all 2^n possible binary labelings of those n points." },
-          { q: "What is the relationship between VC dimension and overfitting?", a: "Higher VC dimension = richer model class = more capacity to overfit. Generalization error bounds grow with VC dimension." },
+          { q: "What does it mean to shatter a set of points?", a: "A hypothesis class shatters a set if it can correctly classify all \\(2^n\\) possible binary labelings of those n points." },
+          { q: "What is the relationship between VC dimension and overfitting?", a: "Higher VC dimension \\(=\\) richer model class \\(=\\) more capacity to overfit. Generalization error bounds grow with VC dimension." },
         ];
       if (t.includes("id3"))
         return [
-          { q: "How does ID3 choose which attribute to split on?", a: "By selecting the attribute with maximum information gain: IG(S,A) = H(S) - sum of weighted child entropies." },
+          { q: "How does ID3 choose which attribute to split on?", a: "By selecting the attribute with maximum information gain: \\(IG(S,A) = H(S)\\) - sum of weighted child entropies." },
           { q: "What is ID3's main limitation compared to C4.5?", a: "ID3 only handles discrete attributes, doesn't support continuous values, missing data, or pruning; C4.5 addresses all three." },
         ];
       if (t.includes("gradient") && t.includes("descent"))
@@ -3665,13 +3665,13 @@
         ];
       if (t.includes("linear learning"))
         return [
-          { q: "What do all linear learning machines share?", a: "The same hypothesis class: linear functions f(x) = wᵀx + b. They differ in loss function, regularization, and optimization strategy." },
-          { q: "Why are linear models effective on high-dimensional sparse data?", a: "The number of parameters scales with features (not their products); high-dimensional spaces are often linearly separable; training via SGD is O(n·d)." },
+          { q: "What do all linear learning machines share?", a: "The same hypothesis class: linear functions \\(f(x) = \\mathbf{w}^T\\mathbf{x}+b\\). They differ in loss function, regularization, and optimization strategy." },
+          { q: "Why are linear models effective on high-dimensional sparse data?", a: "The number of parameters scales with features (not their products); high-dimensional spaces are often linearly separable; training via SGD is \\(O(n \\cdot d)\\)." },
         ];
       if (t.includes("kernel") && (t.includes("function") || t.includes("matrix")))
         return [
           { q: "What is Mercer's theorem?", a: "A function k(x, x') is a valid kernel if and only if its Gram matrix is positive semi-definite for any set of points. This guarantees it corresponds to an inner product in some feature space." },
-          { q: "Why is the kernel trick computationally advantageous?", a: "It avoids explicitly computing φ(x) (which may be infinite-dimensional) by computing k(x, x') = ⟨φ(x), φ(x')⟩ directly in the original space." },
+          { q: "Why is the kernel trick computationally advantageous?", a: "It avoids explicitly computing φ(x) (which may be infinite-dimensional) by computing \\(k(x, x') = \\langle \\phi(x), \\phi(x') \\rangle\\) directly in the original space." },
         ];
       if (t.includes("logistic"))
         return [
@@ -3691,21 +3691,21 @@
       if (t.includes("random") && t.includes("forest"))
         return [
           { q: "How does Random Forest reduce variance compared to a single tree?", a: "By averaging T decorrelated trees. Each tree is trained on an independent bootstrap sample with random feature subsets at splits, reducing inter-tree correlation. Averaging uncorrelated estimators reduces variance by ~1/T." },
-          { q: "What is Out-of-Bag (OOB) error and why is it useful?", a: "OOB error is estimated using the ≈36.8% of training examples not drawn into each tree's bootstrap. Each example is predicted only by trees that did not see it — providing a free internal cross-validation estimate without a separate hold-out set." },
+          { q: "What is Out-of-Bag (OOB) error and why is it useful?", a: "OOB error is estimated using the \\(\\approx 36.8\\%\\) of training examples not drawn into each tree's bootstrap. Each example is predicted only by trees that did not see it — providing a free internal cross-validation estimate without a separate hold-out set." },
         ];
       if (t.includes("underfitting") || (t.includes("overfitting") && !t.includes("neural") && !t.includes("tree") && !t.includes("ridge") && !t.includes("lasso")))
         return [
           { q: "How do you detect underfitting vs overfitting from learning curves?", a: "Underfitting: both train and validation error are high and similar, converging slowly. Overfitting: train error is low but validation error is much higher — the gap widens as model complexity grows. The goal is both errors converging to a low value." },
-          { q: "What is the bias-variance decomposition?", a: "Expected MSE = Bias²(f̂) + Var(f̂) + σ². Bias² comes from wrong assumptions (under-complex model); Var comes from sensitivity to training data (over-complex model). Regularisation, pruning, and ensembles are tools to navigate this tradeoff." },
+          { q: "What is the bias-variance decomposition?", a: "\\(\\text{Expected MSE} = \\text{Bias}^2(\\hat{f}) + \\text{Var}(\\hat{f}) + \\sigma^2\\). Bias² comes from wrong assumptions (under-complex model); Var comes from sensitivity to training data (over-complex model). Regularisation, pruning, and ensembles are tools to navigate this tradeoff." },
         ];
       if (t.includes("random") && t.includes("sampling") && !t.includes("forest"))
         return [
-          { q: "What is the difference between simple random sampling and bootstrap sampling?", a: "Simple random sampling draws without replacement — each example can appear at most once. Bootstrap sampling draws with replacement — the same example may appear multiple times. Bootstrap samples retain ~63.2% unique examples per sample on average." },
-          { q: "Why does bootstrap sampling leave ~36.8% of data out-of-bag?", a: "The probability that a specific example is NOT selected in n draws with replacement is (1 − 1/n)^n → 1/e ≈ 0.368 as n → ∞. These OOB examples form a natural free validation set." },
+          { q: "What is the difference between simple random sampling and bootstrap sampling?", a: "Simple random sampling draws without replacement — each example can appear at most once. Bootstrap sampling draws with replacement — the same example may appear multiple times. Bootstrap samples retain \\(\\approx 63.2\\%\\) unique examples per sample on average." },
+          { q: "Why does bootstrap sampling leave ~36.8% of data out-of-bag?", a: "The probability that a specific example is NOT selected in n draws with replacement is \\((1 - 1/n)^n \\to 1/e \\approx 0.368\\) as n → ∞. These OOB examples form a natural free validation set." },
         ];
       if (t.includes("nested") && t.includes("cross"))
         return [
-          { q: "Why is standard single-loop CV insufficient when tuning hyperparameters?", a: "The test fold is used to choose λ*, making it no longer an unbiased estimate of generalisation error. This optimistic bias grows with the number of configurations tried. Nested CV separates selection (inner loop) from estimation (outer loop)." },
+          { q: "Why is standard single-loop CV insufficient when tuning hyperparameters?", a: "The test fold is used to choose \\(\\lambda^*\\), making it no longer an unbiased estimate of generalisation error. This optimistic bias grows with the number of configurations tried. Nested CV separates selection (inner loop) from estimation (outer loop)." },
           { q: "What does the outer loop of nested CV estimate?", a: "The expected generalisation error of the model selection pipeline — the combined procedure of hyperparameter tuning + fitting — not of any single fixed model." },
         ];
       if (t.includes("holdout") || (t.includes("hold") && t.includes("out") && !t.includes("hold-out")))
@@ -3721,7 +3721,7 @@
       if (t.includes("bootstrap"))
         return [
           { q: "Why is the 0.632 bootstrap estimator preferred over the raw OOB estimate?", a: "The pure OOB estimate uses only ~63.2% of data for training per tree, so models appear worse than when trained on the full set — a pessimistic bias. The .632 estimator mixes 36.8% training error + 63.2% OOB error, approximating the leave-one-out expected error on the full training set." },
-          { q: "How do you compute a 95% confidence interval using the bootstrap?", a: "Compute θ̂^(b) for B bootstrap resamples, then report the 2.5th and 97.5th percentiles of the empirical distribution of θ̂^(b). No normality assumption needed — this is a non-parametric percentile interval." },
+          { q: "How do you compute a 95% confidence interval using the bootstrap?", a: "Compute \\(\\hat{\\theta}^{(b)}\\) for B bootstrap resamples, then report the 2.5th and 97.5th percentiles of the empirical distribution of \\(\\hat{\\theta}^{(b)}\\). No normality assumption needed — this is a non-parametric percentile interval." },
         ];
       if (t.includes("decision tree") || (t.includes("id3") && !t.includes("id3 algorithm")))
         return [
@@ -3735,19 +3735,19 @@
         ];
       if (t.includes("non") && t.includes("linear") && t.includes("svm"))
         return [
-          { q: "What is the difference between hard-margin and soft-margin SVM?", a: "Hard-margin requires linear separability with no violations. Soft-margin allows slack variables ξᵢ controlled by C, permitting some misclassification to handle noise and non-linearly separable data." },
-          { q: "How does the RBF kernel make SVM non-linear?", a: "k(x, x') = exp(−γ||x−x'||²) maps points to an infinite-dimensional space; in that space classes may be linearly separable, allowing SVM to find a non-linear boundary in the original space." },
-          { q: "What is the dual formulation and why is it used?", a: "The dual QP depends only on inner products k(xᵢ, xⱼ), making the kernel trick possible. Most training points have αᵢ=0; only support vectors (αᵢ>0) affect the decision boundary." },
+          { q: "What is the difference between hard-margin and soft-margin SVM?", a: "Hard-margin requires linear separability with no violations. Soft-margin allows slack variables \\(\\xi_i\\) controlled by C, permitting some misclassification to handle noise and non-linearly separable data." },
+          { q: "How does the RBF kernel make SVM non-linear?", a: "\\(k(\\mathbf{x},\\mathbf{x}') = \\exp(-\\gamma\\|\\mathbf{x}-\\mathbf{x}'\\|^2)\\) maps points to an infinite-dimensional space; in that space classes may be linearly separable, allowing SVM to find a non-linear boundary in the original space." },
+          { q: "What is the dual formulation and why is it used?", a: "The dual QP depends only on inner products k(xᵢ, xⱼ), making the kernel trick possible. Most training points have \\(\\alpha_i=0\\); only support vectors (\\(\\alpha_i>0\\)) affect the decision boundary." },
         ];
       if (t.includes("maximal margin"))
         return [
-          { q: "Why is the maximum-margin classifier theoretically appealing?", a: "Maximising the margin minimises an upper bound on generalisation error. Larger margin → more tolerance for test-set perturbations → better expected performance." },
-          { q: "What are support vectors and how do they determine the boundary?", a: "Support vectors are the training points lying exactly on the margin planes (yᵢ(wᵀxᵢ+b)=1). They are the only points that influence w and b; removing non-support-vector points leaves the solution unchanged." },
+          { q: "Why is the maximum-margin classifier theoretically appealing?", a: "Maximising the margin minimises an upper bound on generalisation error. Larger margin \\(\\to\\) more tolerance for test-set perturbations \\(\\to\\) better expected performance." },
+          { q: "What are support vectors and how do they determine the boundary?", a: "Support vectors are the training points lying exactly on the margin planes (\\(y_i(\\mathbf{w}^T\\mathbf{x}_i+b)=1\\)). They are the only points that influence w and b; removing non-support-vector points leaves the solution unchanged." },
         ];
       if (t.includes("svm") || t.includes("support vector"))
         return [
           { q: "What is the kernel trick?", a: "Implicitly maps data to a higher-dimensional space using a kernel function, enabling non-linear separation without explicit computation." },
-          { q: "What does the C hyperparameter control?", a: "Trade-off between maximising margin and minimising classification error. Small C = softer margin." },
+          { q: "What does the C hyperparameter control?", a: "Trade-off between maximising margin and minimising classification error. Small \\(C\\) \\(=\\) softer margin." },
         ];
       if (t.includes("feed") && t.includes("forward") || t.includes("feedforward") || t.includes("ffnn"))
         return [
@@ -3757,7 +3757,7 @@
         ];
       if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network")))
         return [
-          { q: "How does a Bayesian Belief Network encode the joint distribution?", a: "Via the chain rule of probability combined with the Markov condition: P(X₁,…,Xₙ) = ∏ P(Xᵢ | parents(Xᵢ)). This factorises an n-variable joint into small local CPTs." },
+          { q: "How does a Bayesian Belief Network encode the joint distribution?", a: "Via the chain rule of probability combined with the Markov condition: \\(P(X_1,\\ldots,X_n) = \\prod_i P(X_i \\mid parents(X_i))\\). This factorises an n-variable joint into small local CPTs." },
           { q: "How does BBN differ from Naive Bayes?", a: "Naive Bayes assumes all features are conditionally independent given the class. A BBN models the actual conditional dependency structure via an explicit DAG, removing false independence assumptions." },
           { q: "What is the difference between parameter learning and structure learning in BBNs?", a: "Parameter learning estimates CPT values (easy: MLE/MAP) given a fixed graph. Structure learning finds the best DAG (NP-hard; typically done with score-based or constraint-based search)." },
         ];
@@ -3773,8 +3773,8 @@
         ];
       if (t.includes("impurity"))
         return [
-          { q: "What is the difference between entropy and Gini impurity?", a: "Entropy = −Σ pᵢ log₂(pᵢ) from information theory. Gini = 1 − Σ pᵢ². Both reach 0 at a pure node; Gini is computationally cheaper and slightly prefers balanced splits." },
-          { q: "What is Gain Ratio and when is it preferred over Information Gain?", a: "Gain Ratio = IG / IV(A) where IV(A) is the intrinsic value of attribute A. It normalises IG, reducing bias toward high-cardinality attributes like IDs or timestamps." },
+          { q: "What is the difference between entropy and Gini impurity?", a: "Entropy \\(= -\\sum_i p_i \\log_2(p_i)\\) from information theory. Gini \\(= 1 - \\sum_i p_i^2\\). Both reach 0 at a pure node; Gini is computationally cheaper and slightly prefers balanced splits." },
+          { q: "What is Gain Ratio and when is it preferred over Information Gain?", a: "Gain Ratio \\(= IG / IV(A)\\) where IV(A) is the intrinsic value of attribute A. It normalises IG, reducing bias toward high-cardinality attributes like IDs or timestamps." },
         ];
       if (t.includes("knn") || t.includes("neighbor"))
         return [
@@ -3793,17 +3793,17 @@
         ];
       if (t.includes("lift"))
         return [
-          { q: "How do you interpret lift values?", a: "lift > 1 indicates positive association, = 1 independence, < 1 negative association." },
+          { q: "How do you interpret lift values?", a: "\\(lift > 1\\) indicates positive association, \\(= 1\\) independence, \\(< 1\\) negative association." },
           { q: "Why should lift be combined with support?", a: "High lift can come from very rare co-occurrences; support filters fragile, low-volume rules." },
         ];
       if (t.includes("association"))
         return [
-          { q: "What are support, confidence, and lift?", a: "Support measures frequency, confidence measures directional reliability P(B|A), and lift measures dependence beyond chance." },
+          { q: "What are support, confidence, and lift?", a: "Support measures frequency, confidence measures directional reliability \\(P(B\\mid A)\\), and lift measures dependence beyond chance." },
           { q: "Why are association rules not causal by default?", a: "They capture co-occurrence patterns, not intervention effects; confounding and popularity can create misleading rules." },
         ];
       if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel")))
         return [
-          { q: "How do OvR and OvO differ computationally?", a: "OvR trains K classifiers for K classes; OvO trains K(K-1)/2 pairwise classifiers. OvO can be more expensive but sometimes yields better pairwise discrimination." },
+          { q: "How do OvR and OvO differ computationally?", a: "OvR trains K classifiers for K classes; OvO trains \\(K(K-1)/2\\) pairwise classifiers. OvO can be more expensive but sometimes yields better pairwise discrimination." },
           { q: "When should you prefer OvR over OvO?", a: "For large K or expensive base estimators, OvR is typically faster and easier to maintain while still strong in practice." },
         ];
       if (t.includes("problem") && t.includes("transformation"))
@@ -3839,7 +3839,7 @@
       if (t.includes("lazy") && !t.includes("knn"))
         return [
           { q: "What distinguishes lazy learning from eager learning?", a: "Lazy learners (KNN, CBR) store training data and defer generalisation to query time. Eager learners (decision trees, SVMs) build a global model during training and discard raw examples." },
-          { q: "When is lazy learning preferred despite its O(n) prediction cost?", a: "When concept drift is expected (no retraining needed), when the training distribution changes frequently, or when new classes must be added instantly." },
+          { q: "When is lazy learning preferred despite its \\(O(n)\\) prediction cost?", a: "When concept drift is expected (no retraining needed), when the training distribution changes frequently, or when new classes must be added instantly." },
         ];
       if (t.includes("case") && t.includes("reasoning"))
         return [
@@ -3853,32 +3853,32 @@
         ];
       if (t.includes("sigmoid") && t.includes("activation"))
         return [
-          { q: "Why does sigmoid cause vanishing gradients in deep networks?", a: "Sigmoid saturates at 0 and 1; its derivative σ(z)(1-σ(z)) ≤ 0.25 and approaches zero at extremes, so gradients shrink exponentially as they propagate back through many layers." },
+          { q: "Why does sigmoid cause vanishing gradients in deep networks?", a: "Sigmoid saturates at 0 and 1; its derivative \\(\\sigma(z)(1-\\sigma(z)) \\leq 0.25\\) and approaches zero at extremes, so gradients shrink exponentially as they propagate back through many layers." },
           { q: "When is sigmoid still the best choice today?", a: "Binary classification output layer (provides a probability in (0,1)); gate activations inside LSTM/GRU (where bounded output is needed)." },
         ];
       if (t.includes("hyperbolic"))
         return [
-          { q: "How is tanh related to the sigmoid function?", a: "tanh(z) = 2σ(2z) − 1. It is a rescaled and shifted sigmoid, zero-centered (output range -1 to 1) compared to sigmoid's (0,1)." },
+          { q: "How is tanh related to the sigmoid function?", a: "\\(\\tanh(z) = 2\\sigma(2z)-1\\). It is a rescaled and shifted sigmoid, zero-centered (output range -1 to 1) compared to sigmoid's (0,1)." },
           { q: "Why does zero-centering matter for training?", a: "Sigmoid's all-positive outputs cause weight updates to always have the same sign (zig-zagging optimization). tanh's zero-centered outputs allow both positive and negative updates, converging faster." },
         ];
       if (t.includes("relu") && !t.includes("activation function"))
         return [
           { q: "What is the dying ReLU problem and how can you fix it?", a: "Neurons stuck at negative pre-activations output zero permanently and stop updating. Fix: use Leaky ReLU (small negative slope), ELU, or careful learning rate tuning." },
-          { q: "Why does ReLU train faster than sigmoid/tanh in deep networks?", a: "Gradient = 1 for z > 0 — no saturation, no vanishing gradients in the positive range. Also computationally cheaper (just max(0,z))." },
+          { q: "Why does ReLU train faster than sigmoid/tanh in deep networks?", a: "Gradient \\(= 1\\) for \\(z > 0\\) — no saturation, no vanishing gradients in the positive range. Also computationally cheaper (just max(0,z))." },
         ];
       if (t.includes("relu") && t.includes("activation function"))
         return [
           { q: "What is the dying ReLU problem?", a: "Neurons with consistently negative pre-activations output zero forever and stop learning. Leaky ReLU, ELU, and GELU address this with small non-zero negative-side gradients." },
-          { q: "Why has ReLU dominated hidden layers since ~2012?", a: "No saturation for positive inputs (gradient = 1), computationally trivial (max(0,z)), and enables training of very deep networks where sigmoid/tanh cause vanishing gradients." },
+          { q: "Why has ReLU dominated hidden layers since ~2012?", a: "No saturation for positive inputs (gradient = 1), computationally trivial (\\(\\max(0,z)\\)), and enables training of very deep networks where sigmoid/tanh cause vanishing gradients." },
         ];
       if (t.includes("softmax") && t.includes("activation"))
         return [
           { q: "Why do we subtract max(z) before computing softmax?", a: "To prevent numerical overflow from exp(z) for large z. Subtracting max(z) doesn't change the output (the constant cancels in numerator and denominator) but keeps values numerically stable." },
-          { q: "What is the gradient of softmax + cross-entropy loss?", a: "The combined gradient simplifies beautifully to (ŷ - y) — predicted probability minus true label. This is why softmax + cross-entropy is the standard output layer for multi-class problems." },
+          { q: "What is the gradient of softmax + cross-entropy loss?", a: "The combined gradient simplifies beautifully to \\(\\hat{y} - y\\) — predicted probability minus true label. This is why softmax + cross-entropy is the standard output layer for multi-class problems." },
         ];
       if (t.includes("lstm"))
         return [
-          { q: "How does LSTM solve the vanishing gradient problem?", a: "The cell state update c_t = f_t ⊙ c_{t-1} + i_t ⊙ c̃_t uses addition rather than multiplication, allowing gradients to flow through hundreds of timesteps without exponential decay." },
+          { q: "How does LSTM solve the vanishing gradient problem?", a: "The cell state update \\(\\mathbf{c}_t = \\mathbf{f}_t \\odot \\mathbf{c}_{t-1} + \\mathbf{i}_t \\odot \\tilde{\\mathbf{c}}_t\\) uses addition rather than multiplication, allowing gradients to flow through hundreds of timesteps without exponential decay." },
           { q: "What are the three gates of an LSTM and what do they control?", a: "Forget gate: what fraction of previous cell state to discard. Input gate: how much new candidate state to write. Output gate: what fraction of cell state to expose as hidden state." },
         ];
       if (t.includes("teacher") && t.includes("forcing"))
@@ -3888,38 +3888,38 @@
         ];
       if (t.includes("vanishing") || t.includes("exploding"))
         return [
-          { q: "What causes the vanishing gradient problem mathematically?", a: "Gradients are products of repeated Jacobians (weight matrices and activation derivatives). If these values are consistently < 1, the product shrinks exponentially with depth." },
+          { q: "What causes the vanishing gradient problem mathematically?", a: "Gradients are products of repeated Jacobians (weight matrices and activation derivatives). If these values are consistently \\(< 1\\), the product shrinks exponentially with depth." },
           { q: "Name three solutions to vanishing/exploding gradients.", a: "Vanishing: ReLU activations, LSTM/residual connections, batch normalisation. Exploding: gradient clipping (cap gradient norm). Both: Xavier/He initialisation for appropriate initial weight scale." },
         ];
       if (t.includes("delta") && t.includes("rule"))
         return [
-          { q: "How is the Delta Rule derived?", a: "Differentiate MSE loss ∂(y - ŷ)²/∂w = -2(y - ŷ)x. The update Δw = η(y - ŷ)x is the negative gradient step for a single linear neuron — identical to SGD on squared error." },
+          { q: "How is the Delta Rule derived?", a: "Differentiate MSE loss \\(\\frac{\\partial (y-\\hat{y})^2}{\\partial w} = -2(y-\\hat{y})x\\). The update \\(\\Delta w = \\eta(y-\\hat{y})x\\) is the negative gradient step for a single linear neuron — identical to SGD on squared error." },
           { q: "What is the key difference between the Delta Rule and the Perceptron learning rule?", a: "Delta Rule: proportional update based on continuous error (y - ŷ); minimises MSE. Perceptron: binary update only on misclassified examples; no guarantee of MSE minimisation." },
         ];
       if (t.includes("backprop"))
         return [
-          { q: "What are the two phases of backpropagation?", a: "Forward pass: compute predictions and loss by pushing input through all layers. Backward pass: propagate error signals δ^(l) in reverse, accumulating ∂L/∂W^(l) for each layer." },
-          { q: "Why is backpropagation computationally efficient?", a: "By computing gradients in reverse topological order and reusing intermediate activations, it computes all ∂L/∂W in O(n_params) — linear in parameters — instead of O(n_params²) if done naively." },
+          { q: "What are the two phases of backpropagation?", a: "Forward pass: compute predictions and loss by pushing input through all layers. Backward pass: propagate error signals \\(\\delta^{(l)}\\) in reverse, accumulating \\(\\partial L/\\partial W^{(l)}\\) for each layer." },
+          { q: "Why is backpropagation computationally efficient?", a: "By computing gradients in reverse topological order and reusing intermediate activations, it computes all \\(\\partial L/\\partial W\\) in \\(O(n_{params})\\) — linear in parameters — instead of \\(O(n_{params}^2)\\) if done naively." },
         ];
       if (t.includes("chain") && t.includes("rule"))
         return [
-          { q: "State the chain rule and explain its role in deep learning.", a: "If L = f(g(x)), then dL/dx = f'(g(x))·g'(x). In neural nets, the loss depends on weights through many composed functions; the chain rule decomposes ∂L/∂W into products of local Jacobians, enabling efficient gradient computation." },
-          { q: "What happens when many local gradients are multiplied in the chain rule?", a: "If activation derivatives are consistently < 1 (sigmoid saturation), the product shrinks — vanishing gradients. If weights are consistently > 1, the product grows — exploding gradients." },
+          { q: "State the chain rule and explain its role in deep learning.", a: "If \\(L = f(g(x))\\), then \\(dL/dx = f'(g(x))\\cdot g'(x)\\). In neural nets, the loss depends on weights through many composed functions; the chain rule decomposes \\(\\partial L/\\partial W\\) into products of local Jacobians, enabling efficient gradient computation." },
+          { q: "What happens when many local gradients are multiplied in the chain rule?", a: "If activation derivatives are consistently \\(< 1\\) (sigmoid saturation), the product shrinks — vanishing gradients. If weights are consistently \\(> 1\\), the product grows — exploding gradients." },
         ];
       if (t.includes("neuron") && !t.includes("neural"))
         return [
-          { q: "What are the components of a single artificial neuron?", a: "Inputs x, weights w (one per input), bias b, linear combination z = wᵀx + b (pre-activation), and activation function σ producing output a = σ(z)." },
+          { q: "What are the components of a single artificial neuron?", a: "Inputs x, weights w (one per input), bias b, linear combination \\(z = \\mathbf{w}^T\\mathbf{x}+b\\) (pre-activation), and activation function \\(\\sigma\\) producing output \\(a = \\sigma(z)\\)." },
           { q: "Why is a non-linear activation function necessary in neurons?", a: "Without it, stacking many layers of linear neurons still produces a linear function. Non-linearity enables the network to learn complex, non-linear decision boundaries." },
         ];
       if (t.includes("weight") && t.includes("matrix"))
         return [
           { q: "Why are weights stored as matrices rather than individual scalars?", a: "Matrix representation enables batch computation (all m examples and all n_out neurons simultaneously via W·X), exploits hardware BLAS/GPU optimisation, and allows concise gradient expressions." },
-          { q: "What is the gradient of the loss w.r.t. the weight matrix W?", a: "∂L/∂W^(l) = δ^(l) · A^(l-1)ᵀ, where δ^(l) is the backpropagated error signal. This has the same shape as W^(l), enabling direct parameter update." },
+          { q: "What is the gradient of the loss w.r.t. the weight matrix W?", a: "\\(\\partial L/\\partial W^{(l)} = \\delta^{(l)} \\cdot A^{(l-1)T}\\), where δ^(l) is the backpropagated error signal. This has the same shape as W^(l), enabling direct parameter update." },
         ];
       if (t.includes("vectorization"))
         return [
           { q: "Why is vectorization so important in neural network training?", a: "Replacing Python for-loops with matrix operations eliminates interpreter overhead and enables CPU SIMD / GPU parallelism — achieving 100–10000× speedups on modern hardware." },
-          { q: "How do you vectorize a forward pass over a mini-batch of m examples?", a: "Stack examples as columns in matrix X (n_in × m). Then Z = W·X + b (broadcasting bias). The result Z is (n_out × m) — all m pre-activations computed in one BLAS call." },
+          { q: "How do you vectorize a forward pass over a mini-batch of m examples?", a: "Stack examples as columns in matrix X (n_in × m). Then \\(\\mathbf{Z} = \\mathbf{W}\\mathbf{X} + \\mathbf{b}\\) (broadcasting bias). The result Z is (n_out × m) — all m pre-activations computed in one BLAS call." },
         ];
       if (t.includes("generalization") && t.includes("neural"))
         return [
@@ -3928,13 +3928,13 @@
         ];
       if (t.includes("learning") && t.includes("neural"))
         return [
-          { q: "What is the role of the learning rate in neural network training?", a: "It scales the gradient update step. Too large → divergence or oscillation. Too small → very slow convergence. Learning rate schedules (decay, warmup) and adaptive optimisers (Adam) help." },
+          { q: "What is the role of the learning rate in neural network training?", a: "It scales the gradient update step. Too large \\(\\to\\) divergence or oscillation. Too small \\(\\to\\) very slow convergence. Learning rate schedules (decay, warmup) and adaptive optimisers (Adam) help." },
           { q: "Why is Adam often preferred over plain SGD for deep networks?", a: "Adam maintains per-parameter adaptive learning rates using first and second gradient moments, handling sparse gradients and scaling automatically — converges faster and is less sensitive to tuning." },
         ];
       if (t.includes("boundary") && t.includes("neural"))
         return [
           { q: "How does adding more hidden layers affect the decision boundary?", a: "Each additional layer enables more non-linear compositions, allowing the boundary to become more complex and curved. Shallow networks can only produce simple boundaries." },
-          { q: "What does an overly complex decision boundary indicate?", a: "Overfitting — the network has memorised training data including noise. Signs: training accuracy >> validation accuracy; boundary has unnecessary wiggles around training points." },
+          { q: "What does an overly complex decision boundary indicate?", a: "Overfitting — the network has memorised training data including noise. Signs: training accuracy \\(\\gg\\) validation accuracy; boundary has unnecessary wiggles around training points." },
         ];
       if (t.includes("intro") && t.includes("neural"))
         return [
@@ -3960,7 +3960,7 @@
       if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means")))
         return [
           { q: "Why can Bisecting K-Means outperform standard K-Means?", a: "By repeatedly splitting high-SSE clusters, it often avoids poor global partitions from one-shot initialization." },
-          { q: "What is the tradeoff in Bisecting K-Means?", a: "It can improve structure quality but needs multiple K=2 runs, increasing total computation." },
+          { q: "What is the tradeoff in Bisecting K-Means?", a: "It can improve structure quality but needs multiple \\(K=2\\) runs, increasing total computation." },
         ];
       if (t.includes("fuzzy") && (t.includes("cmeans") || t.includes("c-means")))
         return [
@@ -4034,7 +4034,7 @@
         ];
       if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network")))
         return [
-          { q: "How does a Bayesian Belief Network encode the joint distribution?", a: "Via P(X₁,…,Xₙ) = ∏ P(Xᵢ | parents(Xᵢ)). Each node stores a CPT; the full joint is the product of all CPTs." },
+          { q: "How does a Bayesian Belief Network encode the joint distribution?", a: "Via \\(P(X_1,\\ldots,X_n) = \\prod_i P(X_i \\mid parents(X_i))\\). Each node stores a CPT; the full joint is the product of all CPTs." },
           { q: "How is BBN different from Naive Bayes?", a: "Naive Bayes assumes conditional independence of all features. A BBN explicitly models dependencies via a DAG — far more expressive." },
           { q: "What makes structure learning hard in BBNs?", a: "Finding the optimal DAG is NP-hard; in practice score-based (BIC/MDL) or constraint-based (PC algorithm) search is used with complexity trade-offs." },
         ];
@@ -4084,7 +4084,7 @@
         return [
           { q: "What is a version space?", a: "The set of all hypotheses consistent with the training data. Bounded by maximally general and maximally specific hypotheses." },
           { q: "What is the restarting problem in Candidate Elimination?", a: "A single contradicting example can collapse the entire version space to empty, making the algorithm unable to classify new instances." },
-          { q: "How do S and G sets bound the version space?", a: "S = most specific hypotheses, G = most general hypotheses. Every hypothesis between S and G (ordered by generality) is in the version space." },
+          { q: "How do S and G sets bound the version space?", a: "\\(S\\) = most specific hypotheses, \\(G\\) = most general hypotheses. Every hypothesis between S and G (ordered by generality) is in the version space." },
         ];
       if (t.includes("inductive") && t.includes("bias"))
         return [
