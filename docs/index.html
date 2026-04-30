@@ -4274,13 +4274,31 @@
 
     updateProgress();
 
-    // ── Visit counter (localStorage) ─────────────────────────────────────
-    (function () {
-      const key = "ml-visit-count";
-      const count = (parseInt(localStorage.getItem(key) || "0", 10)) + 1;
-      localStorage.setItem(key, count);
+    // ── Visit counter (real-time global + local fallback) ─────────────────
+    (async function () {
       const el = document.getElementById("visit-count");
-      if (el) el.textContent = count.toLocaleString();
+      if (!el) return;
+
+      const namespace = "ranjigt-ai-ml-cheatsheet";
+      const key = "home";
+
+      try {
+        const res = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`, {
+          cache: "no-store"
+        });
+        if (!res.ok) throw new Error("counter request failed");
+        const data = await res.json();
+        if (typeof data.value === "number") {
+          el.textContent = data.value.toLocaleString();
+          return;
+        }
+        throw new Error("counter response missing value");
+      } catch (_) {
+        const localKey = "ml-visit-count-fallback";
+        const count = (parseInt(localStorage.getItem(localKey) || "0", 10)) + 1;
+        localStorage.setItem(localKey, count);
+        el.textContent = count.toLocaleString();
+      }
     })();
   </script>
 </body>
