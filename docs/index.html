@@ -1956,6 +1956,14 @@
           whenNot: "On severely imbalanced datasets, Precision-Recall AUC may be more informative.",
           related: ["Precision-Recall", "Cross-Validation", "ISO Accuracy Lines"] };
       }
+      if (t.includes("iso") && t.includes("accuracy")) {
+        return { kind: "chart", desc: "Lines on ROC space representing equal expected classification cost.", formula: "m = \\frac{C_{FP}(1-\\pi)}{C_{FN}\\pi}, \\quad TPR = m\\cdot FPR + b",
+          longDesc: "ISO Accuracy Lines (often called iso-performance/iso-cost lines) in ROC space connect operating points with equal expected utility under fixed class priors and misclassification costs. They help choose thresholds by selecting the ROC point that touches the highest utility line.",
+          useCases: ["Threshold selection under costs", "Cost-sensitive model comparison", "Imbalanced classification operations"],
+          whenUse: "When false positives and false negatives have asymmetric business cost and class priors are known.",
+          whenNot: "When costs/priors are unknown or unstable; then prefer cost-agnostic summaries first (ROC-AUC, PR-AUC).",
+          related: ["ROC AUC", "Class Imbalance", "Precision-Recall"] };
+      }
       if (t.includes("cross") || t.includes("hold-out") || t.includes("validation")) {
         return { kind: "chart", desc: "Estimates generalization error by evaluating on unseen data.", formula: "E_{gen} = \\mathbb{E}[L(h, D_{test})]",
           longDesc: "Cross-validation partitions data into k folds, training on k-1 and testing on 1, repeating k times. Hold-out uses a single train-test split. Both prevent overfitting estimation by ensuring unbiased performance estimates.",
@@ -1995,6 +2003,78 @@
           whenUse: "Before applying clustering algorithms to verify if clustering is appropriate.",
           whenNot: "Not useful as a post-clustering validation; use Silhouette instead.",
           related: ["Silhouette Coefficient", "Cluster Validation"] };
+      }
+      if (t.includes("membership") && t.includes("query") && t.includes("synthesis")) {
+        return { kind: "query", desc: "Actively generates synthetic instances and asks an oracle to label them.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x} \\in \\mathcal{X}_{syn}} U(\\mathbf{x})",
+          longDesc: "Membership Query Synthesis constructs new candidate examples (instead of selecting from a fixed pool) and queries their labels. It can explore informative regions quickly but risks generating unrealistic or out-of-distribution instances for human annotators.",
+          useCases: ["Synthetic rule-learning queries", "Program synthesis supervision", "Oracle-driven concept refinement"],
+          whenUse: "When a generator can produce valid domain examples and oracle labeling is available.",
+          whenNot: "When synthetic examples are hard to validate or violate domain realism constraints.",
+          related: ["Pool-Based Sampling", "Stream-Based Selective Sampling", "Uncertainty Sampling"] };
+      }
+      if (t.includes("stream") && t.includes("selective") && t.includes("sampling")) {
+        return { kind: "query", desc: "Online active learning for streams where only selected incoming instances are queried.", formula: "q_t = \\mathbf{1}[U(\\mathbf{x}_t) > \\tau_t]",
+          longDesc: "Stream-Based Selective Sampling makes query decisions on-the-fly for each arriving instance under a labeling budget. It balances informativeness, recency, and drift-awareness to keep models updated without labeling every point.",
+          useCases: ["Fraud streams", "Sensor monitoring", "Online moderation"],
+          whenUse: "When data arrives continuously and annotation budget is limited.",
+          whenNot: "When all data can be stored and queried offline (pool setting is simpler).",
+          related: ["Pool-Based Sampling", "Concept Drift Detection", "ADWIN"] };
+      }
+      if (t.includes("pool") && t.includes("based") && (t.includes("sampling") || t.includes("samping"))) {
+        return { kind: "query", desc: "Selects queries from a large static unlabeled pool.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x} \\in U} U(\\mathbf{x})",
+          longDesc: "Pool-Based Sampling assumes access to an unlabeled pool U and repeatedly queries the most informative points according to a scoring function (uncertainty, disagreement, expected utility). It is the most common active learning setup in practice.",
+          useCases: ["Document labeling", "Medical image annotation", "Offline dataset curation"],
+          whenUse: "When a sizable unlabeled dataset is available before training.",
+          whenNot: "When data arrives sequentially and cannot be revisited (use stream-based selective sampling).",
+          related: ["Uncertainty Sampling", "Query by Committee", "Expected Error Reduction"] };
+      }
+      if (t.includes("uncertainty") && t.includes("sampling")) {
+        return { kind: "query", desc: "Queries instances where the model is least confident.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x}} H\\!\\left(p(y \\mid \\mathbf{x})\\right)",
+          longDesc: "Uncertainty Sampling ranks unlabeled points by prediction uncertainty (least confidence, margin, or entropy) and queries the top candidates. It is simple, strong, and widely used as a baseline in active learning systems.",
+          useCases: ["Text classification", "Medical triage labeling", "Fast active learning baselines"],
+          whenUse: "When calibrated class probabilities or confidence scores are available.",
+          whenNot: "When model confidence is poorly calibrated or heavily biased early in training.",
+          related: ["Query by Committee", "Information Density Active Learning", "Pool-Based Sampling"] };
+      }
+      if (t.includes("query") && t.includes("committee")) {
+        return { kind: "query", desc: "Queries examples with maximum disagreement among a committee of models.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x}} \\text{Disagreement}(\\{h_m(\\mathbf{x})\\}_{m=1}^M)",
+          longDesc: "Query by Committee maintains multiple plausible models and selects points where committee members disagree most. Disagreement can be measured by vote entropy, KL divergence, or variation ratio, capturing epistemic uncertainty.",
+          useCases: ["Model uncertainty exploration", "Robust annotation selection", "Ensemble-driven AL"],
+          whenUse: "When diverse committee members can be trained efficiently.",
+          whenNot: "When committee training is too expensive or models collapse to near-identical hypotheses.",
+          related: ["Uncertainty Sampling", "Expected Model Change", "Pool-Based Sampling"] };
+      }
+      if (t.includes("expected") && t.includes("model") && t.includes("change")) {
+        return { kind: "query", desc: "Selects points expected to induce the largest parameter update.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x}} \\mathbb{E}_{y \\sim p(y|\\mathbf{x})}\\left[\\|\\nabla_\\theta \\ell(\\theta; \\mathbf{x}, y)\\|\\right]",
+          longDesc: "Expected Model Change prioritizes unlabeled points likely to move model parameters the most after labeling. It focuses on training dynamics rather than pure predictive uncertainty and often uses gradient-norm approximations for efficiency.",
+          useCases: ["Neural active learning", "Large-model fine-tuning with budgets", "Online optimization-aware querying"],
+          whenUse: "When gradients are available and you want direct influence on model parameters.",
+          whenNot: "When gradient computation per candidate is prohibitively expensive.",
+          related: ["Expected Error Reduction", "Uncertainty Sampling", "Variance Reduction Active Learning"] };
+      }
+      if (t.includes("expected") && t.includes("error") && t.includes("reduction")) {
+        return { kind: "query", desc: "Queries instances expected to minimize future generalization error the most.", formula: "\\mathbf{x}^* = \\arg\\min_{\\mathbf{x}} \\mathbb{E}_{y \\sim p(y|\\mathbf{x})}[R(h_{(\\mathbf{x}, y)})]",
+          longDesc: "Expected Error Reduction evaluates each candidate by estimated reduction in future test error after labeling and retraining. It is theoretically appealing but computationally expensive because it requires nested retraining/approximation.",
+          useCases: ["High-stakes annotation budgets", "Sample-efficient labeling", "Research benchmarks"],
+          whenUse: "When labeling is very expensive and compute budget allows deeper utility estimation.",
+          whenNot: "When low-latency querying is required; uncertainty-based heuristics are much cheaper.",
+          related: ["Expected Model Change", "Variance Reduction Active Learning", "Pool-Based Sampling"] };
+      }
+      if (t.includes("variance") && t.includes("reduction") && t.includes("active")) {
+        return { kind: "query", desc: "Selects points that most reduce prediction variance or posterior uncertainty.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x}} \\left[\\mathrm{Var}(f \\mid D) - \\mathbb{E}_{y}[\\mathrm{Var}(f \\mid D \\cup \\{(\\mathbf{x}, y)\\})]\\right]",
+          longDesc: "Variance Reduction Active Learning targets uncertainty in the model itself, choosing labels that most reduce posterior variance of predictions or parameters. It is common in Bayesian and Gaussian process settings.",
+          useCases: ["Bayesian active learning", "Gaussian process regression", "Experiment design"],
+          whenUse: "When uncertainty quantification is reliable and variance is a key objective.",
+          whenNot: "When model does not provide meaningful posterior/variance estimates.",
+          related: ["Expected Error Reduction", "Information Density Active Learning", "Query by Committee"] };
+      }
+      if (t.includes("information") && t.includes("density") && t.includes("active")) {
+        return { kind: "query", desc: "Combines informativeness with representativeness of dense data regions.", formula: "score(\\mathbf{x}) = U(\\mathbf{x}) \\cdot \\left(\\frac{1}{|U|}\\sum_{\\mathbf{x}'\\in U} sim(\\mathbf{x},\\mathbf{x}')\\right)^\\beta",
+          longDesc: "Information Density Active Learning adjusts uncertainty/disagreement scores by neighborhood density so selected samples are both informative and representative. This avoids querying isolated outliers that may be uncertain but not broadly useful.",
+          useCases: ["Balanced query selection", "Cluster-aware labeling", "Robust pool-based active learning"],
+          whenUse: "When pool contains outliers and you want globally representative queried points.",
+          whenNot: "When similarity computation over the unlabeled pool is too expensive at scale.",
+          related: ["Uncertainty Sampling", "Pool-Based Sampling", "Variance Reduction Active Learning"] };
       }
       if (t.includes("active learning") || t.includes("query") || t.includes("uncertainty")) {
         return { kind: "query", desc: "Selects most informative unlabeled samples to annotate.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x}} \\; H\\!\\left(p(y \\mid \\mathbf{x})\\right)",
@@ -2371,6 +2451,14 @@
           whenUse: "Medium-sized datasets with clear margin separation; effective in high dimensions.",
           whenNot: "Large datasets — training is O(n²) to O(n³); less effective than deep learning on images.",
           related: ["Maximal Margin Classifier", "Non-Linear SVM", "Kernel Functions", "PCA"] };
+      }
+      if (t.includes("class") && t.includes("imbalance")) {
+        return { kind: "bars", desc: "Learning setting where minority classes are underrepresented and often misclassified.", formula: "IR = \\frac{N_{majority}}{N_{minority}}",
+          longDesc: "Class imbalance occurs when class frequencies are highly skewed, causing standard learners to optimize overall accuracy while neglecting minority recall. Robust practice combines resampling, class-weighted losses, threshold tuning, and metrics like PR-AUC/F1 instead of raw accuracy.",
+          useCases: ["Fraud detection", "Rare disease screening", "Failure prediction"],
+          whenUse: "Whenever minority events are important and prevalence is low.",
+          whenNot: "When classes are balanced and misclassification costs are symmetric.",
+          related: ["SMOTE", "ROC AUC", "ISO Accuracy Lines", "Precision-Recall"] };
       }
       if (t.includes("smote") || t.includes("imbalance") || t.includes("class imbalance")) {
         return { kind: "cluster", desc: "Addresses imbalanced datasets by oversampling minority class.", formula: "\\tilde{x} = x_i + \\lambda(x_{nn} - x_i),\\; \\lambda \\in [0,1]",
@@ -3002,6 +3090,17 @@
     // ── Dataset suggestions per topic ─────────────────────────────────────
     function datasetsFor(title) {
       const t = title.toLowerCase();
+      if (t.includes("iso") && t.includes("accuracy")) return ["Credit Card Fraud (Kaggle)", "Breast Cancer Wisconsin", "Pima Indians Diabetes"];
+      if (t.includes("class") && t.includes("imbalance")) return ["Credit Card Fraud (Kaggle)", "KDD Cup 99", "Mammography (ODDS)"];
+      if (t.includes("membership") && t.includes("query") && t.includes("synthesis")) return ["Synthetic concept spaces", "20 Newsgroups (feature-space synthesis)", "MNIST (augmentation-driven oracle queries)"];
+      if (t.includes("stream") && t.includes("selective") && t.includes("sampling")) return ["SEA Concepts (synthetic)", "Electricity Market", "Airlines Delay Streams"];
+      if (t.includes("pool") && t.includes("based") && (t.includes("sampling") || t.includes("samping"))) return ["20 Newsgroups", "CIFAR-10 (unlabeled pool)", "Reuters-21578"];
+      if (t.includes("uncertainty") && t.includes("sampling")) return ["MNIST", "20 Newsgroups", "IMDb Reviews"];
+      if (t.includes("query") && t.includes("committee")) return ["UCI Letter Recognition", "20 Newsgroups", "CIFAR-10"];
+      if (t.includes("expected") && t.includes("model") && t.includes("change")) return ["MNIST", "Fashion-MNIST", "CIFAR-10"];
+      if (t.includes("expected") && t.includes("error") && t.includes("reduction")) return ["Iris", "Digits (sklearn)", "20 Newsgroups"];
+      if (t.includes("variance") && t.includes("reduction") && t.includes("active")) return ["UCI Regression sets", "Boston Housing", "Kin8nm"];
+      if (t.includes("information") && t.includes("density") && t.includes("active")) return ["20 Newsgroups", "Reuters-21578", "RCV1-v2"];
       if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) return ["Iris", "Wine", "Digits (sklearn)"];
       if (t.includes("problem") && t.includes("transformation")) return ["Bibtex", "Delicious-200K", "RCV1-v2"];
       if (t.includes("binary") && t.includes("relevance")) return ["Reuters-21578", "Bibtex", "Mediamill"];
@@ -3033,6 +3132,17 @@
     // ── Hyperparameter guide ──────────────────────────────────────────────
     function hyperparamsFor(title) {
       const t = title.toLowerCase();
+      if (t.includes("iso") && t.includes("accuracy")) return [{ p: "cost_ratio (C_FP/C_FN)", desc: "Sets slope of iso-accuracy lines in ROC space under operational cost assumptions." }, { p: "class_prior (pi)", desc: "Estimated positive prevalence used in expected-cost line construction." }, { p: "threshold_grid", desc: "Candidate score thresholds used to map ROC operating points." }];
+      if (t.includes("class") && t.includes("imbalance")) return [{ p: "class_weight", desc: "Penalize minority errors more (e.g., balanced, inverse frequency, custom costs)." }, { p: "sampling_strategy", desc: "Target ratio for over/under-sampling in the training pipeline." }, { p: "decision_threshold", desc: "Probability cutoff tuned for recall/precision tradeoff, not fixed at 0.5." }];
+      if (t.includes("membership") && t.includes("query") && t.includes("synthesis")) return [{ p: "generator_constraints", desc: "Validity constraints to keep synthesized queries realistic and labelable." }, { p: "query_budget", desc: "Maximum oracle labels allowed for synthesized instances." }, { p: "novelty_penalty", desc: "Prevents generation of extreme out-of-distribution candidates." }];
+      if (t.includes("stream") && t.includes("selective") && t.includes("sampling")) return [{ p: "query_threshold (tau)", desc: "Query only when informativeness exceeds this online threshold." }, { p: "budget_rate", desc: "Long-run fraction of stream points allowed to be queried." }, { p: "window_size", desc: "Recent window used for uncertainty/drift-aware scoring." }];
+      if (t.includes("pool") && t.includes("based") && (t.includes("sampling") || t.includes("samping"))) return [{ p: "batch_size", desc: "Number of examples queried per AL round." }, { p: "acquisition_function", desc: "Scoring function: uncertainty, disagreement, expected utility, etc." }, { p: "rounds", desc: "Number of query-train cycles under a fixed label budget." }];
+      if (t.includes("uncertainty") && t.includes("sampling")) return [{ p: "uncertainty_measure", desc: "least_confidence, margin, or entropy-based ranking." }, { p: "batch_size", desc: "How many top-uncertain points to request per iteration." }, { p: "calibration_method", desc: "Temperature scaling or isotonic calibration to improve confidence reliability." }];
+      if (t.includes("query") && t.includes("committee")) return [{ p: "committee_size", desc: "Number of diverse models in the committee." }, { p: "disagreement_metric", desc: "vote_entropy, KL_divergence, or variation_ratio." }, { p: "diversity_strategy", desc: "How committee members are diversified (bootstrap, architecture, priors)." }];
+      if (t.includes("expected") && t.includes("model") && t.includes("change")) return [{ p: "gradient_proxy", desc: "Approximation for expected parameter change (norm, influence, fisher proxy)." }, { p: "candidate_subset", desc: "Subset size evaluated each round to control compute cost." }, { p: "learning_rate_assumption", desc: "Step-size assumption used in expected update calculations." }];
+      if (t.includes("expected") && t.includes("error") && t.includes("reduction")) return [{ p: "retrain_subset_size", desc: "Candidate pool size used in nested retraining approximation." }, { p: "future_loss_estimator", desc: "Metric/model used to approximate post-query generalization error." }, { p: "mc_samples", desc: "Monte Carlo label samples for expectation over unknown true labels." }];
+      if (t.includes("variance") && t.includes("reduction") && t.includes("active")) return [{ p: "uncertainty_model", desc: "Bayesian model or ensemble providing predictive variance estimates." }, { p: "acquisition_beta", desc: "Weight balancing variance reduction versus exploitation." }, { p: "candidate_subset", desc: "Number of unlabeled points scored per query round." }];
+      if (t.includes("information") && t.includes("density") && t.includes("active")) return [{ p: "beta", desc: "Exponent controlling representativeness weight in density-adjusted score." }, { p: "similarity_metric", desc: "cosine, euclidean, or kernel similarity for density computation." }, { p: "knn_density_k", desc: "Neighborhood size used to estimate local data density." }];
       if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic") && !t.includes("ridge") && !t.includes("lasso") && !t.includes("polynomial") && !t.includes("isotonic") && !t.includes("evaluation") && !t.includes("elastic")))
         return [{ p: "fit_intercept", desc: "Whether to fit the bias term. Usually true." }, { p: "normalize (deprecated)", desc: "Scale features first; use StandardScaler instead." }];
       if (t.includes("ridge")) return [{ p: "alpha (λ)", desc: "Regularisation strength. Larger = simpler model. Try: 0.01, 0.1, 1, 10." }, { p: "fit_intercept", desc: "Whether to fit the bias term. Almost always true." }, { p: "solver", desc: "auto, svd, cholesky, lsqr. auto selects based on data shape." }];
@@ -3089,6 +3199,61 @@
     // ── Interview Q&A ─────────────────────────────────────────────────────
     function interviewQAFor(title) {
       const t = title.toLowerCase();
+      if (t.includes("iso") && t.includes("accuracy"))
+        return [
+          { q: "What does an ISO Accuracy (iso-cost) line represent in ROC space?", a: "It represents all operating points with equal expected utility/cost for fixed class priors and error costs." },
+          { q: "How is the slope of an iso-cost line determined?", a: "By the relative cost and prevalence: m = C_FP(1-pi)/(C_FN pi). Different operating assumptions yield different preferred thresholds." },
+        ];
+      if (t.includes("class") && t.includes("imbalance"))
+        return [
+          { q: "Why is accuracy misleading under severe class imbalance?", a: "A model can predict only the majority class and still score high accuracy while having near-zero minority recall." },
+          { q: "Name practical ways to handle class imbalance.", a: "Use class weights/cost-sensitive loss, resampling (SMOTE/undersampling), threshold tuning, and report PR-AUC/F1/recall instead of only accuracy." },
+        ];
+      if (t.includes("membership") && t.includes("query") && t.includes("synthesis"))
+        return [
+          { q: "How does membership query synthesis differ from pool-based active learning?", a: "It generates new synthetic query points rather than selecting from an existing unlabeled pool." },
+          { q: "What is the main risk in membership query synthesis?", a: "Generated samples may be unrealistic or outside oracle expertise, reducing label reliability." },
+        ];
+      if (t.includes("stream") && t.includes("selective") && t.includes("sampling"))
+        return [
+          { q: "Why is stream-based selective sampling harder than pool-based sampling?", a: "Each decision is online and often one-shot; you must balance immediacy, budget, and drift without full future context." },
+          { q: "How do budgets enter stream-based selective sampling?", a: "Through a query-rate constraint so only a fraction of incoming instances can be labeled over time." },
+        ];
+      if (t.includes("pool") && t.includes("based") && (t.includes("sampling") || t.includes("samping")))
+        return [
+          { q: "What is the standard loop in pool-based active learning?", a: "Train on labeled set, score unlabeled pool, query top candidates, add labels, and retrain iteratively." },
+          { q: "Why is pool-based active learning popular?", a: "It is simple to implement and supports many acquisition functions while using fixed offline data." },
+        ];
+      if (t.includes("uncertainty") && t.includes("sampling"))
+        return [
+          { q: "What are common uncertainty sampling scores?", a: "Least confidence, margin sampling, and predictive entropy." },
+          { q: "When can uncertainty sampling fail?", a: "When predicted probabilities are poorly calibrated or when it repeatedly selects outliers." },
+        ];
+      if (t.includes("query") && t.includes("committee"))
+        return [
+          { q: "What does Query by Committee optimize for?", a: "High disagreement among plausible models, which signals epistemic uncertainty." },
+          { q: "How do you maintain committee diversity?", a: "Use different model families, bootstrap samples, hyperparameters, or priors to avoid identical decision boundaries." },
+        ];
+      if (t.includes("expected") && t.includes("model") && t.includes("change"))
+        return [
+          { q: "What is the intuition behind Expected Model Change?", a: "Label points that are expected to move parameters the most, because they are likely to alter future predictions." },
+          { q: "Why is it often approximated in practice?", a: "Exact expectation over unknown labels and full retraining is expensive, so gradient-norm proxies are commonly used." },
+        ];
+      if (t.includes("expected") && t.includes("error") && t.includes("reduction"))
+        return [
+          { q: "Why is Expected Error Reduction considered principled?", a: "It directly targets the objective of minimizing future generalization error after each queried label." },
+          { q: "What is its main practical drawback?", a: "High computational cost due to nested estimation/retraining for many candidates." },
+        ];
+      if (t.includes("variance") && t.includes("reduction") && t.includes("active"))
+        return [
+          { q: "What does Variance Reduction Active Learning attempt to minimize?", a: "Predictive or parameter variance under the current posterior/model uncertainty." },
+          { q: "Which model families naturally support this criterion?", a: "Bayesian models and Gaussian processes where uncertainty estimates are explicit." },
+        ];
+      if (t.includes("information") && t.includes("density") && t.includes("active"))
+        return [
+          { q: "Why multiply uncertainty by density in Information Density AL?", a: "To avoid spending labels on isolated outliers and prefer informative points representative of many unlabeled samples." },
+          { q: "What is the key tradeoff controlled by beta?", a: "Higher beta emphasizes representativeness; lower beta behaves closer to pure uncertainty sampling." },
+        ];
       if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic") && !t.includes("ridge") && !t.includes("lasso") && !t.includes("polynomial") && !t.includes("isotonic") && !t.includes("evaluation") && !t.includes("elastic")))
         return [
           { q: "What are the assumptions of linear regression?", a: "Linearity, independence of errors, homoscedasticity, normality of residuals, no multicollinearity." },
