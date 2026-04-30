@@ -1723,7 +1723,47 @@
 
     function topicProfile(title) {
       const t = title.toLowerCase();
-      if (t.includes("logistic") || t.includes("sigmoid") || t.includes("softmax")) {
+      if (t.includes("step") && t.includes("activation")) {
+        return { kind: "curve", desc: "Binary threshold activation: outputs 1 above threshold, 0 below; the original perceptron activation.", formula: "f(z) = \\begin{cases} 1 & z \\geq \\theta \\\\ 0 & z < \\theta \\end{cases}",
+          longDesc: "The step (Heaviside) function is the original activation of McCulloch-Pitts neurons and Rosenblatt's perceptron. It produces hard binary decisions with zero gradient everywhere — incompatible with gradient-based training. Its simplicity makes it an important historical baseline, but it has been replaced by smooth differentiable activations in all modern networks.",
+          useCases: ["Rosenblatt perceptron", "Binary threshold gates", "Historical ML pedagogy"],
+          whenUse: "Theoretical study of the perceptron only; not used in gradient-trained deep networks.",
+          whenNot: "All practical neural networks — zero gradient makes weight updates via backpropagation impossible.",
+          related: ["Sigmoid Activation Function", "ReLU Activation Function", "Delta Rule", "Perceptron"] };
+      }
+      if (t.includes("sigmoid") && t.includes("activation")) {
+        return { kind: "curve", desc: "Squashes input to (0,1); smooth and differentiable but saturates causing vanishing gradients in deep layers.", formula: "\\sigma(z) = \\frac{1}{1+e^{-z}}, \\quad \\sigma'(z) = \\sigma(z)(1-\\sigma(z))",
+          longDesc: "Sigmoid maps any real input to (0,1), making it interpretable as a probability. Its smooth gradient enables backpropagation, but near-zero gradients at saturation (|z| >> 0) cause the vanishing gradient problem in deep networks. Used in binary output layers and as gate activations inside LSTM/GRU units; largely replaced by ReLU in hidden layers.",
+          useCases: ["Binary classification output layer", "LSTM/GRU gate activations", "Attention weight normalization"],
+          whenUse: "Output neuron for binary classification; gate functions inside recurrent units (LSTM/GRU).",
+          whenNot: "Hidden layers of deep networks — use ReLU; produces near-zero gradients when |z| is large.",
+          related: ["ReLU Activation Function", "Hyperbolic Activation Function", "Vanishing Exploding Gradients", "LSTM"] };
+      }
+      if (t.includes("hyperbolic")) {
+        return { kind: "curve", desc: "Zero-centered sigmoid-shaped activation ranging from -1 to 1; preferred over sigmoid in RNNs.", formula: "\\tanh(z) = \\frac{e^z - e^{-z}}{e^z + e^{-z}}, \\quad \\tanh'(z) = 1 - \\tanh^2(z)",
+          longDesc: "Hyperbolic tangent (tanh) is a rescaled sigmoid: tanh(z) = 2\u03c3(2z) \u2212 1. Its zero-centered output avoids the all-positive gradient updates of sigmoid, leading to faster convergence in practice. Still saturates at \u00b11, causing vanishing gradients in very deep networks. Standard activation inside LSTM gates and RNN hidden states.",
+          useCases: ["RNN hidden state activations", "LSTM internal activations", "Shallow network hidden layers"],
+          whenUse: "When zero-centered activations are needed; standard inside RNN and LSTM architectures.",
+          whenNot: "Deep feedforward networks \u2014 still saturates causing vanishing gradients; use ReLU or variants.",
+          related: ["Sigmoid Activation Function", "ReLU Activation Function", "Vanishing Exploding Gradients", "LSTM"] };
+      }
+      if (t.includes("relu")) {
+        return { kind: "curve", desc: "max(0,z): sparse, non-saturating activation that avoids vanishing gradients for positive inputs.", formula: "\\text{ReLU}(z) = \\max(0, z), \\quad \\frac{d}{dz} = \\mathbf{1}[z > 0]",
+          longDesc: "ReLU (Rectified Linear Unit) is the dominant hidden-layer activation in modern deep learning. Gradient = 1 for z > 0 avoids saturation enabling effective training in deep networks. Drawback: dying ReLU \u2014 neurons with consistently negative pre-activations output zero forever. Variants (Leaky ReLU, ELU, GELU) address this with small non-zero negative slopes.",
+          useCases: ["Deep CNN hidden layers", "MLP hidden layers", "Default activation for feedforward networks"],
+          whenUse: "Default first choice for hidden layers in any deep network.",
+          whenNot: "Output layers (use sigmoid/softmax/linear); dying ReLU risk with very large learning rates.",
+          related: ["Sigmoid Activation Function", "Hyperbolic Activation Function", "Vanishing Exploding Gradients", "Leaky ReLU"] };
+      }
+      if (t.includes("softmax") && t.includes("activation")) {
+        return { kind: "curve", desc: "Converts raw logits to a probability distribution over C classes summing to 1.", formula: "\\text{softmax}(z_j) = \\frac{e^{z_j}}{\\sum_{k=1}^{C} e^{z_k}}",
+          longDesc: "Softmax is the multi-class generalization of sigmoid. It exponentiates each logit and normalizes to produce a valid probability distribution. Paired with cross-entropy loss the combined gradient simplifies to (\u0177 \u2212 y), making it numerically clean. Numerically stable implementation subtracts max(z) before exponentiating to prevent overflow.",
+          useCases: ["Multi-class classification output layer", "Attention score normalization", "Language model token probabilities"],
+          whenUse: "Multi-class classification output where classes are mutually exclusive (C \u2265 2).",
+          whenNot: "Multi-label tasks (use independent sigmoid per class); regression outputs.",
+          related: ["Sigmoid Activation Function", "Cross-Entropy Loss", "Logistic Regression", "Attention Mechanism"] };
+      }
+      if (t.includes("logistic")) {
         return { kind: "curve", desc: "Maps model score to class probability.", formula: "P(y=1\\mid \\mathbf{x}) = \\sigma(\\mathbf{w}^T \\mathbf{x})",
           longDesc: "Logistic regression applies the sigmoid function to a linear combination of features, producing a probability score used for binary or multi-class classification.",
           useCases: ["Spam detection", "Credit default prediction", "Disease diagnosis"],
@@ -1826,6 +1866,30 @@
           whenUse: "When a single model overfits or underfits; ensembles almost always improve accuracy.",
           whenNot: "When training time and model interpretability are critical constraints.",
           related: ["Decision Trees", "Gradient Boosting", "Bias-Variance Tradeoff"] };
+      }
+      if (t.includes("lazy")) {
+        return { kind: "cluster", desc: "Defers model construction to query time by memorising all training instances.", formula: "\\hat{y}(\\mathbf{x}_q) = \\text{Retrieve}(\\mathbf{x}_q, \\mathcal{D}_{train})",
+          longDesc: "Lazy learning algorithms (instance-based methods) skip the training phase entirely and memorise all examples verbatim. All computation is deferred to prediction time by finding the most similar stored instances. Zero training cost but O(n) prediction cost; the model instantly reflects any new added example without retraining.",
+          useCases: ["KNN classification and regression", "Locally weighted regression", "Online learning with rapid updates"],
+          whenUse: "Concept drift is expected; adding new classes/examples requires no retraining; fast incremental updates needed.",
+          whenNot: "Real-time prediction with large datasets \u2014 O(n) prediction cost; high memory footprint; slow query time.",
+          related: ["KNN", "Weighted KNN", "Case Based Reasoning", "Distance Measures"] };
+      }
+      if (t.includes("weighted") && t.includes("knn")) {
+        return { kind: "cluster", desc: "KNN variant where closer neighbours have more influence via inverse-distance weighting.", formula: "\\hat{y} = \\arg\\max_c \\sum_{i=1}^k w_i \\cdot \\mathbf{1}[y_i=c], \\quad w_i = \\frac{1}{d(\\mathbf{x}, \\mathbf{x}_i)^p}",
+          longDesc: "Weighted KNN assigns each of the k nearest neighbours a weight proportional to how close they are \u2014 commonly 1/d or 1/d\u00b2. Closer neighbours get more voting power, reducing the influence of distant neighbours within the k-neighbourhood. Significantly outperforms uniform KNN when the decision boundary is locally non-uniform or outliers exist near neighbourhood edges.",
+          useCases: ["Spatial prediction", "Recommendation systems", "Medical record matching"],
+          whenUse: "When nearby instances are more reliable than distant ones; distance metric is well-calibrated and features are normalized.",
+          whenNot: "When the distance metric is poorly calibrated; all distances become similar in high-dimensional spaces.",
+          related: ["KNN", "Lazy Learning Algorithms", "Case Based Reasoning", "Distance Measures"] };
+      }
+      if (t.includes("case") && t.includes("reasoning")) {
+        return { kind: "graph", desc: "Solves new problems by retrieving and adapting solutions from similar past cases.", formula: "\\text{sim}(Q, C_i) = \\frac{\\sum_f w_f \\cdot s_f(Q_f, C_{if})}{\\sum_f w_f}",
+          longDesc: "Case-Based Reasoning (CBR) follows a 4-step cycle: Retrieve the most similar stored cases, Reuse their solutions, Revise where needed, and Retain the new case in the library. Similarity is a weighted combination of per-feature similarity functions. The case base grows organically over time, accumulating domain knowledge without explicit programming.",
+          useCases: ["Medical diagnosis assistance", "Legal argument support", "Help-desk automation"],
+          whenUse: "Domain knowledge is hard to formalise but historical cases are well-documented; adaptive systems.",
+          whenNot: "When cases are sparse or feature similarity is hard to define; structured ML provides better generalisation.",
+          related: ["KNN", "Weighted KNN", "Lazy Learning Algorithms"] };
       }
       if (t.includes("knn") || t.includes("neighbor") || t.includes("distance")) {
         return { kind: "cluster", desc: "Predicts from nearest points under a distance metric.", formula: "d(\\mathbf{x}_i, \\mathbf{x}_j) = \\lVert \\mathbf{x}_i - \\mathbf{x}_j \\rVert_2",
@@ -1986,6 +2050,110 @@
           whenUse: "When the loss function is differentiable and the problem is too large for a direct analytical solution.",
           whenNot: "Non-differentiable objectives or highly non-convex landscapes with many local minima; evolutionary or Bayesian optimization may be better.",
           related: ["Backpropagation", "Neural Networks", "Ridge Regression", "Hyperparameter Tuning"] };
+      }
+      if (t.includes("lstm")) {
+        return { kind: "wave", desc: "Gated RNN that captures long-range dependencies via cell state and three learnable gates.", formula: "\\mathbf{c}_t = \\mathbf{f}_t \\odot \\mathbf{c}_{t-1} + \\mathbf{i}_t \\odot \\tilde{\\mathbf{c}}_t",
+          longDesc: "LSTM (Long Short-Term Memory) addresses the vanishing gradient problem in vanilla RNNs via three gates: forget gate (what to discard from cell state), input gate (what new info to write), and output gate (what to expose as hidden state). The cell state c_t acts as a long-range memory highway with mostly additive updates, enabling gradients to flow through hundreds of timesteps.",
+          useCases: ["Language modeling", "Machine translation", "Time series forecasting", "Speech recognition"],
+          whenUse: "Sequential data with long-range dependencies; when vanilla RNNs fail due to vanishing gradients.",
+          whenNot: "Large NLP datasets — Transformers outperform LSTMs with more data and offer full parallelism.",
+          related: ["Teacher Forcing", "Vanishing Exploding Gradients", "Backpropagation Algorithm", "ARIMA"] };
+      }
+      if (t.includes("teacher") && t.includes("forcing")) {
+        return { kind: "wave", desc: "RNN training technique that feeds ground-truth previous tokens as inputs rather than the model's own predictions.", formula: "h_t = f(h_{t-1},\\; y^*_{t-1}), \\quad y^*_{t-1} = \\text{true label at } t{-}1",
+          longDesc: "Teacher forcing provides the ground-truth previous output y*_{t-1} as the next input during training instead of the network's own prediction. This prevents error cascades and speeds convergence. Downside: exposure bias — the model never sees its own errors during training, creating a train-test mismatch at inference. Scheduled sampling mitigates this by gradually replacing teacher inputs with the model's own outputs.",
+          useCases: ["Sequence-to-sequence models", "Text generation training", "Speech synthesis"],
+          whenUse: "Training autoregressive RNN/LSTM models; dramatically accelerates convergence.",
+          whenNot: "When exposure bias causes inference degradation on long sequences; use scheduled sampling.",
+          related: ["LSTM", "Sequence Modeling", "RNN Training"] };
+      }
+      if (t.includes("vanishing") || t.includes("exploding")) {
+        return { kind: "network", desc: "Training failure modes where backpropagated gradients shrink to near zero or grow without bound through deep layers.", formula: "\\nabla_{\\mathbf{W}^{(1)}} \\mathcal{L} = \\prod_{l=2}^{L} \\mathbf{W}^{(l)T} \\cdot \\boldsymbol{\\delta}^{(L)}",
+          longDesc: "During backpropagation through L layers, gradients involve products of L weight matrices and activation derivatives. Values consistently < 1 cause exponential vanishing; values consistently > 1 cause exploding gradients. Solutions: ReLU activations, LSTM additive cell state updates, batch normalisation, gradient clipping, and Xavier/He initialisation.",
+          useCases: ["Diagnosing deep network training failure", "Motivating LSTM design", "Selecting initialisation strategies"],
+          whenUse: "Monitor gradient norms during training; apply solutions proactively in deep/recurrent architectures.",
+          whenNot: "Not a method — a failure mode to diagnose. Use gradient norm monitoring and TensorBoard.",
+          related: ["Backpropagation Algorithm", "LSTM", "ReLU Activation Function", "Batch Normalisation"] };
+      }
+      if (t.includes("delta") && t.includes("rule")) {
+        return { kind: "network", desc: "Online gradient descent update for single-layer linear neurons; predecessor to backpropagation.", formula: "\\Delta w_{ij} = \\eta \\, (y_j - \\hat{y}_j) \\, x_i",
+          longDesc: "The Delta Rule (Widrow-Hoff, 1960) adjusts each weight proportional to the prediction error and the activating input. It minimises MSE for a single linear neuron via online gradient descent. It is the single-layer precursor to backpropagation; backprop generalises it to multi-layer networks via the chain rule.",
+          useCases: ["Adaptive linear filters (ADALINE)", "Single-layer linear network training", "Pedagogical bridge to backpropagation"],
+          whenUse: "Single-layer linear networks; as a foundation for understanding gradient-based learning.",
+          whenNot: "Multi-layer networks — use backpropagation, which extends the delta rule via the chain rule.",
+          related: ["Backpropagation Algorithm", "Gradient Descent", "Chain Rule", "Perceptron"] };
+      }
+      if (t.includes("backprop")) {
+        return { kind: "network", desc: "Reverse-mode automatic differentiation that efficiently computes gradients for all network parameters.", formula: "\\boldsymbol{\\delta}^{(l)} = (\\mathbf{W}^{(l+1)T} \\boldsymbol{\\delta}^{(l+1)}) \\odot \\sigma'(\\mathbf{z}^{(l)})",
+          longDesc: "Backpropagation applies the chain rule in reverse topological order (output → input). Forward pass: compute all activations. Backward pass: propagate error signals δ^(l) from the output layer, accumulating ∂L/∂W^(l) for each layer. Complexity O(n_params) — linear in parameters — making gradient computation practical for millions of weights.",
+          useCases: ["Training any differentiable neural network", "Autograd engines (PyTorch, TensorFlow)", "Custom loss gradient derivation"],
+          whenUse: "Any multi-layer network with a differentiable loss function.",
+          whenNot: "Non-differentiable objectives; evolutionary strategies do not require gradients.",
+          related: ["Chain Rule", "Gradient Descent", "Delta Rule", "Vanishing Exploding Gradients"] };
+      }
+      if (t.includes("chain") && t.includes("rule")) {
+        return { kind: "network", desc: "Calculus rule enabling gradient computation through composed functions: the product of local partial derivatives.", formula: "\\frac{d\\mathcal{L}}{d\\mathbf{W}^{(l)}} = \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{a}^{(l)}} \\cdot \\frac{\\partial \\mathbf{a}^{(l)}}{\\partial \\mathbf{z}^{(l)}} \\cdot \\frac{\\partial \\mathbf{z}^{(l)}}{\\partial \\mathbf{W}^{(l)}}",
+          longDesc: "The chain rule states d/dx[f(g(x))] = f'(g(x))·g'(x). In multi-layer networks, the gradient of the loss w.r.t. any weight decomposes into a product of local Jacobians along the path from that weight to the output. This decomposition is the mathematical foundation that makes backpropagation computationally efficient.",
+          useCases: ["Deriving backpropagation", "Understanding gradient flow through layers", "Implementing custom autograd layers"],
+          whenUse: "The mathematical backbone of all gradient-based learning; applies whenever differentiable functions are composed.",
+          whenNot: "Not a technique to choose — a mathematical rule underlying all deep learning optimisation.",
+          related: ["Backpropagation Algorithm", "Gradient Descent", "Vanishing Exploding Gradients"] };
+      }
+      if (t.includes("neuron") && !t.includes("neural")) {
+        return { kind: "network", desc: "Each artificial neuron computes a weighted sum of inputs then applies a non-linear activation function.", formula: "z = \\mathbf{w}^T\\mathbf{x} + b, \\quad a = \\sigma(z)",
+          longDesc: "An artificial neuron computes a pre-activation z = wᵀx + b (dot product plus bias) then passes it through a non-linear activation σ to produce output a. Multiple neurons per layer form a weight matrix; stacking layers creates a deep network capable of learning hierarchical feature representations.",
+          useCases: ["Understanding neural forward pass", "Single-unit learning analysis", "Custom neuron design"],
+          whenUse: "The foundational building block of all neural networks; prerequisite for understanding every DNN architecture.",
+          whenNot: "Not a standalone algorithm — neurons are components within a neural network.",
+          related: ["Weight Matrix Neural Networks", "Activation Functions", "Backpropagation Algorithm"] };
+      }
+      if (t.includes("weight") && t.includes("matrix")) {
+        return { kind: "matrix", desc: "Learnable parameter matrix connecting layer inputs to outputs, enabling efficient vectorized computation.", formula: "\\mathbf{Z}^{(l)} = \\mathbf{W}^{(l)} \\mathbf{A}^{(l-1)} + \\mathbf{b}^{(l)}",
+          longDesc: "A layer's weight matrix W ∈ R^{n_out × n_in} linearly transforms activations from the previous layer. Representing weights as a matrix enables batch computation over all m examples simultaneously, GPU-accelerated BLAS routines, and concise gradient expressions ∂L/∂W = δ·Aᵀ. Proper initialisation (Xavier, He) scales values to maintain stable gradient flow.",
+          useCases: ["Efficient forward/backward pass computation", "Transfer learning weight freezing", "Pruning and compression"],
+          whenUse: "Core of every fully-connected neural layer; automatically handled by deep learning frameworks.",
+          whenNot: "CNNs use weight-sharing convolutional kernels instead of full matrices for spatial feature extraction.",
+          related: ["Structure Of A Neuron", "Vectorization Neural Networks", "Backpropagation Algorithm"] };
+      }
+      if (t.includes("vectorization")) {
+        return { kind: "matrix", desc: "Replacing per-sample loops with matrix operations to exploit GPU and SIMD parallelism.", formula: "\\mathbf{Z} = \\mathbf{W}\\mathbf{X} + \\mathbf{b}\\mathbf{1}^T \\quad (\\text{all } m \\text{ examples simultaneously})",
+          longDesc: "Vectorization rewrites explicit for-loops over training examples as batch matrix operations. For m examples, W·X (n_out × m) computes all pre-activations in one BLAS call. This eliminates Python interpreter overhead, exploits CPU SIMD/GPU tensor cores, and achieves 100–10000× speedups vs. naive loops.",
+          useCases: ["GPU-accelerated training", "Efficient mini-batch gradient descent", "Production neural network inference"],
+          whenUse: "Always in production code; frameworks handle this automatically. Understanding shapes prevents dimension errors.",
+          whenNot: "Single-sample step-by-step debugging where explicit loops are easier to inspect.",
+          related: ["Weight Matrix Neural Networks", "Gradient Descent", "NumPy Broadcasting"] };
+      }
+      if (t.includes("generalization") && t.includes("neural")) {
+        return { kind: "network", desc: "A neural network's capacity to perform well on unseen data, controlled by regularisation and architecture choices.", formula: "\\text{gen-gap} = \\mathcal{L}_{\\text{val}} - \\mathcal{L}_{\\text{train}} \\geq 0",
+          longDesc: "Generalisation describes how well training performance transfers to held-out data. A large generalisation gap indicates overfitting. Key techniques: dropout (randomly zeros neurons during training), L2 weight decay, early stopping, batch normalisation, and data augmentation. The bias-variance tradeoff governs the balance between model capacity and generalisation.",
+          useCases: ["Choosing regularisation strength", "Early stopping strategy", "Architecture capacity selection"],
+          whenUse: "Always monitor train vs. val loss curves; apply regularisation proactively for large models with limited data.",
+          whenNot: "Not a single technique — a property to maximise through complementary regularisation strategies.",
+          related: ["Overfitting/Underfitting", "Dropout", "Cross-Validation", "Bias-Variance Tradeoff"] };
+      }
+      if (t.includes("learning") && t.includes("neural")) {
+        return { kind: "network", desc: "The training process of iteratively updating neural network weights to minimise a loss function.", formula: "\\mathbf{W} \\leftarrow \\mathbf{W} - \\eta \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{W}}",
+          longDesc: "Neural network learning alternates: (1) Forward pass — propagate inputs through all layers to compute predictions and loss; (2) Backward pass — compute gradients via backpropagation; (3) Update — adjust weights using an optimiser (SGD, Adam, RMSprop). Key hyperparameters: learning rate, batch size, epochs, and optimiser choice.",
+          useCases: ["Supervised deep learning", "Fine-tuning pretrained models", "Transfer learning"],
+          whenUse: "Core of all neural network training; start with Adam, lr=1e-3, batch=32 as a baseline.",
+          whenNot: "Very small datasets (< 1000 samples) — simpler models generalise better; deep nets overfit without heavy regularisation.",
+          related: ["Gradient Descent", "Backpropagation Algorithm", "Generalization Neural Networks"] };
+      }
+      if (t.includes("boundary") && t.includes("neural")) {
+        return { kind: "network", desc: "The complex non-linear surface a deep network learns to separate class regions in input space.", formula: "\\mathcal{B} = \\{\\mathbf{x} \\in \\mathbb{R}^d : f_\\theta(\\mathbf{x}) = 0.5\\}",
+          longDesc: "A neural network's decision boundary is the set of input points where the output equals the classification threshold. Unlike linear classifiers with hyperplane boundaries, deep networks compose many non-linear transformations to produce complex curved boundaries. More layers and neurons increase boundary complexity and model capacity — but risk overfitting.",
+          useCases: ["Visualising classifier behaviour", "Diagnosing overfitting", "Comparing linear vs. non-linear models"],
+          whenUse: "Visualise in 2D by plotting predicted classes on a dense grid to build model intuition.",
+          whenNot: "Not a technique — a geometric property to analyse.",
+          related: ["Activation Functions", "Generalization Neural Networks", "Overfitting/Underfitting"] };
+      }
+      if (t.includes("intro") && t.includes("neural")) {
+        return { kind: "network", desc: "Multi-layer networks of parameterised neurons composing linear transformations with non-linearities.", formula: "\\mathbf{a}^{(l)} = \\sigma\\!\\left(\\mathbf{W}^{(l)} \\mathbf{a}^{(l-1)} + \\mathbf{b}^{(l)}\\right)",
+          longDesc: "Deep neural networks stack L layers of affine transformations (W^(l), b^(l)) interleaved with non-linear activations σ. Earlier layers learn low-level features; deeper layers learn abstract representations. Universal approximation theorem guarantees DNNs can represent any continuous function given sufficient width/depth.",
+          useCases: ["Image classification (CNNs)", "Natural language processing (Transformers)", "Tabular data (MLP)"],
+          whenUse: "Large datasets with complex non-linear patterns; GPU available; simpler models underfit.",
+          whenNot: "Small/tabular datasets — gradient-boosted trees typically outperform DNNs with far less effort.",
+          related: ["Backpropagation Algorithm", "Gradient Descent", "Activation Functions", "Generalization Neural Networks"] };
       }
       if (t.includes("gradient") || t.includes("backprop") || t.includes("delta") || t.includes("neural") || t.includes("relu") || t.includes("lstm")) {
         return { kind: "network", desc: "Optimizes neural weights via gradient-based learning.", formula: "\\mathbf{w} \\leftarrow \\mathbf{w} - \\eta \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{w}}",
@@ -2681,7 +2849,7 @@
       if (t.includes("cluster") || t.includes("kmeans") || t.includes("dbscan")) return ["Mall Customers", "Wholesale Customers", "MNIST (unsupervised)"];
       if (t.includes("pca") || t.includes("svd") || t.includes("t-sne")) return ["MNIST", "Faces (Olivetti)", "Wine"];
       if (t.includes("bayes") || t.includes("naive")) return ["20 Newsgroups", "SMS Spam Collection", "IMDB Sentiment"];
-      if (t.includes("neural") || t.includes("deep") || t.includes("lstm")) return ["MNIST", "CIFAR-10", "IMDb Reviews"];
+      if (t.includes("neural") || t.includes("deep") || t.includes("lstm") || t.includes("backprop") || t.includes("activation") || t.includes("neuron") || t.includes("vanishing") || t.includes("exploding") || (t.includes("delta") && t.includes("rule")) || (t.includes("chain") && t.includes("rule")) || t.includes("vectorization") || (t.includes("teacher") && t.includes("forcing"))) return ["MNIST", "CIFAR-10", "IMDb Reviews"];
       if (t.includes("time series") || t.includes("arima")) return ["Airline Passengers", "Air Quality (UCI)", "Stock Prices (Yahoo Finance)"];
       if (t.includes("stream") || t.includes("drift") || t.includes("adwin")) return ["SEA Concepts (synthetic)", "STAGGER (synthetic)", "Electricity Market"];
       if (t.includes("association") || t.includes("apriori") || t.includes("eclat")) return ["Online Retail (UCI)", "Groceries (Kaggle)", "MovieLens"];
@@ -2709,9 +2877,12 @@
       if (t.includes("svm") || t.includes("support vector")) return [{ p: "C", desc: "Regularisation. Small C = soft margin (more misclassification allowed). Try: 0.1, 1, 10, 100." }, { p: "kernel", desc: "linear, rbf, poly, sigmoid. Start with rbf." }, { p: "gamma", desc: "RBF width. scale (default), auto, or specific value. Larger = tighter fit." }];
       if (t.includes("kmeans") || t.includes("k-means")) return [{ p: "n_clusters (K)", desc: "Number of clusters. Use elbow method or silhouette score to choose." }, { p: "init", desc: "k-means++ (smart initialisation) or random." }, { p: "n_init", desc: "Number of restarts. Default 10; higher is more stable." }];
       if (t.includes("dbscan")) return [{ p: "eps", desc: "Neighbourhood radius. Use k-distance plot to estimate." }, { p: "min_samples", desc: "Min points to form a core point. Try: 2*d as a rule." }];
+      if (t.includes("lstm")) return [{ p: "hidden_size", desc: "Dimensionality of hidden and cell states. Common: 64–512." }, { p: "num_layers", desc: "Number of stacked LSTM layers. 1–3 is typical; deeper = more capacity." }, { p: "dropout", desc: "Applied between LSTM layers. 0.2–0.5 is typical." }, { p: "bidirectional", desc: "Process sequence forward and backward. Doubles hidden size; useful for classification." }];
+      if (t.includes("vanishing") || t.includes("exploding")) return [{ p: "gradient_clip_val", desc: "Clips gradient norm to this value. Typical: 0.5–1.0 for RNNs." }, { p: "initialisation", desc: "Xavier (tanh/sigmoid), He (ReLU). Correct scaling prevents vanishing at training start." }];
+      if (t.includes("backprop") || (t.includes("chain") && t.includes("rule"))) return null;
       if (t.includes("neural") || t.includes("deep") || t.includes("mlp")) return [{ p: "learning_rate (η)", desc: "Step size. Too high diverges; too low is slow. Try: 1e-4 – 1e-2." }, { p: "batch_size", desc: "Samples per update. 32 or 64 is a safe default." }, { p: "hidden_layers", desc: "Start with 1–2 hidden layers; increase for complex data." }, { p: "dropout", desc: "0.2–0.5 reduces overfitting in deeper networks." }];
       if (t.includes("gradient") && t.includes("descent")) return [{ p: "learning_rate (η)", desc: "Step size per update. Too large diverges; too small is slow. Typical: 0.001–0.1." }, { p: "batch_size", desc: "Samples per gradient update. 1 = SGD, full dataset = batch GD, 32–256 = mini-batch." }, { p: "max_iter / epochs", desc: "Passes over training data. Stop early if validation loss plateaus." }, { p: "momentum (β)", desc: "Fraction of previous velocity to accumulate. 0.9 is common; helps escape saddle points." }];
-      if ((t.includes("gradient") && !t.includes("descent")) || t.includes("boosting") || t.includes("xgb")) return [{ p: "n_estimators", desc: "Number of boosting rounds. More = better but risk overfitting." }, { p: "learning_rate (η)", desc: "Shrinks each tree's contribution. Lower = needs more estimators. 0.01–0.3." }, { p: "max_depth", desc: "Depth of each tree. 3–6 is typical for boosting." }, { p: "subsample", desc: "Fraction of training samples per round. 0.5–0.9 helps regularise." }];
+      if ((t.includes("gradient") && !t.includes("descent") && !t.includes("vanishing") && !t.includes("exploding")) || t.includes("boosting") || t.includes("xgb")) return [{ p: "n_estimators", desc: "Number of boosting rounds. More = better but risk overfitting." }, { p: "learning_rate (η)", desc: "Shrinks each tree's contribution. Lower = needs more estimators. 0.01–0.3." }, { p: "max_depth", desc: "Depth of each tree. 3–6 is typical for boosting." }, { p: "subsample", desc: "Fraction of training samples per round. 0.5–0.9 helps regularise." }];
       if (t.includes("pca")) return [{ p: "n_components", desc: "Number of components to keep. Or set to variance explained (e.g., 0.95)." }, { p: "svd_solver", desc: "full, arpack, randomized. Use randomized for large datasets." }];
       if (t.includes("svd")) return [{ p: "n_components", desc: "Number of singular vectors to keep. Controls compression level." }, { p: "algorithm", desc: "randomized (fast, approximate) or arpack (exact, slower)." }];
       if (t.includes("discriminant")) return [{ p: "n_components", desc: "Number of discriminant directions (at most C-1 for C classes)." }, { p: "solver", desc: "svd (no covariance matrix), lsqr, eigen." }, { p: "shrinkage", desc: "auto (Ledoit-Wolf) or float. Helps when samples < features." }];
@@ -2821,6 +2992,111 @@
         return [
           { q: "Why does KNN suffer in high dimensions?", a: "The 'curse of dimensionality' — distances become less meaningful as dimensions grow; all points appear equidistant." },
           { q: "Is KNN a lazy learner? Why?", a: "Yes — no training phase; it memorises data and defers all computation to prediction time." },
+        ];
+      if (t.includes("lazy") && !t.includes("knn"))
+        return [
+          { q: "What distinguishes lazy learning from eager learning?", a: "Lazy learners (KNN, CBR) store training data and defer generalisation to query time. Eager learners (decision trees, SVMs) build a global model during training and discard raw examples." },
+          { q: "When is lazy learning preferred despite its O(n) prediction cost?", a: "When concept drift is expected (no retraining needed), when the training distribution changes frequently, or when new classes must be added instantly." },
+        ];
+      if (t.includes("case") && t.includes("reasoning"))
+        return [
+          { q: "What are the 4 R's of the CBR cycle?", a: "Retrieve similar past cases, Reuse their solutions, Revise where needed, Retain the new case in the case library." },
+          { q: "How is CBR different from KNN?", a: "CBR uses structured case representations and domain-specific similarity functions; it also maintains and grows a case library. KNN uses simple distance in feature space with no case adaptation." },
+        ];
+      if (t.includes("step") && t.includes("activation"))
+        return [
+          { q: "Why can't the step activation function be trained with backpropagation?", a: "Its derivative is zero everywhere (and undefined at 0) — backpropagation requires non-zero gradients to update weights." },
+          { q: "What replaced the step function in neural networks?", a: "The sigmoid initially, then ReLU. Both are differentiable everywhere (or almost everywhere for ReLU), enabling gradient descent." },
+        ];
+      if (t.includes("sigmoid") && t.includes("activation"))
+        return [
+          { q: "Why does sigmoid cause vanishing gradients in deep networks?", a: "Sigmoid saturates at 0 and 1; its derivative σ(z)(1-σ(z)) ≤ 0.25 and approaches zero at extremes, so gradients shrink exponentially as they propagate back through many layers." },
+          { q: "When is sigmoid still the best choice today?", a: "Binary classification output layer (provides a probability in (0,1)); gate activations inside LSTM/GRU (where bounded output is needed)." },
+        ];
+      if (t.includes("hyperbolic"))
+        return [
+          { q: "How is tanh related to the sigmoid function?", a: "tanh(z) = 2σ(2z) − 1. It is a rescaled and shifted sigmoid, zero-centered (output range -1 to 1) compared to sigmoid's (0,1)." },
+          { q: "Why does zero-centering matter for training?", a: "Sigmoid's all-positive outputs cause weight updates to always have the same sign (zig-zagging optimization). tanh's zero-centered outputs allow both positive and negative updates, converging faster." },
+        ];
+      if (t.includes("relu") && !t.includes("activation function"))
+        return [
+          { q: "What is the dying ReLU problem and how can you fix it?", a: "Neurons stuck at negative pre-activations output zero permanently and stop updating. Fix: use Leaky ReLU (small negative slope), ELU, or careful learning rate tuning." },
+          { q: "Why does ReLU train faster than sigmoid/tanh in deep networks?", a: "Gradient = 1 for z > 0 — no saturation, no vanishing gradients in the positive range. Also computationally cheaper (just max(0,z))." },
+        ];
+      if (t.includes("relu") && t.includes("activation function"))
+        return [
+          { q: "What is the dying ReLU problem?", a: "Neurons with consistently negative pre-activations output zero forever and stop learning. Leaky ReLU, ELU, and GELU address this with small non-zero negative-side gradients." },
+          { q: "Why has ReLU dominated hidden layers since ~2012?", a: "No saturation for positive inputs (gradient = 1), computationally trivial (max(0,z)), and enables training of very deep networks where sigmoid/tanh cause vanishing gradients." },
+        ];
+      if (t.includes("softmax") && t.includes("activation"))
+        return [
+          { q: "Why do we subtract max(z) before computing softmax?", a: "To prevent numerical overflow from exp(z) for large z. Subtracting max(z) doesn't change the output (the constant cancels in numerator and denominator) but keeps values numerically stable." },
+          { q: "What is the gradient of softmax + cross-entropy loss?", a: "The combined gradient simplifies beautifully to (ŷ - y) — predicted probability minus true label. This is why softmax + cross-entropy is the standard output layer for multi-class problems." },
+        ];
+      if (t.includes("lstm"))
+        return [
+          { q: "How does LSTM solve the vanishing gradient problem?", a: "The cell state update c_t = f_t ⊙ c_{t-1} + i_t ⊙ c̃_t uses addition rather than multiplication, allowing gradients to flow through hundreds of timesteps without exponential decay." },
+          { q: "What are the three gates of an LSTM and what do they control?", a: "Forget gate: what fraction of previous cell state to discard. Input gate: how much new candidate state to write. Output gate: what fraction of cell state to expose as hidden state." },
+        ];
+      if (t.includes("teacher") && t.includes("forcing"))
+        return [
+          { q: "What is exposure bias in teacher forcing?", a: "During training, the model receives ground-truth previous tokens. At inference it sees its own (possibly wrong) outputs. This train-test mismatch causes cascading errors, especially on long sequences." },
+          { q: "How does scheduled sampling address exposure bias?", a: "It randomly replaces teacher-provided inputs with the model's own predictions during training, with probability increasing over time — gradually weaning the model off ground-truth inputs." },
+        ];
+      if (t.includes("vanishing") || t.includes("exploding"))
+        return [
+          { q: "What causes the vanishing gradient problem mathematically?", a: "Gradients are products of repeated Jacobians (weight matrices and activation derivatives). If these values are consistently < 1, the product shrinks exponentially with depth." },
+          { q: "Name three solutions to vanishing/exploding gradients.", a: "Vanishing: ReLU activations, LSTM/residual connections, batch normalisation. Exploding: gradient clipping (cap gradient norm). Both: Xavier/He initialisation for appropriate initial weight scale." },
+        ];
+      if (t.includes("delta") && t.includes("rule"))
+        return [
+          { q: "How is the Delta Rule derived?", a: "Differentiate MSE loss ∂(y - ŷ)²/∂w = -2(y - ŷ)x. The update Δw = η(y - ŷ)x is the negative gradient step for a single linear neuron — identical to SGD on squared error." },
+          { q: "What is the key difference between the Delta Rule and the Perceptron learning rule?", a: "Delta Rule: proportional update based on continuous error (y - ŷ); minimises MSE. Perceptron: binary update only on misclassified examples; no guarantee of MSE minimisation." },
+        ];
+      if (t.includes("backprop"))
+        return [
+          { q: "What are the two phases of backpropagation?", a: "Forward pass: compute predictions and loss by pushing input through all layers. Backward pass: propagate error signals δ^(l) in reverse, accumulating ∂L/∂W^(l) for each layer." },
+          { q: "Why is backpropagation computationally efficient?", a: "By computing gradients in reverse topological order and reusing intermediate activations, it computes all ∂L/∂W in O(n_params) — linear in parameters — instead of O(n_params²) if done naively." },
+        ];
+      if (t.includes("chain") && t.includes("rule"))
+        return [
+          { q: "State the chain rule and explain its role in deep learning.", a: "If L = f(g(x)), then dL/dx = f'(g(x))·g'(x). In neural nets, the loss depends on weights through many composed functions; the chain rule decomposes ∂L/∂W into products of local Jacobians, enabling efficient gradient computation." },
+          { q: "What happens when many local gradients are multiplied in the chain rule?", a: "If activation derivatives are consistently < 1 (sigmoid saturation), the product shrinks — vanishing gradients. If weights are consistently > 1, the product grows — exploding gradients." },
+        ];
+      if (t.includes("neuron") && !t.includes("neural"))
+        return [
+          { q: "What are the components of a single artificial neuron?", a: "Inputs x, weights w (one per input), bias b, linear combination z = wᵀx + b (pre-activation), and activation function σ producing output a = σ(z)." },
+          { q: "Why is a non-linear activation function necessary in neurons?", a: "Without it, stacking many layers of linear neurons still produces a linear function. Non-linearity enables the network to learn complex, non-linear decision boundaries." },
+        ];
+      if (t.includes("weight") && t.includes("matrix"))
+        return [
+          { q: "Why are weights stored as matrices rather than individual scalars?", a: "Matrix representation enables batch computation (all m examples and all n_out neurons simultaneously via W·X), exploits hardware BLAS/GPU optimisation, and allows concise gradient expressions." },
+          { q: "What is the gradient of the loss w.r.t. the weight matrix W?", a: "∂L/∂W^(l) = δ^(l) · A^(l-1)ᵀ, where δ^(l) is the backpropagated error signal. This has the same shape as W^(l), enabling direct parameter update." },
+        ];
+      if (t.includes("vectorization"))
+        return [
+          { q: "Why is vectorization so important in neural network training?", a: "Replacing Python for-loops with matrix operations eliminates interpreter overhead and enables CPU SIMD / GPU parallelism — achieving 100–10000× speedups on modern hardware." },
+          { q: "How do you vectorize a forward pass over a mini-batch of m examples?", a: "Stack examples as columns in matrix X (n_in × m). Then Z = W·X + b (broadcasting bias). The result Z is (n_out × m) — all m pre-activations computed in one BLAS call." },
+        ];
+      if (t.includes("generalization") && t.includes("neural"))
+        return [
+          { q: "What does the generalisation gap measure?", a: "val_loss − train_loss. A large positive gap indicates overfitting; a large negative gap (rare) may indicate data leakage." },
+          { q: "Name three regularisation techniques specific to neural networks.", a: "Dropout (randomly zero neurons during training), L2 weight decay (penalise large weights), early stopping (halt when val_loss stops improving)." },
+        ];
+      if (t.includes("learning") && t.includes("neural"))
+        return [
+          { q: "What is the role of the learning rate in neural network training?", a: "It scales the gradient update step. Too large → divergence or oscillation. Too small → very slow convergence. Learning rate schedules (decay, warmup) and adaptive optimisers (Adam) help." },
+          { q: "Why is Adam often preferred over plain SGD for deep networks?", a: "Adam maintains per-parameter adaptive learning rates using first and second gradient moments, handling sparse gradients and scaling automatically — converges faster and is less sensitive to tuning." },
+        ];
+      if (t.includes("boundary") && t.includes("neural"))
+        return [
+          { q: "How does adding more hidden layers affect the decision boundary?", a: "Each additional layer enables more non-linear compositions, allowing the boundary to become more complex and curved. Shallow networks can only produce simple boundaries." },
+          { q: "What does an overly complex decision boundary indicate?", a: "Overfitting — the network has memorised training data including noise. Signs: training accuracy >> validation accuracy; boundary has unnecessary wiggles around training points." },
+        ];
+      if (t.includes("intro") && t.includes("neural"))
+        return [
+          { q: "What does the Universal Approximation Theorem say about neural networks?", a: "A single hidden layer with sufficient neurons can approximate any continuous function to arbitrary precision. This justifies using DNNs for any learning task." },
+          { q: "Why are deep (many-layer) networks preferred over wide (one-layer) ones in practice?", a: "Deep networks learn hierarchical representations efficiently (exponentially fewer parameters for same expressiveness); they also generalise better empirically for structured data (images, text)." },
         ];
       if (t.includes("neural") || t.includes("deep") || t.includes("backprop"))
         return [
