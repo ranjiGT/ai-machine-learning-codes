@@ -1944,6 +1944,38 @@
           whenNot: "Can introduce noise if minority class is noisy; use with care in high dimensions.",
           related: ["ROC-AUC Curves", "Class Imbalance", "Precision-Recall"] };
       }
+      if (t.includes("concept") && t.includes("learning")) {
+        return { kind: "tree", desc: "Learns a target concept by generalizing from labeled examples.", formula: "c : \\mathcal{X} \\to \\{0,1\\}, \\quad c(\\mathbf{x}) = \\text{concept}(\\mathbf{x})",
+          longDesc: "Concept learning is the task of inferring a boolean-valued function (concept) from examples and counterexamples. The learner searches a hypothesis space to find a consistent hypothesis that matches all training instances.",
+          useCases: ["Boolean function learning", "Pattern recognition", "Decision rule induction"],
+          whenUse: "When the target is a boolean concept (binary classification) with structured feature spaces.",
+          whenNot: "Not suitable for continuous-valued targets; use regression instead.",
+          related: ["Find-S Algorithm", "Candidate Elimination", "Inductive Bias", "Version Spaces"] };
+      }
+      if (t.includes("find") && t.includes("s") || t.includes("find-s")) {
+        return { kind: "tree", desc: "Searches the hypothesis space for the maximally specific consistent hypothesis.", formula: "h \\in \\mathcal{H} : \\forall d \\in D_{+}, h(d) = 1 \\text{ and no more specific than any other}",
+          longDesc: "The Find-S algorithm iteratively searches for the most specific hypothesis that is consistent with positive training examples. It begins with the most specific hypothesis and generalizes only when it encounters positive examples it fails to cover.",
+          useCases: ["Initial concept learning", "Boolean function discovery", "Simple pattern induction"],
+          whenUse: "As a baseline concept learning algorithm for noise-free, fully-observable data.",
+          whenNot: "When there is label noise or negative examples are unreliable; use Candidate Elimination for robustness.",
+          related: ["Concept Learning", "Candidate Elimination", "Hypothesis Space", "Inductive Bias"] };
+      }
+      if (t.includes("candidate") && t.includes("elimination")) {
+        return { kind: "tree", desc: "Maintains the set of all consistent hypotheses (version space) using positive and negative examples.", formula: "VS_{H,D} = \\{h \\in \\mathcal{H} : \\text{Consistent}(h, D)\\}",
+          longDesc: "Candidate Elimination maintains a version space bounded by specific (most specific) and general (most general) hypotheses consistent with all examples. It eliminates hypotheses that contradict any training instance, thus refining the version space over time.",
+          useCases: ["Robust concept learning", "Handling conflicting evidence", "Hypothesis set refinement"],
+          whenUse: "When you need robustness to noise via hypothesis consensus; maintains version space bounds efficiently.",
+          whenNot: "Suffers from the restarting problem: one contradiction can eliminate entire consistent regions; may collapse to empty set.",
+          related: ["Concept Learning", "Find-S Algorithm", "Version Spaces", "Inductive Bias"] };
+      }
+      if (t.includes("inductive") && t.includes("bias")) {
+        return { kind: "line", desc: "The set of assumptions a learning algorithm makes beyond the training data.", formula: "\\text{Bias} = \\text{Assumptions about } f \\text{ not evident in } D",
+          longDesc: "Inductive bias refers to the assumptions made by a learning algorithm that enable it to generalize from finite training data. Every learning algorithm has inductive bias; without it, no generalization is possible. Examples include assuming smoothness (SVM), local structure (KNN), or independence (Naive Bayes).",
+          useCases: ["Understanding algorithm limitations", "Comparing learning paradigms", "Designing new algorithms"],
+          whenUse: "To understand why algorithms generalize; to choose appropriate algorithms for problem structure.",
+          whenNot: "Not a method to apply directly; rather a theoretical concept underlying all supervised learning.",
+          related: ["Concept Learning", "No Free Lunch Theorem", "Regularization", "Model Selection"] };
+      }
       return { kind: "line", desc: "Builds predictive structure from data and assumptions.", formula: "\\hat{y} = f_{\\theta}(\\mathbf{x})",
         longDesc: "This topic builds a model from labelled or unlabelled data to make predictions or discover structure.",
         useCases: ["Predictive analytics", "Pattern discovery", "Decision support"],
@@ -2654,6 +2686,30 @@
         return [
           { q: "Why does K-Means not always find the global optimum?", a: "K-Means uses a greedy local search. It's sensitive to initialization; try k-means++ or multiple random seeds." },
           { q: "How do you choose k?", a: "Elbow method (plot inertia vs k), Silhouette score, or Gap statistic. Domain knowledge also helps." },
+        ];
+      if (t.includes("concept") && t.includes("learning"))
+        return [
+          { q: "What is a hypothesis space?", a: "The set of all possible boolean functions (concepts) the learner can represent. Size affects generalization ability." },
+          { q: "Why is concept learning a search problem?", a: "The learner must search through the hypothesis space to find a function consistent with all training examples." },
+          { q: "What does 'consistent' mean in concept learning?", a: "A hypothesis is consistent if it correctly classifies all training examples (matches the target concept on all training data)." },
+        ];
+      if (t.includes("find") && (t.includes("s") || t.includes("s algorithm")) || t.includes("find-s"))
+        return [
+          { q: "What is the Find-S algorithm's strategy?", a: "Start with the most specific hypothesis and generalize only when encountering positive examples it cannot classify." },
+          { q: "What happens if Find-S encounters conflicting data?", a: "It fails — if a positive example contradicts the hypothesis, Find-S cannot recover and produces an incorrect result." },
+          { q: "Why is Find-S biased toward specific hypotheses?", a: "It prefers the most specific (most restrictive) consistent hypothesis, making strong assumptions about the target concept." },
+        ];
+      if (t.includes("candidate") && t.includes("elimination"))
+        return [
+          { q: "What is a version space?", a: "The set of all hypotheses consistent with the training data. Bounded by maximally general and maximally specific hypotheses." },
+          { q: "What is the restarting problem in Candidate Elimination?", a: "A single contradicting example can collapse the entire version space to empty, making the algorithm unable to classify new instances." },
+          { q: "How do S and G sets bound the version space?", a: "S = most specific hypotheses, G = most general hypotheses. Every hypothesis between S and G (ordered by generality) is in the version space." },
+        ];
+      if (t.includes("inductive") && t.includes("bias"))
+        return [
+          { q: "Why is inductive bias necessary for learning?", a: "Without assumptions, learning from finite data is impossible (no free lunch theorem). Every algorithm must assume something about the target function." },
+          { q: "What is the bias-variance tradeoff?", a: "Stronger bias (more restrictive hypothesis space) reduces variance but may increase bias error. Weaker bias allows more complex models but risks overfitting." },
+          { q: "Give an example of inductive bias in three algorithms?", a: "SVM: smooth decision boundary. KNN: local similarity. Linear Regression: linearity. Each embeds assumptions enabling generalization." },
         ];
       return null;
     }
