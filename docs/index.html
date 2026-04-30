@@ -1760,15 +1760,23 @@
           whenNot: "Slow at prediction time for large datasets; sensitive to irrelevant features.",
           related: ["Distance Measures", "PCA", "Cluster Similarity"] };
       }
-      if (t.includes("pca") || t.includes("svd") || t.includes("t-sne") || t.includes("discriminant")) {
+      if (t.includes("pca") || t.includes("svd") || t.includes("discriminant")) {
         return { kind: "matrix", desc: "Projects data into a lower-dimensional informative space.", formula: "\\mathbf{X} = \\mathbf{U}\\mathbf{\\Sigma}\\mathbf{V}^T",
           longDesc: "Principal Component Analysis finds orthogonal directions of maximum variance (principal components) via SVD. It reduces dimensionality while preserving as much variance as possible.",
           useCases: ["Noise reduction", "Visualisation", "Preprocessing for ML"],
           whenUse: "High-dimensional data with correlated features; visualising clusters in 2D/3D.",
           whenNot: "When you need interpretable features or the data is sparse (e.g., text).",
-          related: ["SVD", "t-SNE", "LDA", "Kernel Methods"] };
+          related: ["SVD", "LDA", "t-SNE", "Linear Regression"] };
       }
-      if (t.includes("bayes") || t.includes("laplace")) {
+      if (t.includes("t-sne") || t.includes("tsne")) {
+        return { kind: "matrix", desc: "Non-linear dimensionality reduction for 2D/3D visualization.", formula: "KL(P||Q) = \\sum_{i,j} p_{ij} \\log\\frac{p_{ij}}{q_{ij}}",
+          longDesc: "t-SNE (t-Distributed Stochastic Neighbor Embedding) is a non-linear technique that minimizes the KL divergence between high-dimensional and low-dimensional distributions. Excellent for visualizing clusters but computationally expensive.",
+          useCases: ["Cluster visualization", "Exploratory analysis", "Feature validation"],
+          whenUse: "When you need 2D/3D visualization of complex, non-linear manifolds.",
+          whenNot: "For large datasets (>100k samples) or when you need interpretable coordinates; PCA is faster.",
+          related: ["PCA", "UMAP", "Dimensionality Reduction"] };
+      }
+      if (t.includes("bayes") || t.includes("naive")) {
         return { kind: "bayes", desc: "Uses prior and likelihood to update posterior belief.", formula: "P(y \\mid \\mathbf{x}) = \\frac{P(\\mathbf{x} \\mid y)P(y)}{P(\\mathbf{x})}",
           longDesc: "Naive Bayes applies Bayes' theorem with the 'naive' conditional independence assumption between features. Laplace smoothing avoids zero-probability issues in discrete feature spaces.",
           useCases: ["Text classification", "Spam filtering", "Sentiment analysis"],
@@ -1776,21 +1784,61 @@
           whenNot: "When features are highly correlated; the independence assumption is violated.",
           related: ["Bayesian Belief Networks", "Logistic Regression", "Laplace Correction"] };
       }
-      if (t.includes("roc") || t.includes("auc") || t.includes("evaluation") || t.includes("validation") || t.includes("hold-out") || t.includes("cross")) {
-        return { kind: "chart", desc: "Measures generalization quality and model reliability.", formula: "AUC = \\int_0^1 TPR(FPR) \\, d(FPR)",
-          longDesc: "ROC-AUC measures a classifier's ability to discriminate between classes across all decision thresholds. Cross-validation and hold-out evaluation give unbiased estimates of generalisation error.",
-          useCases: ["Model comparison", "Imbalanced class evaluation", "Threshold selection"],
-          whenUse: "Always evaluate using held-out data; AUC is threshold-independent.",
-          whenNot: "AUC can be misleading on severely imbalanced datasets — prefer Precision-Recall AUC.",
-          related: ["ISO Accuracy Lines", "Precision-Recall", "Bootstrap", "Nested CV"] };
+      if (t.includes("laplace")) {
+        return { kind: "bayes", desc: "Smoothing technique to avoid zero probabilities in Bayesian models.", formula: "P(x_i) = \\frac{count(x_i) + 1}{N + k}",
+          longDesc: "Laplace (add-one) smoothing prevents zero-probability assignments for unseen feature values. It adds a pseudocount to all feature value combinations, enabling the model to generalize beyond observed training data.",
+          useCases: ["Naive Bayes smoothing", "NLP preprocessing", "Sparse feature handling"],
+          whenUse: "When you have sparse categorical features or may encounter unseen values at test time.",
+          whenNot: "When you have dense, continuous features or very large training data.",
+          related: ["Naive Bayes", "Bayesian Networks"] };
       }
-      if (t.includes("cluster") || t.includes("k-means") || t.includes("dbscan") || t.includes("mean shift") || t.includes("silhouette") || t.includes("hopkins")) {
-        return { kind: "cluster", desc: "Groups similar points based on structure in feature space.", formula: "J = \\sum_{k=1}^{K} \\sum_{\\mathbf{x} \\in C_k} \\lVert \\mathbf{x} - \\boldsymbol{\\mu}_k \\rVert^2",
-          longDesc: "Clustering algorithms partition unlabelled data into groups. K-Means minimises within-cluster variance; DBSCAN finds density-connected regions; hierarchical methods build a dendrogram.",
-          useCases: ["Customer segmentation", "Document grouping", "Gene expression analysis"],
-          whenUse: "No labels available; explore natural groupings in data.",
-          whenNot: "Avoid K-Means when clusters are non-convex or have very different densities.",
-          related: ["Silhouette Coefficient", "Hopkins Statistic", "DBSCAN", "Hierarchical Clustering"] };
+      if (t.includes("roc") || t.includes("auc")) {
+        return { kind: "chart", desc: "Measures classifier's discrimination ability across all thresholds.", formula: "AUC = \\int_0^1 TPR(FPR) \\, d(FPR)",
+          longDesc: "ROC-AUC (Receiver Operating Characteristic - Area Under Curve) measures a classifier's ability to discriminate between classes across all decision thresholds. AUC = 1.0 is perfect; 0.5 is random.",
+          useCases: ["Model comparison", "Threshold optimization", "Binary/multiclass evaluation"],
+          whenUse: "Always for classification; threshold-independent; works with imbalanced data better than accuracy.",
+          whenNot: "On severely imbalanced datasets, Precision-Recall AUC may be more informative.",
+          related: ["Precision-Recall", "Cross-Validation", "ISO Accuracy Lines"] };
+      }
+      if (t.includes("cross") || t.includes("hold-out") || t.includes("validation")) {
+        return { kind: "chart", desc: "Estimates generalization error by evaluating on unseen data.", formula: "E_{gen} = \\mathbb{E}[L(h, D_{test})]",
+          longDesc: "Cross-validation partitions data into k folds, training on k-1 and testing on 1, repeating k times. Hold-out uses a single train-test split. Both prevent overfitting estimation by ensuring unbiased performance estimates.",
+          useCases: ["Model selection", "Hyperparameter tuning", "Generalization estimation"],
+          whenUse: "Always split data before evaluation; k-fold (k=5-10) is standard; stratified for imbalanced data.",
+          whenNot: "Not needed for very large datasets where a single split suffices; but still recommended.",
+          related: ["ROC-AUC", "Nested Cross-Validation", "Bootstrap", "Hyperparameter Tuning"] };
+      }
+      if (t.includes("cluster") || t.includes("k-means") || t.includes("kmeans")) {
+        return { kind: "cluster", desc: "Groups similar points by minimizing within-cluster variance.", formula: "J = \\sum_{k=1}^{K} \\sum_{\\mathbf{x} \\in C_k} \\lVert \\mathbf{x} - \\boldsymbol{\\mu}_k \\rVert^2",
+          longDesc: "K-Means partitions data into K clusters by iteratively assigning points to the nearest centroid and updating centroids. Fast and scalable but assumes spherical clusters of similar size.",
+          useCases: ["Customer segmentation", "Image compression", "Feature aggregation"],
+          whenUse: "No labels available; clusters are roughly spherical and equally sized.",
+          whenNot: "Avoid when clusters are non-convex, have very different densities, or you need hierarchical structure.",
+          related: ["DBSCAN", "Hierarchical Clustering", "Silhouette Coefficient", "Elbow Method"] };
+      }
+      if (t.includes("dbscan")) {
+        return { kind: "cluster", desc: "Finds density-connected clusters of arbitrary shape.", formula: "eps\\text{-neighborhood} = \\{q : d(p, q) \\leq eps\\}",
+          longDesc: "DBSCAN (Density-Based Spatial Clustering) groups points that are closely packed together and labels outliers as noise. It discovers clusters of any shape without requiring k in advance.",
+          useCases: ["Anomaly detection", "Spatial clustering", "Non-convex clusters"],
+          whenUse: "Clusters have arbitrary shapes or you need to identify outliers automatically.",
+          whenNot: "When clusters have varying densities (use HDBSCAN instead); or with high-dimensional data.",
+          related: ["K-Means", "Hierarchical Clustering", "Anomaly Detection"] };
+      }
+      if (t.includes("silhouette")) {
+        return { kind: "chart", desc: "Measures cluster quality: how similar points are to their own cluster vs. others.", formula: "s(i) = \\frac{b(i) - a(i)}{\\max(a(i), b(i))}",
+          longDesc: "Silhouette coefficient ranges from -1 to 1. High values indicate tight, well-separated clusters. It compares within-cluster distance (a) to nearest-cluster distance (b).",
+          useCases: ["Cluster validation", "Optimal k selection", "Clustering comparison"],
+          whenUse: "After clustering to assess quality; helps choose optimal number of clusters.",
+          whenNot: "With very high-dimensional data or on datasets where density varies significantly.",
+          related: ["Clustering Algorithms", "Hopkins Statistic", "Cohesion-Separation"] };
+      }
+      if (t.includes("hopkins")) {
+        return { kind: "chart", desc: "Tests if data is uniformly distributed or has inherent clustering structure.", formula: "H = \\frac{\\sum u_i}{\\sum u_i + \\sum w_i}",
+          longDesc: "Hopkins statistic compares the distance from random points to nearest neighbors versus distances between actual data points. Values near 0.5 indicate random (no clusters); near 1.0 indicate strong clustering.",
+          useCases: ["Clustering tendency assessment", "Pre-clustering evaluation", "Data exploration"],
+          whenUse: "Before applying clustering algorithms to verify if clustering is appropriate.",
+          whenNot: "Not useful as a post-clustering validation; use Silhouette instead.",
+          related: ["Silhouette Coefficient", "Cluster Validation"] };
       }
       if (t.includes("active learning") || t.includes("query") || t.includes("uncertainty")) {
         return { kind: "query", desc: "Selects most informative unlabeled samples to annotate.", formula: "\\mathbf{x}^* = \\arg\\max_{\\mathbf{x}} \\; H\\!\\left(p(y \\mid \\mathbf{x})\\right)",
@@ -2523,6 +2571,9 @@
       if (t.includes("gradient") || t.includes("boosting") || t.includes("xgb")) return [{ p: "n_estimators", desc: "Number of boosting rounds. More = better but risk overfitting." }, { p: "learning_rate (η)", desc: "Shrinks each tree's contribution. Lower = needs more estimators. 0.01–0.3." }, { p: "max_depth", desc: "Depth of each tree. 3–6 is typical for boosting." }, { p: "subsample", desc: "Fraction of training samples per round. 0.5–0.9 helps regularise." }];
       if (t.includes("pca")) return [{ p: "n_components", desc: "Number of components to keep. Or set to variance explained (e.g., 0.95)." }];
       if (t.includes("arima")) return [{ p: "p (AR order)", desc: "Number of lag observations. Check PACF plot." }, { p: "d (differencing)", desc: "Degree of differencing for stationarity. Usually 0, 1, or 2." }, { p: "q (MA order)", desc: "Moving average terms. Check ACF plot." }];
+      if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
+      if (t.includes("hierarchical")) return [{ p: "linkage", desc: "How to merge clusters: ward (minimize variance), complete (max distance), average, or single." }, { p: "distance_metric", desc: "Distance measure: euclidean, cosine, manhattan, etc." }];
+      if (t.includes("silhouette") || t.includes("cohesion")) return [{ p: "metric", desc: "Distance metric for silhouette: euclidean (default), manhattan, cosine." }, { p: "sample_size", desc: "Number of samples to compute (for efficiency on large datasets)." }];
       return null;
     }
 
@@ -2578,6 +2629,31 @@
         return [
           { q: "Why is Naive Bayes called 'naive'?", a: "It assumes all features are conditionally independent given the class label — rarely true in practice but often works well." },
           { q: "What is Laplace smoothing used for?", a: "To avoid zero-probability for unseen feature values; adds a small constant to all counts." },
+        ];
+      if (t.includes("pca") || t.includes("principal"))
+        return [
+          { q: "How do you decide how many components to keep?", a: "Plot cumulative explained variance and choose k where curve plateaus (often 95-99% threshold used)." },
+          { q: "Can you recover original features from PCA components?", a: "No — PCA is lossy. You get approximations via inverse transform, but information from discarded components is lost." },
+        ];
+      if (t.includes("smote") || t.includes("imbalance"))
+        return [
+          { q: "Does SMOTE introduce data leakage?", a: "Yes, if applied before train-test split. Always fit SMOTE only on training data, then transform both train and test." },
+          { q: "When is SMOTE ineffective?", a: "When minority class is extremely noisy, or when feature space is sparse/high-dimensional (synthetic samples may be unrealistic)." },
+        ];
+      if (t.includes("shap"))
+        return [
+          { q: "Why use SHAP instead of simple feature importance?", a: "SHAP uses cooperative game theory (Shapley values) to fairly attribute contributions. Feature importance can be misleading with correlated features." },
+          { q: "Is exact SHAP computation scalable?", a: "No — it's exponential in the number of features. Use approximations: TreeSHAP for trees, or KernelSHAP for any model." },
+        ];
+      if (t.includes("svm") || t.includes("support vector"))
+        return [
+          { q: "What are support vectors?", a: "Training points that define the decision boundary. They're the closest points to the margin. Points far from boundary don't affect the solution." },
+          { q: "Why is the kernel trick useful?", a: "It lets you compute dot products in high-dimensional spaces without explicitly transforming data, making SVMs efficient." },
+        ];
+      if (t.includes("cluster") || t.includes("kmeans"))
+        return [
+          { q: "Why does K-Means not always find the global optimum?", a: "K-Means uses a greedy local search. It's sensitive to initialization; try k-means++ or multiple random seeds." },
+          { q: "How do you choose k?", a: "Elbow method (plot inertia vs k), Silhouette score, or Gap statistic. Domain knowledge also helps." },
         ];
       return null;
     }
