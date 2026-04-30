@@ -1836,7 +1836,7 @@
           whenNot: "Adds a second tunable hyperparameter (α); if features are independent, Lasso suffices; if all are relevant, Ridge suffices.",
           related: ["Ridge Regression", "Lasso Regression", "Linear Regression", "Regularization"] };
       }
-      if (t.includes("regression") || t.includes("linear")) {
+      if ((t.includes("regression") || t.includes("linear")) && !t.includes("discriminant")) {
         return { kind: "line", desc: "Fits a continuous relationship between inputs and output.", formula: "\\hat{y} = \\mathbf{w}^T \\mathbf{x} + b",
           longDesc: "Linear regression models the relationship between a dependent variable and one or more independent variables by fitting a linear equation. It minimises the sum of squared residuals to find optimal weights.",
           useCases: ["House price prediction", "Sales forecasting", "Risk scoring"],
@@ -2012,13 +2012,37 @@
           whenNot: "Not needed when each instance has exactly one class label.",
           related: ["Binary Relevance", "Label Powerset", "RAkEL", "Evaluation Metrics"] };
       }
-      if (t.includes("apriori") || t.includes("association") || t.includes("eclat") || t.includes("lift")) {
-        return { kind: "bars", desc: "Discovers co-occurrence patterns and rule strength.", formula: "lift(A \\Rightarrow B) = \\frac{P(A \\cap B)}{P(A)P(B)}",
-          longDesc: "Association rule mining finds frequent itemsets and derives rules of the form A→B. Apriori uses a level-wise approach; ECLAT uses vertical data format for faster mining.",
+      if (t.includes("apriori")) {
+        return { kind: "bars", desc: "Level-wise frequent itemset mining using downward closure (anti-monotonic support).", formula: "\\text{supp}(X) < minsupp \\Rightarrow \\forall Y \\supset X,\\; \\text{supp}(Y) < minsupp",
+          longDesc: "Apriori generates candidate k-itemsets from frequent (k−1)-itemsets and prunes those with infrequent subsets. It is BFS-style and highly interpretable, but candidate explosion can be expensive on dense datasets.",
+          useCases: ["Market basket mining", "Promotional bundling", "Cross-sell pattern discovery"],
+          whenUse: "Medium-sized transactional datasets where interpretability and rule auditing matter.",
+          whenNot: "Very large or dense item universes where candidate generation becomes computationally heavy.",
+          related: ["Association Rules", "ECLAT", "Lift Measure", "Itemset Lattice"] };
+      }
+      if (t.includes("eclat")) {
+        return { kind: "bars", desc: "Depth-first frequent itemset mining using vertical TID-set intersections.", formula: "supp(X \\cup Y) = |TID(X) \\cap TID(Y)|",
+          longDesc: "ECLAT transforms transactions into vertical item-to-transaction-ID sets, then mines frequent itemsets via recursive intersections. It often outperforms Apriori when TID intersections are efficient and memory permits vertical representation.",
+          useCases: ["Frequent pattern mining on sparse baskets", "Clickstream co-occurrence", "Catalog affinity analysis"],
+          whenUse: "When vertical format fits memory and fast recursive mining is preferred.",
+          whenNot: "When TID sets are huge and intersection operations become memory-intensive.",
+          related: ["Apriori Principle", "Association Rules", "Lift Measure", "Itemset Lattice"] };
+      }
+      if (t.includes("lift")) {
+        return { kind: "bars", desc: "Rule-interest metric measuring dependence beyond chance co-occurrence.", formula: "lift(A \\Rightarrow B) = \\frac{P(A \\cap B)}{P(A)P(B)}",
+          longDesc: "Lift compares observed joint occurrence to what would be expected under independence. lift > 1 indicates positive association, lift = 1 independence, lift < 1 negative association. It should be interpreted with support and confidence to avoid spurious rare rules.",
+          useCases: ["Prioritizing business rules", "Recommendation ranking", "Association rule filtering"],
+          whenUse: "After rule generation to rank non-trivial associations.",
+          whenNot: "As a standalone metric without minimum support/confidence controls.",
+          related: ["Association Rules", "Apriori Principle", "ECLAT", "Confidence"] };
+      }
+      if (t.includes("association")) {
+        return { kind: "bars", desc: "Discovers frequent itemsets and implication rules in transactional data.", formula: "A \\Rightarrow B,\\; conf = P(B|A),\\; supp = P(A \\cap B)",
+          longDesc: "Association rule mining finds co-occurrence patterns and derives if-then rules from baskets or events. Typical workflow: mine frequent itemsets (Apriori/ECLAT), generate rules, then rank with confidence, lift, and leverage.",
           useCases: ["Market basket analysis", "Cross-selling", "Web clickstream analysis"],
-          whenUse: "Transactional data where item co-occurrence patterns are meaningful.",
-          whenNot: "Avoid when the dataset is too sparse or rules lack business interpretability.",
-          related: ["ECLAT", "Lift", "Sequential Pattern Mining"] };
+          whenUse: "Transactional data where interpretable co-occurrence rules provide business value.",
+          whenNot: "When relationships are temporal/causal rather than simple co-occurrence.",
+          related: ["Apriori Principle", "ECLAT", "Lift Measure", "Itemset Lattice"] };
       }
       if (t.includes("itemset") || t.includes("lattice")) {
         return { kind: "matrix", desc: "Hierarchical representation of frequent itemsets and their subsets.", formula: "\\text{Lattice} = \\{S \\subseteq I : \\text{freq}(S) \\geq \\text{minsupp}\\}",
@@ -2936,7 +2960,7 @@
       if (t.includes("advanced") && t.includes("time series")) return ["M4 Competition", "Electricity Load Diagrams", "M5 Forecasting"];
       if (t.includes("time series") || t.includes("arima") || t.includes("sarima")) return ["Airline Passengers", "Air Quality (UCI)", "Stock Prices (Yahoo Finance)"];
       if (t.includes("stream") || t.includes("drift") || t.includes("adwin") || t.includes("vfdt") || t.includes("cvfdt") || t.includes("denstream") || t.includes("clustream") || t.includes("monic")) return ["SEA Concepts (synthetic)", "STAGGER (synthetic)", "Electricity Market"];
-      if (t.includes("association") || t.includes("apriori") || t.includes("eclat")) return ["Online Retail (UCI)", "Groceries (Kaggle)", "MovieLens"];
+      if (t.includes("association") || t.includes("apriori") || t.includes("eclat") || t.includes("lift")) return ["Online Retail (UCI)", "Groceries (Kaggle)", "MovieLens"];
       if (t.includes("multi") || t.includes("label")) return ["Emotions Music", "Scene Image (Tsoumakas)", "Medical (NLP)"];
       if (t.includes("active learning") || t.includes("uncertainty") || t.includes("query")) return ["Pool-based experiment (any)", "20 Newsgroups", "Handwritten Digits"];
       if (t.includes("shap") || t.includes("explain")) return ["Titanic", "California Housing", "Bank Marketing"];
@@ -2985,6 +3009,10 @@
       if (t.includes("hierarchical")) return [{ p: "linkage", desc: "How to merge clusters: ward (minimize variance), complete (max distance), average, or single." }, { p: "distance_metric", desc: "Distance measure: euclidean, cosine, manhattan, etc." }];
       if (t.includes("silhouette") || t.includes("cohesion")) return [{ p: "metric", desc: "Distance metric for silhouette: euclidean (default), manhattan, cosine." }, { p: "sample_size", desc: "Number of samples to compute (for efficiency on large datasets)." }];
       if (t.includes("id3")) return [{ p: "max_depth", desc: "Limit tree depth to prevent overfitting. Try: 3–10." }, { p: "min_samples_split", desc: "Min samples required to split. Higher = simpler tree." }, { p: "criterion", desc: "information_gain (ID3 default), gini_impurity, or gain_ratio (C4.5)." }];
+      if (t.includes("apriori")) return [{ p: "min_support", desc: "Minimum fraction of transactions containing an itemset. Higher = fewer, stronger patterns." }, { p: "min_confidence", desc: "Minimum rule confidence threshold for generated rules." }, { p: "max_len", desc: "Maximum itemset length to control combinatorial explosion." }];
+      if (t.includes("eclat")) return [{ p: "min_support", desc: "Support threshold for keeping frequent itemsets." }, { p: "tidset_representation", desc: "Efficient vertical representation choice (bitset/list) affects memory and speed." }, { p: "max_depth", desc: "Limits recursive itemset growth depth for runtime control." }];
+      if (t.includes("lift")) return [{ p: "min_lift", desc: "Minimum lift threshold; >1 keeps positively associated rules." }, { p: "min_support", desc: "Use with lift to avoid promoting rare noisy rules." }, { p: "min_confidence", desc: "Ensures retained rules also have directional reliability." }];
+      if (t.includes("association")) return [{ p: "min_support", desc: "Primary frequency threshold for candidate patterns." }, { p: "min_confidence", desc: "Rule reliability threshold after itemset mining." }, { p: "metric", desc: "Rule ranking metric: confidence, lift, leverage, conviction." }];
       return null;
     }
 
@@ -3135,6 +3163,26 @@
         return [
           { q: "Why does KNN suffer in high dimensions?", a: "The 'curse of dimensionality' — distances become less meaningful as dimensions grow; all points appear equidistant." },
           { q: "Is KNN a lazy learner? Why?", a: "Yes — no training phase; it memorises data and defers all computation to prediction time." },
+        ];
+      if (t.includes("apriori"))
+        return [
+          { q: "What key property makes Apriori pruning possible?", a: "Downward closure: if an itemset is infrequent, all its supersets are infrequent too." },
+          { q: "What is Apriori's main computational bottleneck?", a: "Candidate generation can explode combinatorially on dense datasets with many frequent items." },
+        ];
+      if (t.includes("eclat"))
+        return [
+          { q: "How does ECLAT differ from Apriori structurally?", a: "ECLAT uses vertical TID sets and depth-first intersections, whereas Apriori uses horizontal transactions and level-wise candidate generation." },
+          { q: "When can ECLAT outperform Apriori?", a: "When TID intersections are efficient and memory can hold vertical sets; often faster for sparse data." },
+        ];
+      if (t.includes("lift"))
+        return [
+          { q: "How do you interpret lift values?", a: "lift > 1 indicates positive association, = 1 independence, < 1 negative association." },
+          { q: "Why should lift be combined with support?", a: "High lift can come from very rare co-occurrences; support filters fragile, low-volume rules." },
+        ];
+      if (t.includes("association"))
+        return [
+          { q: "What are support, confidence, and lift?", a: "Support measures frequency, confidence measures directional reliability P(B|A), and lift measures dependence beyond chance." },
+          { q: "Why are association rules not causal by default?", a: "They capture co-occurrence patterns, not intervention effects; confounding and popularity can create misleading rules." },
         ];
       if (t.includes("lazy") && !t.includes("knn"))
         return [
