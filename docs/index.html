@@ -1836,7 +1836,7 @@
           whenNot: "Adds a second tunable hyperparameter (α); if features are independent, Lasso suffices; if all are relevant, Ridge suffices.",
           related: ["Ridge Regression", "Lasso Regression", "Linear Regression", "Regularization"] };
       }
-      if ((t.includes("regression") || t.includes("linear")) && !t.includes("discriminant")) {
+      if ((t.includes("regression") || t.includes("linear")) && !t.includes("discriminant") && !t.includes("non")) {
         return { kind: "line", desc: "Fits a continuous relationship between inputs and output.", formula: "\\hat{y} = \\mathbf{w}^T \\mathbf{x} + b",
           longDesc: "Linear regression models the relationship between a dependent variable and one or more independent variables by fitting a linear equation. It minimises the sum of squared residuals to find optimal weights.",
           useCases: ["House price prediction", "Sales forecasting", "Risk scoring"],
