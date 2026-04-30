@@ -2468,6 +2468,14 @@
           whenNot: "Small datasets — neural nets will overfit; tabular data often favours tree methods.",
           related: ["Backpropagation", "Feed-Forward NN", "LSTM", "Activation Functions"] };
       }
+      if (t.includes("artificial") && t.includes("neural")) {
+        return { kind: "network", desc: "Networks of interconnected artificial neurons that model the brain's information processing.", formula: "a_j = \\sigma\\!\\left(\\sum_i w_{ij}\\, x_i + b_j\\right)",
+          longDesc: "An Artificial Neural Network (ANN) is a parametric function approximator inspired by biological neural circuits. Each neuron \\(j\\) computes a weighted sum of its inputs plus a bias, then applies a non-linear activation \\(\\sigma\\): \\(a_j = \\sigma(\\mathbf{w}_j^T\\mathbf{x} + b_j)\\). Neurons are organised in layers: an input layer, one or more hidden layers, and an output layer. The universal approximation theorem guarantees that a single hidden layer of sufficient width can approximate any continuous function. ANNs are trained by minimising a loss via backpropagation and gradient descent. Early models (McCulloch-Pitts, Perceptron) had no hidden layers; multi-layer ANNs overcome the XOR problem and learn hierarchical representations.",
+          useCases: ["Classification and regression on structured data", "Foundation for deep architectures (CNN, RNN, Transformer)", "Function approximation and control"],
+          whenUse: "When the input-output mapping is highly non-linear and sufficient labelled data is available.",
+          whenNot: "Small datasets without regularisation — ANNs overfit easily; simpler models (SVM, GBM) often outperform on tabular data.",
+          related: ["Feed-Forward Neural Networks", "Backpropagation Algorithm", "Activation Functions", "Gradient Descent"] };
+      }
       if (t.includes("safe") && t.includes("semi") && t.includes("supervised")) {
         return { kind: "graph", desc: "Semi-supervised strategy that uses unlabeled data conservatively to avoid degrading baseline supervised performance.", formula: "\\mathcal{R}(h_{safe}) \\leq \\mathcal{R}(h_{sup})",
           longDesc: "Safe SSL methods exploit unlabeled samples only when they are expected to help. They constrain optimization so unlabeled data does not hurt compared to a supervised baseline, making them suitable for risk-sensitive deployments.",
@@ -3279,6 +3287,7 @@
       if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network"))) return ["Asia Network (bnlearn)", "Alarm Network (medical)", "Chest Clinic (pathfinder)"];
       if (t.includes("bayes") || t.includes("naive")) return ["20 Newsgroups", "SMS Spam Collection", "IMDB Sentiment"];
       if ((t.includes("feed") && t.includes("forward")) || t.includes("feedforward") || t.includes("ffnn")) return ["MNIST", "CIFAR-10", "Tabular: Adult Income"];
+      if (t.includes("artificial") && t.includes("neural")) return ["MNIST", "XOR (synthetic)", "Iris"];
       if (t.includes("non") && t.includes("linear") && t.includes("svm")) return ["Breast Cancer (non-linear boundary)", "Two Moons (synthetic)", "Digits (sklearn)"];
       if (t.includes("maximal margin")) return ["Linearly separable synthetic (sklearn make_classification)", "Iris (2 classes, 2 features)", "Breast Cancer (2-class subset)"];
       if (t.includes("neural") || t.includes("deep") || t.includes("lstm") || t.includes("backprop") || t.includes("activation") || t.includes("neuron") || t.includes("vanishing") || t.includes("exploding") || (t.includes("delta") && t.includes("rule")) || (t.includes("chain") && t.includes("rule")) || t.includes("vectorization") || (t.includes("teacher") && t.includes("forcing"))) return ["MNIST", "CIFAR-10", "IMDb Reviews"];
@@ -3366,6 +3375,7 @@
       if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
       if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network"))) return [{ p: "structure (DAG)", desc: "Learned vs expert-specified graph; structure learning is NP-hard so often domain knowledge is used." }, { p: "CPT estimation method", desc: "MLE, MAP (Bayesian parameter estimation with Dirichlet prior), or EM for missing data." }, { p: "inference algorithm", desc: "Variable elimination (exact), belief propagation (exact trees), or Gibbs sampling (approximate)." }];
       if ((t.includes("feed") && t.includes("forward")) || t.includes("feedforward") || t.includes("ffnn")) return [{ p: "learning_rate (η)", desc: "Step size for gradient descent. Typical: 1e-4 to 1e-2; use a schedule (cosine, step)." }, { p: "hidden_layers & units", desc: "Start with 1–3 layers of 64–512 units; deeper for more complex functions." }, { p: "activation function", desc: "ReLU (default hidden), Sigmoid/Softmax (output). Avoid sigmoid/tanh in deep hidden layers." }, { p: "dropout", desc: "Regularise with dropout 0.2–0.5 between dense layers." }];
+      if (t.includes("artificial") && t.includes("neural")) return [{ p: "n_hidden_layers", desc: "Depth of the network. Start with 1–2 layers; deeper only if underfitting persists." }, { p: "units_per_layer", desc: "Width of each layer. Common: 32, 64, 128, 256. Wider = more capacity but more compute." }, { p: "activation", desc: "Hidden layers: ReLU (default). Output: sigmoid (binary), softmax (multiclass), linear (regression)." }, { p: "learning_rate & optimiser", desc: "Adam (1e-3) is a robust default. SGD+momentum for more control." }];
       if (t.includes("non") && t.includes("linear") && t.includes("svm")) return [{ p: "C", desc: "Soft-margin penalty. Small C allows more violations (wider margin); large C = fewer violations." }, { p: "kernel", desc: "rbf (default for non-linear), poly, sigmoid. RBF is the go-to non-linear kernel." }, { p: "gamma (γ)", desc: "RBF/poly influence width. scale (1/(n_features·Var(X))) or specific float. Large γ = tight fit." }];
       if (t.includes("maximal margin")) return [{ p: "C (if soft margin)", desc: "Hard MMC has no C; soft extension uses C to trade margin width vs. training errors." }, { p: "kernel", desc: "For linearly separable data: no kernel needed. Add RBF/poly to extend to non-linear case." }, { p: "tolerance", desc: "KKT condition tolerance in QP solver; tighter = more precise support vector identification." }];
       if ((t.includes("rule") && t.includes("based")) || t.includes("rule-based")) return [{ p: "min_coverage", desc: "Minimum fraction of training examples a rule must cover to be retained." }, { p: "min_accuracy", desc: "Minimum rule accuracy (precision) threshold." }, { p: "pruning", desc: "Post-pruning (IREP, RIPPER) reduces overfitting by simplifying rule antecedents." }];
@@ -3795,6 +3805,12 @@
         return [
           { q: "What does the Universal Approximation Theorem say about neural networks?", a: "A single hidden layer with sufficient neurons can approximate any continuous function to arbitrary precision. This justifies using DNNs for any learning task." },
           { q: "Why are deep (many-layer) networks preferred over wide (one-layer) ones in practice?", a: "Deep networks learn hierarchical representations efficiently (exponentially fewer parameters for same expressiveness); they also generalise better empirically for structured data (images, text)." },
+        ];
+      if (t.includes("artificial") && t.includes("neural"))
+        return [
+          { q: "What is the biological inspiration for artificial neural networks?", a: "ANNs loosely model biological neurons: a dendrite-like weighted sum of inputs is passed through a cell body activation to produce an axon-like output signal that feeds downstream neurons." },
+          { q: "How did multi-layer ANNs solve the XOR problem?", a: "A single-layer perceptron cannot represent XOR because it is not linearly separable. Adding a hidden layer with non-linear activation allows the network to learn a curved decision boundary that separates the XOR classes." },
+          { q: "Why is the number of hidden layers and units a design choice rather than a fixed rule?", a: "Universal approximation guarantees existence but not efficiency. In practice, 1–2 hidden layers suffice for most tabular tasks; depth is added when the function has hierarchical structure (images, language)." },
         ];
       if (t.includes("neural") || t.includes("deep") || t.includes("backprop"))
         return [
