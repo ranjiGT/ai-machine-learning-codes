@@ -1816,6 +1816,30 @@
           whenNot: "Avoid when the dataset is too sparse or rules lack business interpretability.",
           related: ["ECLAT", "Lift", "Sequential Pattern Mining"] };
       }
+      if (t.includes("itemset") || t.includes("lattice")) {
+        return { kind: "matrix", desc: "Hierarchical representation of frequent itemsets and their subsets.", formula: "\\text{Lattice} = \\{S \\subseteq I : \\text{freq}(S) \\geq \\text{minsupp}\\}",
+          longDesc: "An itemset lattice is a partially-ordered structure showing all frequent itemsets and their subset relationships. It provides a complete view of which combinations meet the minimum support threshold and forms the basis for the Apriori principle.",
+          useCases: ["Visualizing frequent itemsets", "Understanding subset relationships", "Analyzing pattern hierarchies"],
+          whenUse: "When you need to understand the complete structure of frequent patterns or visualize all possible itemset combinations.",
+          whenNot: "In massive itemset spaces where the lattice becomes computationally intractable.",
+          related: ["Apriori Principle", "Association Rules", "Frequent Patterns"] };
+      }
+      if (t.includes("fwer") || t.includes("family-wise")) {
+        return { kind: "bars", desc: "Controls the probability of making at least one false positive across multiple comparisons.", formula: "\\text{FWER} = P\\left(\\bigcup_{i=1}^{m} \\{T_i \\text{ rejects } H_{0i}\\}\\right)",
+          longDesc: "Family-Wise Error Rate (FWER) is the probability of rejecting at least one true null hypothesis when conducting multiple statistical tests. It's a conservative approach ensuring strong control across all comparisons. Bonferroni correction is a common method: α/m.",
+          useCases: ["Multi-hypothesis testing", "Genomics studies", "Pharmaceutical trials"],
+          whenUse: "When controlling even a single false positive is critical; small number of tests.",
+          whenNot: "When there are many tests and you can tolerate some false discoveries; use FDR instead for more power.",
+          related: ["FDR", "Bonferroni Correction", "Multiple Comparisons"] };
+      }
+      if (t.includes("fdr") || t.includes("false discovery rate")) {
+        return { kind: "bars", desc: "Controls the expected proportion of false discoveries among all rejected hypotheses.", formula: "\\text{FDR} = E\\left[\\frac{\\text{# false positives}}{\\text{# rejected hypotheses}}\\right]",
+          longDesc: "False Discovery Rate (FDR) is the expected proportion of false positives among all discovered findings. It's less conservative than FWER, allowing more true discoveries while controlling the rate of false positives. Benjamini-Hochberg procedure is a popular method.",
+          useCases: ["High-dimensional genomics", "Multiple comparisons in ML experiments", "Large-scale hypothesis testing"],
+          whenUse: "When you have many tests and want to balance discovery power with false positive control.",
+          whenNot: "When even a single false positive is unacceptable; use FWER in that case.",
+          related: ["FWER", "Benjamini-Hochberg Procedure", "p-value Adjustment"] };
+      }
       if (t.includes("gradient") || t.includes("backprop") || t.includes("delta") || t.includes("neural") || t.includes("relu") || t.includes("lstm")) {
         return { kind: "network", desc: "Optimizes neural weights via gradient-based learning.", formula: "\\mathbf{w} \\leftarrow \\mathbf{w} - \\eta \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{w}}",
           longDesc: "Artificial neural networks are universal function approximators composed of layers of parameterised neurons. Backpropagation computes gradients via the chain rule; optimisers like SGD or Adam update weights.",
