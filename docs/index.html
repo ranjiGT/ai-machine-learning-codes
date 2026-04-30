@@ -1711,6 +1711,9 @@
       title = title.replace(/\bmonic\b/gi, "MONIC");
       title = title.replace(/\beclat\b/gi, "ECLAT");
       title = title.replace(/\brakel\b/gi, "RAkEL");
+      title = title.replace(/\bsvd\b/gi, "SVD");
+      title = title.replace(/\bvc\b/gi, "VC");
+      title = title.replace(/\blda\b/gi, "LDA");
       title = title.split(" ").map((word) => {
         if (word === word.toUpperCase()) return word;
         return word.charAt(0).toUpperCase() + word.slice(1);
@@ -1728,6 +1731,70 @@
           whenNot: "Avoid when decision boundary is highly non-linear without feature engineering.",
           related: ["Linear Regression", "Naive Bayes", "SVM"] };
       }
+      if ((t.includes("vc") && t.includes("dimension")) || t.includes("vapnik")) {
+        return { kind: "chart", desc: "Measures the expressiveness of a hypothesis class: the largest set of points it can shatter.", formula: "VC(\\mathcal{H}) = \\max\\{m : \\Pi_{\\mathcal{H}}(m) = 2^m\\}",
+          longDesc: "Vapnik-Chervonenkis (VC) dimension is the largest number of points a hypothesis class can shatter — correctly classify in all 2ⁿ possible binary labelings. Higher VC dimension means a more expressive model class but greater risk of overfitting. It supports theoretical generalization bounds via Structural Risk Minimization.",
+          useCases: ["Generalization bound proofs", "Comparing model capacity", "PAC learning framework"],
+          whenUse: "Theoretical analysis of model complexity; supports generalization guarantees via structural risk minimization.",
+          whenNot: "VC bounds are often very loose in practice; use cross-validation for empirical generalization estimates.",
+          related: ["Inductive Bias", "Concept Learning", "Bias-Variance Tradeoff", "Regularization"] };
+      }
+      if (t.includes("regression evaluation") || (t.includes("regression") && t.includes("evaluation"))) {
+        return { kind: "chart", desc: "Quantifies prediction quality of regression models using error measures on continuous outputs.", formula: "RMSE = \\sqrt{\\tfrac{1}{n}\\textstyle\\sum_i(\\hat{y}_i - y_i)^2}, \\quad R^2 = 1 - \\tfrac{SS_{res}}{SS_{tot}}",
+          longDesc: "Key regression metrics: MAE (mean absolute error — robust to outliers), MSE/RMSE (penalises large errors more heavily), R² (proportion of variance explained, 0–1), and MAPE (percentage error, undefined at zero). Always report multiple metrics for a complete view of model performance.",
+          useCases: ["Model selection", "Forecasting evaluation", "Comparing regression variants"],
+          whenUse: "Use RMSE when large errors are costly; MAE for a robust baseline; R² to express explained variance in a standardised way.",
+          whenNot: "MAPE is undefined when true values are zero; RMSE can be dominated by outliers.",
+          related: ["Linear Regression", "Ridge Regression", "Cross-Validation", "Bias-Variance Tradeoff"] };
+      }
+      if (t.includes("linear learning")) {
+        return { kind: "line", desc: "Unified family of models that learn linear decision boundaries via different loss functions.", formula: "f(\\mathbf{x}) = \\text{sign}(\\mathbf{w}^T\\mathbf{x} + b)",
+          longDesc: "Linear learning machines encompass all models sharing the linear hypothesis class but using different loss functions: perceptron (0-1 loss), linear SVM (hinge loss), logistic regression (log-loss), and linear regression (squared loss). They are theoretically unified by the same representational capacity yet differ in optimization, statistical guarantees, and sparsity.",
+          useCases: ["Text classification with TF-IDF", "Scalable high-dimensional learning", "Theoretical bridge to kernel methods"],
+          whenUse: "High-dimensional sparse data (text, genomics) where linear separability holds; extremely scalable to large datasets.",
+          whenNot: "When data is non-linearly separable without extensive feature engineering; use kernel methods or neural networks.",
+          related: ["SVM", "Logistic Regression", "Perceptron", "Kernel Function Matrix"] };
+      }
+      if (t.includes("ridge")) {
+        return { kind: "line", desc: "Adds L2 penalty to regression shrinking all coefficients toward zero to reduce overfitting.", formula: "\\hat{\\boldsymbol{\\beta}} = \\arg\\min_{\\boldsymbol{\\beta}} \\|\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta}\\|^2 + \\lambda\\|\\boldsymbol{\\beta}\\|^2",
+          longDesc: "Ridge regression (Tikhonov regularization) adds an L2 penalty λ‖β‖² to the OLS objective, shrinking all coefficients toward zero but never to exactly zero. The closed-form solution (X^TX + λI)⁻¹X^Ty is always invertible, solving the multicollinearity problem. λ controls the bias-variance tradeoff.",
+          useCases: ["Multicollinear feature sets", "High-dimensional regression", "Preventing OLS overfitting"],
+          whenUse: "When features are correlated or all are believed relevant; closed-form solution is computationally efficient.",
+          whenNot: "When you need feature selection (sparse solutions); use Lasso or Elastic Net instead.",
+          related: ["Lasso Regression", "Elastic Net", "Linear Regression", "Regularization"] };
+      }
+      if (t.includes("lasso")) {
+        return { kind: "line", desc: "Adds L1 penalty to regression enabling automatic feature selection via sparse solutions.", formula: "\\hat{\\boldsymbol{\\beta}} = \\arg\\min_{\\boldsymbol{\\beta}} \\|\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta}\\|^2 + \\lambda\\|\\boldsymbol{\\beta}\\|_1",
+          longDesc: "LASSO (Least Absolute Shrinkage and Selection Operator) uses L1 regularization. The diamond-shaped L1 constraint creates a geometry where the optimal solution often lies on an axis, driving irrelevant feature coefficients exactly to zero — performing implicit feature selection during training.",
+          useCases: ["Feature selection", "High-dimensional sparse regression", "Genomics and gene expression"],
+          whenUse: "When you suspect many features are irrelevant and want an interpretable sparse model.",
+          whenNot: "Arbitrarily selects one from a group of correlated features; use Elastic Net for correlated feature groups.",
+          related: ["Ridge Regression", "Elastic Net", "Linear Regression", "Feature Selection"] };
+      }
+      if (t.includes("polynomial")) {
+        return { kind: "curve", desc: "Extends linear regression with polynomial feature transformations to fit non-linear relationships.", formula: "\\hat{y} = w_0 + w_1 x + w_2 x^2 + \\cdots + w_d x^d",
+          longDesc: "Polynomial regression maps inputs to polynomial terms (x, x², …, x^d) then applies standard linear regression. The model is non-linear in features but linear in parameters, preserving the OLS closed-form solution. Degree d is the key hyperparameter; too high leads to overfitting, too low underfits.",
+          useCases: ["Non-linear trend fitting", "Physical process modeling", "Curved residual correction"],
+          whenUse: "When residuals from linear regression show a clear curved pattern; known smooth monotonic or single-peak relationships.",
+          whenNot: "High degrees overfit and extrapolate poorly; prefer splines, kernel methods, or tree ensembles for complex curves.",
+          related: ["Linear Regression", "Kernel Function Matrix", "Ridge Regression", "Overfitting"] };
+      }
+      if (t.includes("isotonic")) {
+        return { kind: "curve", desc: "Fits a monotonically non-decreasing step function via the Pool Adjacent Violators Algorithm.", formula: "\\hat{\\mathbf{y}}^* = \\arg\\min_{\\hat{y}_1 \\le \\cdots \\le \\hat{y}_n} \\sum_i (y_i - \\hat{y}_i)^2",
+          longDesc: "Isotonic regression finds the best non-decreasing (monotone) step-function fit to ordered data. The Pool Adjacent Violators Algorithm (PAVA) merges adjacent groups violating the monotonicity constraint by averaging them, repeating until all groups satisfy the constraint. Widely used for probability calibration of classifier outputs.",
+          useCases: ["Probability calibration", "Monotonic score transformation", "Dose-response modeling"],
+          whenUse: "When a monotonic relationship between input and output is known or required by domain expertise.",
+          whenNot: "Not suitable for non-monotonic relationships; polynomial or spline regression is more appropriate.",
+          related: ["Polynomial Regression", "Regression Evaluation Metrics", "Logistic Regression"] };
+      }
+      if (t.includes("elastic")) {
+        return { kind: "line", desc: "Combines L1 and L2 penalties balancing feature selection sparsity and coefficient stability.", formula: "\\min_{\\boldsymbol{\\beta}} \\|\\mathbf{y} - \\mathbf{X}\\boldsymbol{\\beta}\\|^2 + \\lambda \\!\\left[\\alpha\\|\\boldsymbol{\\beta}\\|_1 + \\tfrac{1-\\alpha}{2}\\|\\boldsymbol{\\beta}\\|^2\\right]",
+          longDesc: "Elastic Net combines Lasso (L1) and Ridge (L2) penalties via mixing parameter α ∈ [0,1]. At α=1 it is pure Lasso; at α=0 it is pure Ridge. It handles correlated features better than Lasso alone (which picks one arbitrarily from a correlated group) while still encouraging sparsity.",
+          useCases: ["Correlated feature groups", "High-dimensional genomics", "Grouped variable selection"],
+          whenUse: "When features are correlated and you need both sparse solutions and coefficient stability.",
+          whenNot: "Adds a second tunable hyperparameter (α); if features are independent, Lasso suffices; if all are relevant, Ridge suffices.",
+          related: ["Ridge Regression", "Lasso Regression", "Linear Regression", "Regularization"] };
+      }
       if (t.includes("regression") || t.includes("linear")) {
         return { kind: "line", desc: "Fits a continuous relationship between inputs and output.", formula: "\\hat{y} = \\mathbf{w}^T \\mathbf{x} + b",
           longDesc: "Linear regression models the relationship between a dependent variable and one or more independent variables by fitting a linear equation. It minimises the sum of squared residuals to find optimal weights.",
@@ -1736,7 +1803,15 @@
           whenNot: "Avoid when the target is categorical or the relationship is highly non-linear.",
           related: ["Logistic Regression", "Ridge/Lasso", "PCA"] };
       }
-      if (t.includes("tree") || t.includes("id3") || t.includes("impurity")) {
+      if (t.includes("id3")) {
+        return { kind: "tree", desc: "Builds a decision tree top-down selecting the attribute with maximum information gain.", formula: "\\text{Attr}^* = \\arg\\max_A \\; IG(S, A) = H(S) - \\sum_{v} \\frac{|S_v|}{|S|} H(S_v)",
+          longDesc: "ID3 (Iterative Dichotomiser 3), by Ross Quinlan, greedily constructs a decision tree by selecting the attribute with maximum information gain at each node. It processes only nominal (discrete) attributes, does not handle continuous values natively, and has no built-in pruning. C4.5 extended ID3 to handle continuous attributes, missing values, and added pruning.",
+          useCases: ["Categorical feature classification", "Rule induction from discrete data", "Foundational ML teaching"],
+          whenUse: "Baseline algorithm for purely categorical features with clean, noise-free labels.",
+          whenNot: "Cannot handle continuous features or label noise natively; use C4.5, CART, or Scikit-learn DecisionTreeClassifier instead.",
+          related: ["Decision Trees", "Impurity Measures", "Information Gain", "Random Forest"] };
+      }
+      if (t.includes("tree") || t.includes("impurity")) {
         return { kind: "tree", desc: "Splits data recursively by maximizing information gain.", formula: "IG(S, A) = H(S) - \\sum_{v \\in Values(A)} \\frac{|S_v|}{|S|} H(S_v)",
           longDesc: "Decision trees recursively partition the feature space by selecting splits that maximise purity (information gain, Gini impurity, or gain ratio). They produce interpretable if-then rules.",
           useCases: ["Medical diagnosis", "Credit scoring", "Customer segmentation"],
@@ -1760,7 +1835,23 @@
           whenNot: "Slow at prediction time for large datasets; sensitive to irrelevant features.",
           related: ["Distance Measures", "PCA", "Cluster Similarity"] };
       }
-      if (t.includes("pca") || t.includes("svd") || t.includes("discriminant")) {
+      if (t.includes("svd")) {
+        return { kind: "matrix", desc: "Decomposes any matrix into orthogonal left/right bases and singular values.", formula: "\\mathbf{X} = \\mathbf{U}\\boldsymbol{\\Sigma}\\mathbf{V}^T",
+          longDesc: "Singular Value Decomposition (SVD) factorizes any m×n matrix into orthonormal left singular vectors U (m×m), diagonal matrix Σ of non-negative singular values, and orthonormal right singular vectors V (n×n). PCA is a special case of truncated SVD applied to the centered data matrix. Truncated SVD keeps only the top-k singular vectors for efficient dimensionality reduction.",
+          useCases: ["Dimensionality reduction", "Latent Semantic Analysis (LSA)", "Matrix completion", "Recommender systems"],
+          whenUse: "When you need to decompose any rectangular matrix; backbone of PCA, LSA, and low-rank approximation algorithms.",
+          whenNot: "Full SVD is O(min(m,n)³); use randomized or truncated SVD for large sparse matrices.",
+          related: ["PCA", "Linear Discriminant Analysis", "Kernel Function Matrix", "t-SNE"] };
+      }
+      if (t.includes("discriminant")) {
+        return { kind: "matrix", desc: "Supervised dimensionality reduction maximizing between-class over within-class scatter.", formula: "\\mathbf{w}^* = \\arg\\max_{\\mathbf{w}} \\frac{\\mathbf{w}^T \\mathbf{S}_B \\mathbf{w}}{\\mathbf{w}^T \\mathbf{S}_W \\mathbf{w}}",
+          longDesc: "Linear Discriminant Analysis (LDA) finds projections that maximize between-class scatter S_B relative to within-class scatter S_W. Unlike PCA (unsupervised), LDA uses class labels making it a supervised dimensionality reduction method. With C classes it produces at most C-1 discriminant directions.",
+          useCases: ["Supervised dimensionality reduction", "Face recognition (Fisherfaces)", "Multi-class preprocessing"],
+          whenUse: "When class labels are available and discriminative projections that best separate classes are needed before classification.",
+          whenNot: "Assumes Gaussian class-conditionals and equal covariance matrices; use kernel LDA or QDA for non-linear data.",
+          related: ["PCA", "SVD", "t-SNE", "SVM", "Logistic Regression"] };
+      }
+      if (t.includes("pca")) {
         return { kind: "matrix", desc: "Projects data into a lower-dimensional informative space.", formula: "\\mathbf{X} = \\mathbf{U}\\mathbf{\\Sigma}\\mathbf{V}^T",
           longDesc: "Principal Component Analysis finds orthogonal directions of maximum variance (principal components) via SVD. It reduces dimensionality while preserving as much variance as possible.",
           useCases: ["Noise reduction", "Visualisation", "Preprocessing for ML"],
@@ -1888,6 +1979,14 @@
           whenNot: "When even a single false positive is unacceptable; use FWER in that case.",
           related: ["FWER", "Benjamini-Hochberg Procedure", "p-value Adjustment"] };
       }
+      if (t.includes("gradient") && t.includes("descent")) {
+        return { kind: "line", desc: "Iterative optimization algorithm that moves parameters opposite to the loss gradient.", formula: "\\boldsymbol{\\theta}_{t+1} = \\boldsymbol{\\theta}_t - \\eta \\nabla_{\\boldsymbol{\\theta}} \\mathcal{L}(\\boldsymbol{\\theta}_t)",
+          longDesc: "Gradient descent minimizes a differentiable loss by iteratively updating parameters in the direction of steepest descent. Variants: Batch GD (full dataset), Stochastic GD (one sample — noisy but fast), Mini-batch GD (subset — best of both worlds). Adaptive optimizers (Adam, RMSprop, AdaGrad) adjust per-parameter learning rates automatically.",
+          useCases: ["Training linear models", "Optimizing neural networks", "Any differentiable loss minimization"],
+          whenUse: "When the loss function is differentiable and the problem is too large for a direct analytical solution.",
+          whenNot: "Non-differentiable objectives or highly non-convex landscapes with many local minima; evolutionary or Bayesian optimization may be better.",
+          related: ["Backpropagation", "Neural Networks", "Ridge Regression", "Hyperparameter Tuning"] };
+      }
       if (t.includes("gradient") || t.includes("backprop") || t.includes("delta") || t.includes("neural") || t.includes("relu") || t.includes("lstm")) {
         return { kind: "network", desc: "Optimizes neural weights via gradient-based learning.", formula: "\\mathbf{w} \\leftarrow \\mathbf{w} - \\eta \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{w}}",
           longDesc: "Artificial neural networks are universal function approximators composed of layers of parameterised neurons. Backpropagation computes gradients via the chain rule; optimisers like SGD or Adam update weights.",
@@ -1927,6 +2026,14 @@
           whenUse: "Any black-box model needing post-hoc explainability.",
           whenNot: "When speed is critical — exact SHAP is expensive for large feature sets.",
           related: ["Feature Importance", "LIME", "Model Interpretability"] };
+      }
+      if (t.includes("kernel") && (t.includes("function") || t.includes("matrix"))) {
+        return { kind: "matrix", desc: "Encodes pairwise similarity via kernel evaluations forming the Gram matrix for non-linear models.", formula: "K_{ij} = k(\\mathbf{x}_i, \\mathbf{x}_j) = \\langle \\phi(\\mathbf{x}_i), \\phi(\\mathbf{x}_j) \\rangle_{\\mathcal{H}}",
+          longDesc: "A kernel function k(x, x') computes inner products in an implicit feature space without materializing φ(x). The Gram matrix K_{ij} stores all n² pairwise evaluations. Valid kernels satisfy Mercer's theorem (positive semi-definite Gram matrix). Common types: RBF/Gaussian, polynomial, linear, and string kernels for sequences.",
+          useCases: ["SVM training", "Kernel PCA", "Gaussian Process regression", "Structured data prediction"],
+          whenUse: "When the feature space is best defined by pairwise similarity rather than explicit feature vectors.",
+          whenNot: "Gram matrix is O(n²) memory and O(n³) solve time; impractical for n > 50k without approximations (Nyström, Random Fourier Features).",
+          related: ["SVM", "Kernel PCA", "Linear Learning Machines", "SVD"] };
       }
       if (t.includes("svm") || t.includes("maximal margin") || t.includes("support vector") || t.includes("kernel")) {
         return { kind: "line", desc: "Finds the maximum-margin hyperplane separating classes.", formula: "\\min_{\\mathbf{w}} \\frac{1}{2}\\|\\mathbf{w}\\|^2 \\text{ s.t. } y_i(\\mathbf{w}^T\\mathbf{x}_i+b) \\geq 1",
@@ -2588,10 +2695,13 @@
     // ── Hyperparameter guide ──────────────────────────────────────────────
     function hyperparamsFor(title) {
       const t = title.toLowerCase();
-      if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic") && !t.includes("ridge") && !t.includes("lasso")))
+      if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic") && !t.includes("ridge") && !t.includes("lasso") && !t.includes("polynomial") && !t.includes("isotonic") && !t.includes("evaluation") && !t.includes("elastic")))
         return [{ p: "fit_intercept", desc: "Whether to fit the bias term. Usually true." }, { p: "normalize (deprecated)", desc: "Scale features first; use StandardScaler instead." }];
-      if (t.includes("ridge")) return [{ p: "alpha (λ)", desc: "Regularisation strength. Larger = simpler model. Try: 0.01, 0.1, 1, 10." }];
-      if (t.includes("lasso")) return [{ p: "alpha (λ)", desc: "Controls sparsity. Larger = more zero weights. Try: 0.001 – 1." }];
+      if (t.includes("ridge")) return [{ p: "alpha (λ)", desc: "Regularisation strength. Larger = simpler model. Try: 0.01, 0.1, 1, 10." }, { p: "fit_intercept", desc: "Whether to fit the bias term. Almost always true." }, { p: "solver", desc: "auto, svd, cholesky, lsqr. auto selects based on data shape." }];
+      if (t.includes("lasso")) return [{ p: "alpha (λ)", desc: "Controls sparsity. Larger = more zero weights. Try: 0.001 – 1." }, { p: "max_iter", desc: "Max optimization iterations. Increase if model does not converge." }, { p: "selection", desc: "cyclic or random. Random can converge faster." }];
+      if (t.includes("elastic")) return [{ p: "alpha", desc: "Overall regularization strength. Higher = more shrinkage." }, { p: "l1_ratio", desc: "Mix between L1 and L2. 0 = Ridge, 1 = Lasso. Try: 0.1, 0.5, 0.9." }];
+      if (t.includes("polynomial")) return [{ p: "degree", desc: "Polynomial degree. Degree 2 or 3 is a common starting point; higher degrees overfit." }, { p: "include_bias", desc: "Whether to include a bias column (intercept term). Usually true." }, { p: "interaction_only", desc: "If true, only cross-terms are created, not squared individual features." }];
+      if (t.includes("isotonic")) return [{ p: "increasing", desc: "True = monotone increasing fit; False = decreasing; auto = infers from data." }, { p: "out_of_bounds", desc: "How to handle x values outside training range: nan, clip, or raise." }];
       if (t.includes("logistic")) return [{ p: "C", desc: "Inverse of regularisation strength. Small C = strong penalty. Try: 0.01, 0.1, 1." }, { p: "solver", desc: "liblinear (small), lbfgs (multi-class), saga (large data)." }];
       if (t.includes("tree")) return [{ p: "max_depth", desc: "Limit tree depth to prevent overfitting. Try: 3–10." }, { p: "min_samples_split", desc: "Min samples to split a node. Higher = simpler tree." }, { p: "criterion", desc: "gini or entropy — usually similar results." }];
       if (t.includes("random forest") || t.includes("forest")) return [{ p: "n_estimators", desc: "Number of trees. More = better until diminishing returns. Try: 100–500." }, { p: "max_features", desc: "Features per split. sqrt(d) for classification, d/3 for regression." }, { p: "max_depth", desc: "Depth of each tree. None (full) or limit to reduce overfitting." }];
@@ -2600,29 +2710,99 @@
       if (t.includes("kmeans") || t.includes("k-means")) return [{ p: "n_clusters (K)", desc: "Number of clusters. Use elbow method or silhouette score to choose." }, { p: "init", desc: "k-means++ (smart initialisation) or random." }, { p: "n_init", desc: "Number of restarts. Default 10; higher is more stable." }];
       if (t.includes("dbscan")) return [{ p: "eps", desc: "Neighbourhood radius. Use k-distance plot to estimate." }, { p: "min_samples", desc: "Min points to form a core point. Try: 2*d as a rule." }];
       if (t.includes("neural") || t.includes("deep") || t.includes("mlp")) return [{ p: "learning_rate (η)", desc: "Step size. Too high diverges; too low is slow. Try: 1e-4 – 1e-2." }, { p: "batch_size", desc: "Samples per update. 32 or 64 is a safe default." }, { p: "hidden_layers", desc: "Start with 1–2 hidden layers; increase for complex data." }, { p: "dropout", desc: "0.2–0.5 reduces overfitting in deeper networks." }];
-      if (t.includes("gradient") || t.includes("boosting") || t.includes("xgb")) return [{ p: "n_estimators", desc: "Number of boosting rounds. More = better but risk overfitting." }, { p: "learning_rate (η)", desc: "Shrinks each tree's contribution. Lower = needs more estimators. 0.01–0.3." }, { p: "max_depth", desc: "Depth of each tree. 3–6 is typical for boosting." }, { p: "subsample", desc: "Fraction of training samples per round. 0.5–0.9 helps regularise." }];
-      if (t.includes("pca")) return [{ p: "n_components", desc: "Number of components to keep. Or set to variance explained (e.g., 0.95)." }];
+      if (t.includes("gradient") && t.includes("descent")) return [{ p: "learning_rate (η)", desc: "Step size per update. Too large diverges; too small is slow. Typical: 0.001–0.1." }, { p: "batch_size", desc: "Samples per gradient update. 1 = SGD, full dataset = batch GD, 32–256 = mini-batch." }, { p: "max_iter / epochs", desc: "Passes over training data. Stop early if validation loss plateaus." }, { p: "momentum (β)", desc: "Fraction of previous velocity to accumulate. 0.9 is common; helps escape saddle points." }];
+      if ((t.includes("gradient") && !t.includes("descent")) || t.includes("boosting") || t.includes("xgb")) return [{ p: "n_estimators", desc: "Number of boosting rounds. More = better but risk overfitting." }, { p: "learning_rate (η)", desc: "Shrinks each tree's contribution. Lower = needs more estimators. 0.01–0.3." }, { p: "max_depth", desc: "Depth of each tree. 3–6 is typical for boosting." }, { p: "subsample", desc: "Fraction of training samples per round. 0.5–0.9 helps regularise." }];
+      if (t.includes("pca")) return [{ p: "n_components", desc: "Number of components to keep. Or set to variance explained (e.g., 0.95)." }, { p: "svd_solver", desc: "full, arpack, randomized. Use randomized for large datasets." }];
+      if (t.includes("svd")) return [{ p: "n_components", desc: "Number of singular vectors to keep. Controls compression level." }, { p: "algorithm", desc: "randomized (fast, approximate) or arpack (exact, slower)." }];
+      if (t.includes("discriminant")) return [{ p: "n_components", desc: "Number of discriminant directions (at most C-1 for C classes)." }, { p: "solver", desc: "svd (no covariance matrix), lsqr, eigen." }, { p: "shrinkage", desc: "auto (Ledoit-Wolf) or float. Helps when samples < features." }];
+      if (t.includes("kernel") && (t.includes("function") || t.includes("matrix"))) return [{ p: "kernel type", desc: "rbf (Gaussian), poly (polynomial), linear, sigmoid. RBF is a strong default." }, { p: "gamma (γ)", desc: "RBF bandwidth. scale, auto, or specific float. Larger = tighter fit." }, { p: "degree (d)", desc: "Only for polynomial kernel. Degree 2 or 3 is common." }];
       if (t.includes("arima")) return [{ p: "p (AR order)", desc: "Number of lag observations. Check PACF plot." }, { p: "d (differencing)", desc: "Degree of differencing for stationarity. Usually 0, 1, or 2." }, { p: "q (MA order)", desc: "Moving average terms. Check ACF plot." }];
       if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
       if (t.includes("hierarchical")) return [{ p: "linkage", desc: "How to merge clusters: ward (minimize variance), complete (max distance), average, or single." }, { p: "distance_metric", desc: "Distance measure: euclidean, cosine, manhattan, etc." }];
       if (t.includes("silhouette") || t.includes("cohesion")) return [{ p: "metric", desc: "Distance metric for silhouette: euclidean (default), manhattan, cosine." }, { p: "sample_size", desc: "Number of samples to compute (for efficiency on large datasets)." }];
+      if (t.includes("id3")) return [{ p: "max_depth", desc: "Limit tree depth to prevent overfitting. Try: 3–10." }, { p: "min_samples_split", desc: "Min samples required to split. Higher = simpler tree." }, { p: "criterion", desc: "information_gain (ID3 default), gini_impurity, or gain_ratio (C4.5)." }];
       return null;
     }
 
     // ── Interview Q&A ─────────────────────────────────────────────────────
     function interviewQAFor(title) {
       const t = title.toLowerCase();
-      if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic")))
+      if (t.includes("linear regression") || (t.includes("regression") && !t.includes("logistic") && !t.includes("ridge") && !t.includes("lasso") && !t.includes("polynomial") && !t.includes("isotonic") && !t.includes("evaluation") && !t.includes("elastic")))
         return [
           { q: "What are the assumptions of linear regression?", a: "Linearity, independence of errors, homoscedasticity, normality of residuals, no multicollinearity." },
           { q: "How does Ridge differ from Lasso?", a: "Ridge (L2) shrinks all coefficients; Lasso (L1) can zero-out coefficients producing a sparse model." },
+        ];
+      if (t.includes("ridge"))
+        return [
+          { q: "Why does Ridge never produce exact zeros?", a: "The L2 penalty creates a circular constraint region; the optimal solution touches the boundary at a non-axis point, keeping all weights non-zero." },
+          { q: "When would you prefer Ridge over Lasso?", a: "When all features are relevant (correlated predictors); Ridge distributes weight among them rather than picking one arbitrarily." },
+        ];
+      if (t.includes("lasso"))
+        return [
+          { q: "Why can Lasso produce exact zeros while Ridge cannot?", a: "The L1 penalty creates a diamond-shaped constraint whose corners lie on coordinate axes; the optimal solution often hits a corner, zeroing out some coefficients." },
+          { q: "What problem does Lasso have with correlated features?", a: "It arbitrarily selects one from a correlated group and discards the rest; use Elastic Net to handle correlated groups better." },
+        ];
+      if (t.includes("elastic"))
+        return [
+          { q: "What does the l1_ratio parameter in Elastic Net control?", a: "The mixing proportion: l1_ratio=1 is pure Lasso, l1_ratio=0 is pure Ridge. Values between 0 and 1 blend both penalties." },
+          { q: "When is Elastic Net preferred over Lasso?", a: "When features are correlated in groups; Elastic Net tends to include or exclude correlated features together rather than arbitrarily selecting one." },
+        ];
+      if (t.includes("polynomial"))
+        return [
+          { q: "Is polynomial regression a linear model?", a: "Linear in parameters (weights), not in features. It fits a curve but uses standard OLS to estimate weights, making it a linear model in the regression sense." },
+          { q: "How does degree affect the bias-variance tradeoff?", a: "Low degree = high bias (underfitting); high degree = high variance (overfitting). Choose degree via cross-validation." },
+        ];
+      if (t.includes("isotonic"))
+        return [
+          { q: "What is the Pool Adjacent Violators Algorithm (PAVA)?", a: "PAVA merges adjacent groups violating the monotonicity constraint by replacing them with their mean, repeating until all groups satisfy monotonicity." },
+          { q: "Why is isotonic regression useful for probability calibration?", a: "It forces predicted probabilities to be monotonically increasing with model score — a natural constraint for well-calibrated classifiers." },
+        ];
+      if (t.includes("regression evaluation") || (t.includes("regression") && t.includes("evaluation")))
+        return [
+          { q: "When should you prefer MAE over RMSE?", a: "When you want a robust metric that is less sensitive to large outlier errors; MAE weights all errors equally while RMSE squares them." },
+          { q: "Can R² be negative?", a: "Yes. R² < 0 means the model performs worse than a simple mean baseline. It is not bounded below zero." },
+        ];
+      if (t.includes("vc") && t.includes("dimension"))
+        return [
+          { q: "What does it mean to shatter a set of points?", a: "A hypothesis class shatters a set if it can correctly classify all 2^n possible binary labelings of those n points." },
+          { q: "What is the relationship between VC dimension and overfitting?", a: "Higher VC dimension = richer model class = more capacity to overfit. Generalization error bounds grow with VC dimension." },
+        ];
+      if (t.includes("id3"))
+        return [
+          { q: "How does ID3 choose which attribute to split on?", a: "By selecting the attribute with maximum information gain: IG(S,A) = H(S) - sum of weighted child entropies." },
+          { q: "What is ID3's main limitation compared to C4.5?", a: "ID3 only handles discrete attributes, doesn't support continuous values, missing data, or pruning; C4.5 addresses all three." },
+        ];
+      if (t.includes("gradient") && t.includes("descent"))
+        return [
+          { q: "What is the difference between SGD and mini-batch gradient descent?", a: "SGD updates on one sample at a time (noisy); mini-batch averages gradients over a subset (32–256), reducing noise while remaining computationally efficient." },
+          { q: "Why can gradient descent get stuck?", a: "In non-convex loss surfaces it can converge to local minima or saddle points; momentum, adaptive learning rates (Adam), and random restarts help escape." },
+        ];
+      if (t.includes("discriminant"))
+        return [
+          { q: "How does LDA differ from PCA?", a: "PCA maximizes variance (unsupervised); LDA maximizes class separability (supervised) by maximizing the ratio of between-class to within-class scatter." },
+          { q: "Why is LDA limited to C-1 dimensions for C classes?", a: "The between-class scatter matrix S_B has at most C-1 non-zero eigenvalues, bounding the number of discriminant directions." },
+        ];
+      if (t.includes("svd") && !t.includes("pca"))
+        return [
+          { q: "How is SVD related to PCA?", a: "PCA is SVD applied to the centered data matrix (or covariance matrix). The principal components are the right singular vectors V; eigenvalues equal squared singular values / (n-1)." },
+          { q: "What is truncated SVD and when is it used?", a: "Truncated SVD keeps only the top-k singular values, reducing dimensionality. Used in LSA, recommender systems, and fast PCA on sparse data." },
+        ];
+      if (t.includes("linear learning"))
+        return [
+          { q: "What do all linear learning machines share?", a: "The same hypothesis class: linear functions f(x) = wᵀx + b. They differ in loss function, regularization, and optimization strategy." },
+          { q: "Why are linear models effective on high-dimensional sparse data?", a: "The number of parameters scales with features (not their products); high-dimensional spaces are often linearly separable; training via SGD is O(n·d)." },
+        ];
+      if (t.includes("kernel") && (t.includes("function") || t.includes("matrix")))
+        return [
+          { q: "What is Mercer's theorem?", a: "A function k(x, x') is a valid kernel if and only if its Gram matrix is positive semi-definite for any set of points. This guarantees it corresponds to an inner product in some feature space." },
+          { q: "Why is the kernel trick computationally advantageous?", a: "It avoids explicitly computing φ(x) (which may be infinite-dimensional) by computing k(x, x') = ⟨φ(x), φ(x')⟩ directly in the original space." },
         ];
       if (t.includes("logistic"))
         return [
           { q: "Why use log-loss instead of MSE for classification?", a: "MSE gives flat gradients for wrong confident predictions; log-loss penalises them heavily, making training more effective." },
           { q: "How do you handle multi-class logistic regression?", a: "Use Softmax (multinomial) or One-vs-Rest (OvR) strategy." },
         ];
-      if (t.includes("decision tree") || t.includes("id3"))
+      if (t.includes("decision tree") || (t.includes("id3") && !t.includes("id3 algorithm")))
         return [
           { q: "How does a decision tree choose the best split?", a: "By maximising Information Gain (ID3) or minimising Gini impurity (CART)." },
           { q: "How do you prevent overfitting in decision trees?", a: "Pruning, limiting max_depth, increasing min_samples_split/leaf." },
