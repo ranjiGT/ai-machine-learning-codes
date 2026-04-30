@@ -1910,7 +1910,7 @@
       }
       if (t.includes("discriminant")) {
         return { kind: "matrix", desc: "Supervised dimensionality reduction maximizing between-class over within-class scatter.", formula: "\\mathbf{w}^* = \\arg\\max_{\\mathbf{w}} \\frac{\\mathbf{w}^T \\mathbf{S}_B \\mathbf{w}}{\\mathbf{w}^T \\mathbf{S}_W \\mathbf{w}}",
-          longDesc: "Linear Discriminant Analysis (LDA) finds projections that maximize between-class scatter S_B relative to within-class scatter S_W. Unlike PCA (unsupervised), LDA uses class labels making it a supervised dimensionality reduction method. With C classes it produces at most C-1 discriminant directions.",
+          longDesc: "Linear Discriminant Analysis (LDA) finds projections that maximize between-class scatter \\(\\mathbf{S}_B\\) relative to within-class scatter \\(\\mathbf{S}_W\\). Unlike PCA (unsupervised), LDA uses class labels making it a supervised dimensionality reduction method. With \\(C\\) classes it produces at most \\(C-1\\) discriminant directions.",
           useCases: ["Supervised dimensionality reduction", "Face recognition (Fisherfaces)", "Multi-class preprocessing"],
           whenUse: "When class labels are available and discriminative projections that best separate classes are needed before classification.",
           whenNot: "Assumes Gaussian class-conditionals and equal covariance matrices; use kernel LDA or QDA for non-linear data.",
@@ -2134,7 +2134,7 @@
       }
       if (t.includes("lstm")) {
         return { kind: "wave", desc: "Gated RNN that captures long-range dependencies via cell state and three learnable gates.", formula: "\\mathbf{c}_t = \\mathbf{f}_t \\odot \\mathbf{c}_{t-1} + \\mathbf{i}_t \\odot \\tilde{\\mathbf{c}}_t",
-          longDesc: "LSTM (Long Short-Term Memory) addresses the vanishing gradient problem in vanilla RNNs via three gates: forget gate (what to discard from cell state), input gate (what new info to write), and output gate (what to expose as hidden state). The cell state c_t acts as a long-range memory highway with mostly additive updates, enabling gradients to flow through hundreds of timesteps.",
+          longDesc: "LSTM (Long Short-Term Memory) addresses the vanishing gradient problem in vanilla RNNs via three gates: forget gate (what to discard from cell state), input gate (what new info to write), and output gate (what to expose as hidden state). The cell state \\(\\mathbf{c}_t\\) acts as a long-range memory highway with mostly additive updates, enabling gradients to flow through hundreds of timesteps.",
           useCases: ["Language modeling", "Machine translation", "Time series forecasting", "Speech recognition"],
           whenUse: "Sequential data with long-range dependencies; when vanilla RNNs fail due to vanishing gradients.",
           whenNot: "Large NLP datasets — Transformers outperform LSTMs with more data and offer full parallelism.",
@@ -2142,7 +2142,7 @@
       }
       if (t.includes("teacher") && t.includes("forcing")) {
         return { kind: "wave", desc: "RNN training technique that feeds ground-truth previous tokens as inputs rather than the model's own predictions.", formula: "h_t = f(h_{t-1},\\; y^*_{t-1}), \\quad y^*_{t-1} = \\text{true label at } t{-}1",
-          longDesc: "Teacher forcing provides the ground-truth previous output y*_{t-1} as the next input during training instead of the network's own prediction. This prevents error cascades and speeds convergence. Downside: exposure bias — the model never sees its own errors during training, creating a train-test mismatch at inference. Scheduled sampling mitigates this by gradually replacing teacher inputs with the model's own outputs.",
+          longDesc: "Teacher forcing provides the ground-truth previous output \\(y^*_{t-1}\\) as the next input during training instead of the network's own prediction. This prevents error cascades and speeds convergence. Downside: exposure bias — the model never sees its own errors during training, creating a train-test mismatch at inference. Scheduled sampling mitigates this by gradually replacing teacher inputs with the model's own outputs.",
           useCases: ["Sequence-to-sequence models", "Text generation training", "Speech synthesis"],
           whenUse: "Training autoregressive RNN/LSTM models; dramatically accelerates convergence.",
           whenNot: "When exposure bias causes inference degradation on long sequences; use scheduled sampling.",
@@ -2166,7 +2166,7 @@
       }
       if (t.includes("backprop")) {
         return { kind: "network", desc: "Reverse-mode automatic differentiation that efficiently computes gradients for all network parameters.", formula: "\\boldsymbol{\\delta}^{(l)} = (\\mathbf{W}^{(l+1)T} \\boldsymbol{\\delta}^{(l+1)}) \\odot \\sigma'(\\mathbf{z}^{(l)})",
-          longDesc: "Backpropagation applies the chain rule in reverse topological order (output → input). Forward pass: compute all activations. Backward pass: propagate error signals δ^(l) from the output layer, accumulating ∂L/∂W^(l) for each layer. Complexity O(n_params) — linear in parameters — making gradient computation practical for millions of weights.",
+          longDesc: "Backpropagation applies the chain rule in reverse topological order (output → input). Forward pass: compute all activations. Backward pass: propagate error signals \\(\\boldsymbol{\\delta}^{(l)}\\) from the output layer, accumulating \\(\\partial\\mathcal{L}/\\partial\\mathbf{W}^{(l)}\\) for each layer. Complexity \\(\\mathcal{O}(n_{\\text{params}})\\) — linear in parameters — making gradient computation practical for millions of weights.",
           useCases: ["Training any differentiable neural network", "Autograd engines (PyTorch, TensorFlow)", "Custom loss gradient derivation"],
           whenUse: "Any multi-layer network with a differentiable loss function.",
           whenNot: "Non-differentiable objectives; evolutionary strategies do not require gradients.",
@@ -2190,7 +2190,7 @@
       }
       if (t.includes("weight") && t.includes("matrix")) {
         return { kind: "matrix", desc: "Learnable parameter matrix connecting layer inputs to outputs, enabling efficient vectorized computation.", formula: "\\mathbf{Z}^{(l)} = \\mathbf{W}^{(l)} \\mathbf{A}^{(l-1)} + \\mathbf{b}^{(l)}",
-          longDesc: "A layer's weight matrix W ∈ R^{n_out × n_in} linearly transforms activations from the previous layer. Representing weights as a matrix enables batch computation over all m examples simultaneously, GPU-accelerated BLAS routines, and concise gradient expressions ∂L/∂W = δ·Aᵀ. Proper initialisation (Xavier, He) scales values to maintain stable gradient flow.",
+          longDesc: "A layer's weight matrix \\(\\mathbf{W} \\in \\mathbb{R}^{n_{\\text{out}} \\times n_{\\text{in}}}\\) linearly transforms activations from the previous layer. Representing weights as a matrix enables batch computation over all m examples simultaneously, GPU-accelerated BLAS routines, and concise gradient expressions \\(\\partial\\mathcal{L}/\\partial\\mathbf{W} = \\boldsymbol{\\delta}\\cdot\\mathbf{A}^T\\). Proper initialisation (Xavier, He) scales values to maintain stable gradient flow.",
           useCases: ["Efficient forward/backward pass computation", "Transfer learning weight freezing", "Pruning and compression"],
           whenUse: "Core of every fully-connected neural layer; automatically handled by deep learning frameworks.",
           whenNot: "CNNs use weight-sharing convolutional kernels instead of full matrices for spatial feature extraction.",
