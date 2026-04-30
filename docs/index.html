@@ -1972,13 +1972,37 @@
           whenNot: "Not needed for very large datasets where a single split suffices; but still recommended.",
           related: ["ROC-AUC", "Nested Cross-Validation", "Bootstrap", "Hyperparameter Tuning"] };
       }
-      if (t.includes("cluster") || t.includes("k-means") || t.includes("kmeans")) {
-        return { kind: "cluster", desc: "Groups similar points by minimizing within-cluster variance.", formula: "J = \\sum_{k=1}^{K} \\sum_{\\mathbf{x} \\in C_k} \\lVert \\mathbf{x} - \\boldsymbol{\\mu}_k \\rVert^2",
-          longDesc: "K-Means partitions data into K clusters by iteratively assigning points to the nearest centroid and updating centroids. Fast and scalable but assumes spherical clusters of similar size.",
-          useCases: ["Customer segmentation", "Image compression", "Feature aggregation"],
-          whenUse: "No labels available; clusters are roughly spherical and equally sized.",
-          whenNot: "Avoid when clusters are non-convex, have very different densities, or you need hierarchical structure.",
-          related: ["DBSCAN", "Hierarchical Clustering", "Silhouette Coefficient", "Elbow Method"] };
+      if (t.includes("unsupervised") && t.includes("learning") && t.includes("cluster")) {
+        return { kind: "cluster", desc: "Unsupervised paradigm that discovers latent group structure without labels.", formula: "\\mathcal{C}^* = \\arg\\min_{\\mathcal{C}} \\sum_{C_k \\in \\mathcal{C}} \\sum_{\\mathbf{x}_i \\in C_k} d(\\mathbf{x}_i, \\boldsymbol{\\mu}_k)",
+          longDesc: "Unsupervised learning for clustering groups samples by similarity without class labels. Different algorithms impose different inductive biases: centroid-based (K-Means), density-based (DBSCAN), mode-seeking (Mean Shift), and hierarchical tree-based methods.",
+          useCases: ["Customer segmentation", "Exploratory analysis", "Data compression", "Anomaly context discovery"],
+          whenUse: "When labels are unavailable and the goal is structure discovery or cohorting.",
+          whenNot: "When objective is predictive classification with available labels.",
+          related: ["K-Means Clustering", "DBSCAN Technique", "Hierarchical Clustering", "Cluster Validation Techniques"] };
+      }
+      if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means"))) {
+        return { kind: "cluster", desc: "Divisive hierarchical variant of K-Means that repeatedly splits one cluster into two.", formula: "C^* = \\arg\\max_{C_j} SSE(C_j), \\quad C_j \\rightarrow C_{j1}, C_{j2}",
+          longDesc: "Bisecting K-Means starts with one cluster and iteratively chooses a cluster to split using K=2 until the target number of clusters is reached. It often yields better global structure than one-shot K-Means and is popular in large text clustering.",
+          useCases: ["Large document clustering", "Hierarchical partitioning", "Scalable segmentation"],
+          whenUse: "When you need K clusters with improved partition quality over vanilla K-Means.",
+          whenNot: "When non-spherical or variable-density clusters dominate the data.",
+          related: ["K-Means Clustering", "Hierarchical Clustering", "Linkage Measures"] };
+      }
+      if (t.includes("k-means") || t.includes("kmeans")) {
+        return { kind: "cluster", desc: "Centroid-based clustering minimizing within-cluster squared distance.", formula: "J = \\sum_{k=1}^{K} \\sum_{\\mathbf{x} \\in C_k} \\lVert \\mathbf{x} - \\boldsymbol{\\mu}_k \\rVert^2",
+          longDesc: "K-Means partitions data into K clusters by alternately assigning each point to the nearest centroid and recomputing centroids. It is fast and scalable but assumes roughly spherical, similarly sized clusters.",
+          useCases: ["Customer segmentation", "Vector quantization", "Feature grouping"],
+          whenUse: "When clusters are compact and Euclidean distance is meaningful.",
+          whenNot: "When clusters are non-convex, noisy, or have strongly varying densities.",
+          related: ["Bisecting K-Means", "Silhouette Coefficient", "DBSCAN Technique", "Elbow Method"] };
+      }
+      if (t.includes("fuzzy") && (t.includes("cmeans") || t.includes("c-means"))) {
+        return { kind: "cluster", desc: "Soft clustering where each point has fractional membership across clusters.", formula: "J_m = \\sum_{i=1}^{n}\\sum_{k=1}^{K} u_{ik}^m \\lVert \\mathbf{x}_i-\\mathbf{c}_k \\rVert^2",
+          longDesc: "Fuzzy C-Means assigns membership degrees instead of hard labels, allowing overlap between clusters. The fuzzifier m controls softness: larger m produces smoother memberships.",
+          useCases: ["Medical imaging", "Overlapping customer personas", "Soft segmentation"],
+          whenUse: "When points can naturally belong to multiple clusters.",
+          whenNot: "When hard assignments are mandatory or heavy noise dominates.",
+          related: ["K-Means Clustering", "Cluster Similarity Measures", "Cluster Validation Techniques"] };
       }
       if (t.includes("dbscan")) {
         return { kind: "cluster", desc: "Finds density-connected clusters of arbitrary shape.", formula: "eps\\text{-neighborhood} = \\{q : d(p, q) \\leq eps\\}",
@@ -1988,13 +2012,93 @@
           whenNot: "When clusters have varying densities (use HDBSCAN instead); or with high-dimensional data.",
           related: ["K-Means", "Hierarchical Clustering", "Anomaly Detection"] };
       }
-      if (t.includes("silhouette")) {
+      if (t.includes("mean") && t.includes("shift")) {
+        return { kind: "cluster", desc: "Mode-seeking clustering by gradient ascent on kernel density estimate.", formula: "\\mathbf{x}_{t+1} = \\frac{\\sum_i K(\\mathbf{x}_t-\\mathbf{x}_i)\\mathbf{x}_i}{\\sum_i K(\\mathbf{x}_t-\\mathbf{x}_i)}",
+          longDesc: "Mean Shift iteratively moves each point toward local density maxima (modes). It can discover arbitrary-shaped clusters and does not require predefining K, but bandwidth choice strongly affects results.",
+          useCases: ["Image segmentation", "Object tracking", "Non-parametric clustering"],
+          whenUse: "When the number of clusters is unknown and density modes are meaningful.",
+          whenNot: "Large high-dimensional datasets where kernel computations become expensive.",
+          related: ["DBSCAN Technique", "Hierarchical Clustering", "Cluster Validation Techniques"] };
+      }
+      if (t.includes("hierarchical")) {
+        return { kind: "cluster", desc: "Builds a dendrogram using agglomerative merges or divisive splits.", formula: "d(A \\cup B, C) = f(d(A,C), d(B,C), d(A,B))",
+          longDesc: "Hierarchical clustering creates a tree of nested clusters (dendrogram). Agglomerative variants start with singletons and merge; divisive variants split from the top. It is interpretable and supports multi-resolution analysis.",
+          useCases: ["Taxonomy discovery", "Gene expression analysis", "Small-to-medium exploratory clustering"],
+          whenUse: "When hierarchical relationships and cut-level flexibility are important.",
+          whenNot: "Very large datasets due to O(n^2) memory/time in common implementations.",
+          related: ["Linkage Measures", "Cophenetic Correlation Coefficient", "Cluster Validation Techniques"] };
+      }
+      if (t.includes("linkage")) {
+        return { kind: "cluster", desc: "Rule defining inter-cluster distance during hierarchical merges.", formula: "d_{single}=\\min d(x,y),\\; d_{complete}=\\max d(x,y),\\; d_{average}=\\text{mean } d(x,y)",
+          longDesc: "Linkage measures determine which clusters are merged next in agglomerative clustering. Single linkage favors chaining, complete linkage favors compact clusters, average/ward provide balanced alternatives.",
+          useCases: ["Dendrogram construction", "Hierarchical method selection", "Cluster-shape control"],
+          whenUse: "When tuning agglomerative clustering behavior for specific geometry.",
+          whenNot: "When using non-hierarchical clustering methods (K-Means, DBSCAN).",
+          related: ["Hierarchical Clustering", "Cophenetic Correlation Coefficient", "Cluster Similarity Measures"] };
+      }
+      if (t.includes("cluster validation")) {
+        return { kind: "chart", desc: "Framework to assess clustering quality with internal, external, or relative criteria.", formula: "\\text{score} = g(\\text{compactness}, \\text{separation}, \\text{agreement with labels})",
+          longDesc: "Cluster validation techniques evaluate whether discovered clusters are meaningful. Internal metrics use only data geometry, external metrics compare to ground truth labels, and relative metrics compare candidate clusterings.",
+          useCases: ["Model selection", "Choosing K", "Comparing clustering algorithms"],
+          whenUse: "Always, before trusting unsupervised partitions for downstream decisions.",
+          whenNot: "Never skip validation when clustering impacts business or scientific conclusions.",
+          related: ["Silhouette Coefficient", "Cluster Purity", "Rand Statistic and Jaccard Index", "Cophenetic Correlation Coefficient"] };
+      }
+      if ((t.includes("cohesion") && t.includes("separation")) || (t.includes("clusters") && t.includes("cohesion"))) {
+        return { kind: "chart", desc: "Core principle: good clusters are internally tight and externally well separated.", formula: "\\max \\frac{\\text{between-cluster distance}}{\\text{within-cluster distance}}",
+          longDesc: "Cohesion measures intra-cluster compactness; separation measures inter-cluster distinctness. Most internal validation indices are explicit or implicit trade-offs between these two properties.",
+          useCases: ["Interpreting internal metrics", "Cluster quality diagnostics", "Algorithm tuning"],
+          whenUse: "When you need geometric intuition behind validation scores.",
+          whenNot: "When only label-agreement metrics are available and geometry is irrelevant.",
+          related: ["Silhouette Coefficient", "Cluster Validation Techniques", "Cluster Similarity Measures"] };
+      }
+      if (t.includes("silhouette") || t.includes("silhoutte")) {
         return { kind: "chart", desc: "Measures cluster quality: how similar points are to their own cluster vs. others.", formula: "s(i) = \\frac{b(i) - a(i)}{\\max(a(i), b(i))}",
           longDesc: "Silhouette coefficient ranges from -1 to 1. High values indicate tight, well-separated clusters. It compares within-cluster distance (a) to nearest-cluster distance (b).",
           useCases: ["Cluster validation", "Optimal k selection", "Clustering comparison"],
           whenUse: "After clustering to assess quality; helps choose optimal number of clusters.",
           whenNot: "With very high-dimensional data or on datasets where density varies significantly.",
           related: ["Clustering Algorithms", "Hopkins Statistic", "Cohesion-Separation"] };
+      }
+      if (t.includes("cophenetic")) {
+        return { kind: "chart", desc: "Correlation between original pairwise distances and dendrogram cophenetic distances.", formula: "c = \\text{corr}(d_{ij}, c_{ij})",
+          longDesc: "Cophenetic Correlation Coefficient quantifies how faithfully a hierarchical dendrogram preserves original pairwise dissimilarities. Higher values indicate a better tree representation of the data geometry.",
+          useCases: ["Comparing linkage choices", "Hierarchical model selection", "Dendrogram fidelity assessment"],
+          whenUse: "When validating hierarchical clustering and choosing linkage methods.",
+          whenNot: "For non-hierarchical clustering algorithms where no dendrogram exists.",
+          related: ["Hierarchical Clustering", "Linkage Measures", "Cluster Validation Techniques"] };
+      }
+      if (t.includes("cluster similarity") || t.includes("clutser similarity")) {
+        return { kind: "chart", desc: "Measures agreement or proximity between two clusterings or clusters.", formula: "sim(\\mathcal{C},\\mathcal{C}') = f(\\mathcal{C},\\mathcal{C}')",
+          longDesc: "Cluster similarity measures compare partitions using label-agreement or information-theoretic criteria. They are used to benchmark algorithms, assess stability, and compare clustering against references.",
+          useCases: ["Partition comparison", "Stability analysis", "Ensemble clustering"],
+          whenUse: "When multiple clusterings must be compared objectively.",
+          whenNot: "When only one clustering exists and no baseline/reference is available.",
+          related: ["Rand Statistic and Jaccard Index", "Cluster Purity", "Cluster Validation Techniques"] };
+      }
+      if (t.includes("cluster purity") || (t.includes("purity") && t.includes("cluster"))) {
+        return { kind: "chart", desc: "External metric measuring majority-class dominance within each cluster.", formula: "\\text{Purity} = \\frac{1}{N}\\sum_k \\max_j |C_k \\cap L_j|",
+          longDesc: "Cluster Purity evaluates clustering against ground-truth labels by assigning each cluster to its majority class and averaging correct assignments. It is intuitive but biased upward as the number of clusters grows.",
+          useCases: ["External validation", "Educational evaluation", "Benchmark reporting"],
+          whenUse: "When class labels exist and quick interpretability is needed.",
+          whenNot: "As a sole metric when K varies; combine with NMI/ARI/Jaccard-type measures.",
+          related: ["Rand Statistic and Jaccard Index", "Cluster Validation Techniques", "Cluster Similarity Measures"] };
+      }
+      if (t.includes("rand") || t.includes("jaccard")) {
+        return { kind: "chart", desc: "Pair-count external indices quantifying partition agreement.", formula: "\\text{Rand} = \\frac{TP+TN}{TP+TN+FP+FN}, \\quad J = \\frac{TP}{TP+FP+FN}",
+          longDesc: "Rand Statistic and Jaccard Index compare two partitions via pairwise co-assignment decisions. Rand counts both agreements and disagreements; Jaccard focuses on positive co-assignment overlap and is stricter with sparse positive pairs.",
+          useCases: ["External clustering evaluation", "Algorithm comparison", "Stability studies"],
+          whenUse: "When ground truth or a reference partition is available.",
+          whenNot: "When no reference clustering exists; then use internal metrics instead.",
+          related: ["Cluster Similarity Measures", "Cluster Purity", "Cluster Validation Techniques"] };
+      }
+      if (t.includes("cluster") || t.includes("clustering")) {
+        return { kind: "cluster", desc: "Groups similar points by optimizing a cluster-structure objective.", formula: "\\mathcal{C}^* = \\arg\\min_{\\mathcal{C}} \\mathcal{L}(\\mathcal{C}; X)",
+          longDesc: "Clustering discovers latent structure without labels using geometric, density, or graph assumptions. Choose algorithms based on cluster shape, scale, noise level, and interpretability needs.",
+          useCases: ["Segmentation", "Data exploration", "Preprocessing", "Pattern discovery"],
+          whenUse: "When unlabeled data must be organized into meaningful groups.",
+          whenNot: "When strict supervised prediction with known labels is the primary goal.",
+          related: ["K-Means Clustering", "DBSCAN Technique", "Hierarchical Clustering", "Cluster Validation Techniques"] };
       }
       if (t.includes("hopkins")) {
         return { kind: "chart", desc: "Tests if data is uniformly distributed or has inherent clustering structure.", formula: "H = \\frac{\\sum u_i}{\\sum u_i + \\sum w_i}",
@@ -3113,6 +3217,19 @@
       if (t.includes("tree") || t.includes("forest") || t.includes("ensemble")) return ["Iris", "Adult Income", "Titanic"];
       if (t.includes("knn") || t.includes("neighbor")) return ["Iris", "Wine Quality", "MNIST (small)"];
       if (t.includes("svm") || t.includes("support vector") || t.includes("kernel")) return ["Breast Cancer", "Digits (sklearn)", "Fashion-MNIST"];
+      if (t.includes("unsupervised") && t.includes("learning") && t.includes("cluster")) return ["Mall Customers", "Wholesale Customers", "Iris (features only)"];
+      if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means"))) return ["20 Newsgroups TF-IDF", "Reuters-21578 TF-IDF", "MNIST (embeddings)"];
+      if (t.includes("cluster similarity") || t.includes("clutser similarity")) return ["Iris (with labels)", "Digits (sklearn)", "Synthetic blobs/moons"];
+      if (t.includes("fuzzy") && (t.includes("cmeans") || t.includes("c-means"))) return ["Iris", "Wine Quality", "Customer Segmentation (overlap)"];
+      if (t.includes("mean") && t.includes("shift")) return ["Synthetic Gaussian blobs", "Image color pixels", "Spatial point datasets"];
+      if (t.includes("hierarchical")) return ["Iris", "Gene expression microarray", "Wholesale Customers"];
+      if (t.includes("linkage")) return ["Iris", "Synthetic chained clusters", "Gene expression subsets"];
+      if (t.includes("cluster validation")) return ["Iris (labels for external metrics)", "Mall Customers", "Synthetic benchmark clusters"];
+      if ((t.includes("cohesion") && t.includes("separation")) || (t.includes("clusters") && t.includes("cohesion"))) return ["Synthetic blobs", "Mall Customers", "Wine"];
+      if (t.includes("silhouette") || t.includes("silhoutte")) return ["Iris", "Mall Customers", "MNIST embeddings"];
+      if (t.includes("cophenetic")) return ["Iris", "Small gene expression matrices", "Synthetic hierarchical data"];
+      if (t.includes("cluster purity") || (t.includes("purity") && t.includes("cluster"))) return ["Iris", "Digits (sklearn)", "20 Newsgroups (labels)"];
+      if (t.includes("rand") || t.includes("jaccard")) return ["Iris", "Digits (sklearn)", "Synthetic partition pairs"];
       if (t.includes("cluster") || t.includes("kmeans") || t.includes("dbscan")) return ["Mall Customers", "Wholesale Customers", "MNIST (unsupervised)"];
       if (t.includes("pca") || t.includes("svd") || t.includes("t-sne")) return ["MNIST", "Faces (Olivetti)", "Wine"];
       if (t.includes("discriminant")) return ["Iris", "Wine", "Digits (sklearn)"];
@@ -3155,8 +3272,12 @@
       if (t.includes("random forest") || t.includes("forest")) return [{ p: "n_estimators", desc: "Number of trees. More = better until diminishing returns. Try: 100–500." }, { p: "max_features", desc: "Features per split. sqrt(d) for classification, d/3 for regression." }, { p: "max_depth", desc: "Depth of each tree. None (full) or limit to reduce overfitting." }];
       if (t.includes("knn") || t.includes("neighbor")) return [{ p: "n_neighbors (k)", desc: "Number of neighbours. Small k = complex boundary; large k = smooth. Try: 3, 5, 11." }, { p: "weights", desc: "uniform or distance — distance weights closer points more." }, { p: "metric", desc: "euclidean (default), manhattan, minkowski." }];
       if (t.includes("svm") || t.includes("support vector")) return [{ p: "C", desc: "Regularisation. Small C = soft margin (more misclassification allowed). Try: 0.1, 1, 10, 100." }, { p: "kernel", desc: "linear, rbf, poly, sigmoid. Start with rbf." }, { p: "gamma", desc: "RBF width. scale (default), auto, or specific value. Larger = tighter fit." }];
+      if (t.includes("unsupervised") && t.includes("learning") && t.includes("cluster")) return [{ p: "algorithm_choice", desc: "Centroid, density, hierarchical, or mode-seeking based on data geometry." }, { p: "distance_metric", desc: "Euclidean, cosine, manhattan, or domain-specific similarity metric." }, { p: "n_clusters_or_density", desc: "Choose K for centroid methods or density/bandwidth parameters for non-parametric methods." }];
+      if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means"))) return [{ p: "n_clusters (K)", desc: "Final number of clusters after repeated binary splits." }, { p: "n_init_per_bisection", desc: "Restarts for each split to avoid poor local minima." }, { p: "split_selection", desc: "Which cluster to bisect next (largest SSE or largest size)." }];
       if (t.includes("kmeans") || t.includes("k-means")) return [{ p: "n_clusters (K)", desc: "Number of clusters. Use elbow method or silhouette score to choose." }, { p: "init", desc: "k-means++ (smart initialisation) or random." }, { p: "n_init", desc: "Number of restarts. Default 10; higher is more stable." }];
+      if (t.includes("fuzzy") && (t.includes("cmeans") || t.includes("c-means"))) return [{ p: "n_clusters (K)", desc: "Number of fuzzy clusters." }, { p: "m (fuzzifier)", desc: "Controls softness of memberships; common range 1.5-2.5." }, { p: "error/max_iter", desc: "Convergence tolerance and maximum iterations." }];
       if (t.includes("dbscan")) return [{ p: "eps", desc: "Neighbourhood radius. Use k-distance plot to estimate." }, { p: "min_samples", desc: "Min points to form a core point. Try: 2*d as a rule." }];
+      if (t.includes("mean") && t.includes("shift")) return [{ p: "bandwidth", desc: "Kernel window size controlling mode granularity; most important hyperparameter." }, { p: "kernel", desc: "Kernel type used for density weighting (typically Gaussian/flat)." }, { p: "max_iter", desc: "Maximum shift iterations until convergence." }];
       if (t.includes("lstm")) return [{ p: "hidden_size", desc: "Dimensionality of hidden and cell states. Common: 64–512." }, { p: "num_layers", desc: "Number of stacked LSTM layers. 1–3 is typical; deeper = more capacity." }, { p: "dropout", desc: "Applied between LSTM layers. 0.2–0.5 is typical." }, { p: "bidirectional", desc: "Process sequence forward and backward. Doubles hidden size; useful for classification." }];
       if (t.includes("vanishing") || t.includes("exploding")) return [{ p: "gradient_clip_val", desc: "Clips gradient norm to this value. Typical: 0.5–1.0 for RNNs." }, { p: "initialisation", desc: "Xavier (tanh/sigmoid), He (ReLU). Correct scaling prevents vanishing at training start." }];
       if (t.includes("backprop") || (t.includes("chain") && t.includes("rule"))) return null;
@@ -3179,8 +3300,15 @@
       if (t.includes("kernel") && (t.includes("function") || t.includes("matrix"))) return [{ p: "kernel type", desc: "rbf (Gaussian), poly (polynomial), linear, sigmoid. RBF is a strong default." }, { p: "gamma (γ)", desc: "RBF bandwidth. scale, auto, or specific float. Larger = tighter fit." }, { p: "degree (d)", desc: "Only for polynomial kernel. Degree 2 or 3 is common." }];
       if (t.includes("arima")) return [{ p: "p (AR order)", desc: "Number of lag observations. Check PACF plot." }, { p: "d (differencing)", desc: "Degree of differencing for stationarity. Usually 0, 1, or 2." }, { p: "q (MA order)", desc: "Moving average terms. Check ACF plot." }];
       if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
-      if (t.includes("hierarchical")) return [{ p: "linkage", desc: "How to merge clusters: ward (minimize variance), complete (max distance), average, or single." }, { p: "distance_metric", desc: "Distance measure: euclidean, cosine, manhattan, etc." }];
-      if (t.includes("silhouette") || t.includes("cohesion")) return [{ p: "metric", desc: "Distance metric for silhouette: euclidean (default), manhattan, cosine." }, { p: "sample_size", desc: "Number of samples to compute (for efficiency on large datasets)." }];
+      if (t.includes("linkage")) return [{ p: "linkage", desc: "single, complete, average, or ward linkage rule." }, { p: "distance_metric", desc: "Distance definition used by linkage updates." }, { p: "cut_threshold", desc: "Dendrogram cutoff used for final partition." }];
+      if (t.includes("cluster validation")) return [{ p: "internal_metric", desc: "silhouette, Davies-Bouldin, or Calinski-Harabasz." }, { p: "external_metric", desc: "purity, Rand/ARI, or Jaccard when labels exist." }, { p: "stability_resamples", desc: "Bootstrap/subsample runs for robustness checks." }];
+      if ((t.includes("cohesion") && t.includes("separation")) || (t.includes("clusters") && t.includes("cohesion"))) return [{ p: "cohesion_metric", desc: "Within-cluster compactness definition (SSE/mean distance)." }, { p: "separation_metric", desc: "Between-cluster separation definition (centroid/min/max)." }, { p: "balance_weight", desc: "Weighting between compactness and separation in composite indices." }];
+      if (t.includes("hierarchical")) return [{ p: "linkage", desc: "How to merge clusters: ward, complete, average, or single." }, { p: "distance_metric", desc: "Distance measure: euclidean, cosine, manhattan, etc." }, { p: "distance_threshold", desc: "Optional dendrogram cut height (alternative to fixed n_clusters)." }];
+      if (t.includes("silhouette") || t.includes("silhoutte")) return [{ p: "metric", desc: "Distance metric for silhouette computation." }, { p: "sample_size", desc: "Number of points used for approximate evaluation." }];
+      if (t.includes("cophenetic")) return [{ p: "linkage", desc: "Linkage method being evaluated." }, { p: "distance_metric", desc: "Pairwise distance used before building dendrogram." }, { p: "scaling", desc: "Feature scaling choice before distance/correlation computation." }];
+      if (t.includes("cluster similarity") || t.includes("clutser similarity")) return [{ p: "similarity_index", desc: "Rand, ARI, Jaccard, NMI, or VI depending on objective." }, { p: "label_alignment", desc: "Whether permutation alignment is required before comparison." }, { p: "pair_sampling", desc: "Subsample pairs for large datasets to reduce compute." }];
+      if (t.includes("cluster purity") || (t.includes("purity") && t.includes("cluster"))) return [{ p: "n_clusters", desc: "Purity tends to increase with larger K; report alongside metric." }, { p: "majority_mapping", desc: "Rule for assigning each cluster to a label." }, { p: "class_weighting", desc: "Optional weighting for imbalanced class distributions." }];
+      if (t.includes("rand") || t.includes("jaccard")) return [{ p: "index_type", desc: "Rand, Adjusted Rand, or Jaccard." }, { p: "chance_correction", desc: "Use adjusted variants when comparing different K values." }, { p: "reference_partition", desc: "Ground truth or baseline clustering for comparison." }];
       if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) return [{ p: "base_estimator", desc: "Binary classifier used in decomposition (SVM, Logistic Regression, etc.)." }, { p: "strategy", desc: "OvR (K models) vs OvO (K(K-1)/2 models) tradeoff between speed and pairwise granularity." }, { p: "class_weight", desc: "Balances minority classes in binary subproblems." }];
       if (t.includes("problem") && t.includes("transformation")) return [{ p: "method", desc: "Transformation type: Binary Relevance, Label Powerset, Classifier Chains, or RAkEL." }, { p: "base_estimator", desc: "Underlying learner for transformed tasks." }, { p: "threshold", desc: "Decision threshold for converting scores to labels." }];
       if (t.includes("binary") && t.includes("relevance")) return [{ p: "base_estimator", desc: "Per-label classifier choice (often linear models for scalability)." }, { p: "threshold", desc: "Label-specific probability threshold (global 0.5 is often suboptimal)." }, { p: "class_weight", desc: "Handles per-label imbalance." }];
@@ -3563,6 +3691,76 @@
         return [
           { q: "What problem can vanishing gradients cause?", a: "Early layers receive near-zero gradients, preventing them from learning; solved by ReLU, batch norm, or residual connections." },
           { q: "Why use mini-batch gradient descent?", a: "Balances the noise of SGD and efficiency of batch GD; provides stable convergence and allows GPU parallelism." },
+        ];
+      if (t.includes("unsupervised") && t.includes("learning") && t.includes("cluster"))
+        return [
+          { q: "How is clustering different from classification?", a: "Clustering is unsupervised and discovers groups without labels, while classification learns decision boundaries from labeled classes." },
+          { q: "What determines the right clustering algorithm?", a: "Data geometry and assumptions: centroid methods for compact clusters, density methods for arbitrary shapes, hierarchical methods for multi-scale structure." },
+        ];
+      if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means")))
+        return [
+          { q: "Why can Bisecting K-Means outperform standard K-Means?", a: "By repeatedly splitting high-SSE clusters, it often avoids poor global partitions from one-shot initialization." },
+          { q: "What is the tradeoff in Bisecting K-Means?", a: "It can improve structure quality but needs multiple K=2 runs, increasing total computation." },
+        ];
+      if (t.includes("fuzzy") && (t.includes("cmeans") || t.includes("c-means")))
+        return [
+          { q: "How does Fuzzy C-Means differ from K-Means?", a: "K-Means gives hard assignments, while Fuzzy C-Means gives fractional memberships across clusters." },
+          { q: "What does the fuzzifier m control?", a: "Membership softness: higher m means softer boundaries and more overlap." },
+        ];
+      if (t.includes("dbscan"))
+        return [
+          { q: "What are DBSCAN's key hyperparameters?", a: "eps and min_samples; they define core points and density-connectivity." },
+          { q: "When does DBSCAN typically fail?", a: "When cluster densities vary strongly or dimensionality is high." },
+        ];
+      if (t.includes("mean") && t.includes("shift"))
+        return [
+          { q: "Why is Mean Shift non-parametric?", a: "It does not require predefining K; clusters emerge from density modes." },
+          { q: "What is Mean Shift's most sensitive parameter?", a: "Bandwidth, which determines local neighborhood scale and cluster granularity." },
+        ];
+      if (t.includes("hierarchical"))
+        return [
+          { q: "Difference between agglomerative and divisive hierarchical clustering?", a: "Agglomerative merges bottom-up; divisive splits top-down." },
+          { q: "Why use hierarchical clustering in practice?", a: "The dendrogram enables multi-resolution analysis and flexible cut selection." },
+        ];
+      if (t.includes("linkage"))
+        return [
+          { q: "How do single and complete linkage differ?", a: "Single uses minimum inter-cluster distance (can chain), complete uses maximum distance (more compact clusters)." },
+          { q: "Why is Ward linkage popular?", a: "It merges clusters that minimally increase within-cluster variance, often producing balanced compact groups." },
+        ];
+      if (t.includes("cluster validation"))
+        return [
+          { q: "Internal vs external cluster validation?", a: "Internal uses geometry only; external compares to known labels/reference partitions." },
+          { q: "Why use multiple validation metrics?", a: "Each metric has biases regarding cluster shape, count, and imbalance." },
+        ];
+      if ((t.includes("cohesion") && t.includes("separation")) || (t.includes("clusters") && t.includes("cohesion")))
+        return [
+          { q: "What do cohesion and separation represent?", a: "Cohesion is compactness within clusters; separation is distance between clusters." },
+          { q: "Can high cohesion still be bad?", a: "Yes, if clusters are compact but overlap heavily, separation remains poor." },
+        ];
+      if (t.includes("silhouette") || t.includes("silhoutte"))
+        return [
+          { q: "How do you interpret silhouette values?", a: "Near 1 is strong structure, near 0 is overlap, below 0 suggests likely misassignment." },
+          { q: "When can silhouette be misleading?", a: "For non-convex shapes or highly varying densities where nearest-cluster distances are less informative." },
+        ];
+      if (t.includes("cophenetic"))
+        return [
+          { q: "What does cophenetic correlation evaluate?", a: "How well dendrogram cophenetic distances preserve original pairwise distances." },
+          { q: "How is cophenetic correlation used?", a: "To compare linkage methods and choose the dendrogram with better fidelity." },
+        ];
+      if (t.includes("cluster similarity") || t.includes("clutser similarity"))
+        return [
+          { q: "Why compare clusterings with similarity indices?", a: "To assess stability, compare algorithms, or evaluate against a reference partition." },
+          { q: "Common cluster similarity measures?", a: "Rand/Adjusted Rand, Jaccard, NMI, and Variation of Information." },
+        ];
+      if (t.includes("cluster purity") || (t.includes("purity") && t.includes("cluster")))
+        return [
+          { q: "Why is cluster purity intuitive but biased?", a: "Purity increases as K grows, so over-segmented solutions can look artificially good." },
+          { q: "How should purity be reported?", a: "Alongside K and complementary metrics like ARI/Jaccard/NMI." },
+        ];
+      if (t.includes("rand") || t.includes("jaccard"))
+        return [
+          { q: "How do Rand and Jaccard differ?", a: "Rand counts both positive and negative pair agreements; Jaccard focuses on positive overlap only." },
+          { q: "When prefer Adjusted Rand Index?", a: "When you need chance-corrected agreement across differing cluster counts." },
         ];
       if (t.includes("kmeans") || t.includes("cluster"))
         return [
