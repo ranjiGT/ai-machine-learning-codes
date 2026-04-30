@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="shortcut icon" href="./favicon.svg" />
   <link rel="apple-touch-icon" href="./favicon.svg" />
-  <title>AI & ML Learning Cheatsheet - 125 Topics</title>
+  <title>AI & ML Learning Cheatsheet - 124 Topics</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -1383,7 +1383,7 @@
     </button>
     <span class="eyebrow">ML Roadmap + Cheatsheet</span>
     <h1>AI & Machine Learning <span class="gradient">Cheatsheet</span></h1>
-    <p class="subtitle">A visual map of the 125 topics in this repository, grouped in a practical learning order so beginners can connect the dots faster.</p>
+    <p class="subtitle">A visual map of the 124 topics in this repository, grouped in a practical learning order so beginners can connect the dots faster.</p>
     <div class="socials">
       <a class="social-link" href="https://www.youtube.com/@RanjiRaj18" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.75 15.5v-7l6.25 3.5-6.25 3.5z"/></svg>
@@ -1447,7 +1447,7 @@
           <button class="smt-btn active" id="smt-name" onclick="setSearchMode('name')">Name</button>
           <button class="smt-btn" id="smt-formula" onclick="setSearchMode('formula')">Formula</button>
         </div>
-        <div class="topic-count" id="topic-count">125 topics</div>
+        <div class="topic-count" id="topic-count">124 topics</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
         <div>
@@ -1632,9 +1632,9 @@
       },
       {
         title: "Stage 13 - Streams, Drift and Explainability",
-        range: "115-125",
+        range: "116-125",
         level: "Advanced",
-        topics: ["Real-world Project", "DenStream", "ADWIN", "Drift Detection", "SHAP", "ARIMA", "CluStream"],
+        topics: ["Advanced Time Series ML", "Stream Adaptive Learning", "DenStream", "ADWIN", "VFDT/CVFDT", "Drift Detection", "MONIC", "CluStream", "SHAP", "ARIMA/SARIMA"],
         books: "Data Stream Mining, Interpretable Machine Learning (Molnar)"
       }
     ];
@@ -1651,7 +1651,7 @@
       "81_ridge_regression", "82_lasso_regression", "83_polynomial_regression", "84_isotonic_regression", "85_elastic_net", "86_linear_discriminant_analysis", "87_t_sne", "88_lazy_learning_algorithms", "89_weighted_knn", "90_case_based_reasoning",
       "91_intro_deep_neural_networks", "92_structure_of_a_neuron", "93_weight_matrix_neural_networks", "94_generalization_neural_networks", "95_learning_neural_networks", "96_vectorization_neural_networks", "97_decision_boundary_neural_networks", "98_chain_rule", "99_backpropagation_algorithm", "100_delta_rule",
       "101_vanishing_exploding_gradients", "102_step_activation_function", "103_sigmoid_activation_function", "104_hyperbolic_activation_function", "105_relu_activation_function", "106_teacher_forcing_deep_learning", "107_lstm", "108_regression_evaluation_metrics", "109_linear_learning_machines", "110_kernel_function_matrix",
-      "111_semi_supervised_learning", "112_safe_semi_supervised_learning", "113_s3vm_tsvm", "114_softmax_activation_function", "115_real_world_project", "116_advanced_time_series_ml", "117_stream_adaptive_learning", "118_denstream", "119_adwin", "120_vfdt_cvfdt",
+      "111_semi_supervised_learning", "112_safe_semi_supervised_learning", "113_s3vm_tsvm", "114_softmax_activation_function", "116_advanced_time_series_ml", "117_stream_adaptive_learning", "118_denstream", "119_adwin", "120_vfdt_cvfdt",
       "121_drift_detection", "122_monic", "123_shap_values", "124_arima_sarima", "125_clustream"
     ];
 
@@ -1709,6 +1709,7 @@
       title = title.replace(/\bs3vm\b/gi, "S3VM");
       title = title.replace(/\btsvm\b/gi, "TSVM");
       title = title.replace(/\bmonic\b/gi, "MONIC");
+      title = title.replace(/\bml\b/gi, "ML");
       title = title.replace(/\beclat\b/gi, "ECLAT");
       title = title.replace(/\brakel\b/gi, "RAkEL");
       title = title.replace(/\bsvd\b/gi, "SVD");
@@ -2163,7 +2164,23 @@
           whenNot: "Small datasets — neural nets will overfit; tabular data often favours tree methods.",
           related: ["Backpropagation", "Feed-Forward NN", "LSTM", "Activation Functions"] };
       }
-      if (t.includes("semi supervised") || t.includes("s3vm") || t.includes("tsvm")) {
+      if (t.includes("safe") && t.includes("semi") && t.includes("supervised")) {
+        return { kind: "graph", desc: "Semi-supervised strategy that uses unlabeled data conservatively to avoid degrading baseline supervised performance.", formula: "\\mathcal{R}(h_{safe}) \\leq \\mathcal{R}(h_{sup})",
+          longDesc: "Safe SSL methods exploit unlabeled samples only when they are expected to help. They constrain optimization so unlabeled data does not hurt compared to a supervised baseline, making them suitable for risk-sensitive deployments.",
+          useCases: ["Medical classification with few labels", "Risk-sensitive model upgrades", "Compliance-heavy domains"],
+          whenUse: "You have unlabeled data but cannot accept regression versus the supervised model.",
+          whenNot: "When assumptions are validated and aggressive SSL methods are acceptable for maximum gains.",
+          related: ["Semi-supervised Learning", "S3VM", "TSVM", "Active Learning"] };
+      }
+      if (t.includes("s3vm") || t.includes("tsvm")) {
+        return { kind: "graph", desc: "Margin-based semi-supervised SVM methods that place boundaries in low-density regions.", formula: "\\min_f \\; \\frac{1}{2}\\|w\\|^2 + C_l \\sum_{i \\in L} \\ell(y_i, f(x_i)) + C_u \\sum_{j \\in U} \\ell_u(f(x_j))",
+          longDesc: "S3VM/TSVM extend supervised SVMs by incorporating unlabeled data into the objective. They encourage separators that avoid dense unlabeled regions, improving generalization when label scarcity is high and assumptions hold.",
+          useCases: ["Text categorization", "Web-scale weak labeling", "Bioinformatics with scarce labels"],
+          whenUse: "Few labeled examples with abundant unlabeled samples from similar distribution.",
+          whenNot: "Dataset shift or wrong class priors in unlabeled pool can cause harmful boundary placement.",
+          related: ["Safe Semi-Supervised", "SVM", "Active Learning", "VC Dimension"] };
+      }
+      if (t.includes("semi supervised")) {
         return { kind: "graph", desc: "Combines labeled and unlabeled data to improve decision boundaries.", formula: "\\mathcal{L} = \\mathcal{L}_{sup} + \\lambda \\mathcal{L}_{unsup}",
           longDesc: "Semi-supervised learning exploits the manifold structure of unlabelled data to regularise classifiers. S3VM and TSVM extend SVMs to place the decision boundary in low-density regions.",
           useCases: ["Web page classification", "Medical imaging with few labels", "NLP"],
@@ -2171,13 +2188,77 @@
           whenNot: "When unlabelled data distribution differs from labelled data (dataset shift).",
           related: ["Safe Semi-Supervised", "S3VM", "TSVM", "Active Learning"] };
       }
-      if (t.includes("stream") || t.includes("drift") || t.includes("adwin") || t.includes("vfdt") || t.includes("clustream")) {
+      if (t.includes("adwin")) {
+        return { kind: "stream", desc: "Adaptive window drift detector that shrinks history when a statistically significant change is detected.", formula: "|\\hat{\\mu}_{W_0} - \\hat{\\mu}_{W_1}| > \\epsilon(\\delta, |W_0|, |W_1|)",
+          longDesc: "ADWIN keeps a variable-size window over a stream and splits it into two subwindows to test mean differences. When change is detected, old data is dropped automatically, enabling rapid adaptation without manually choosing a fixed window size.",
+          useCases: ["Model drift alarms", "Online monitoring", "Adaptive stream pipelines"],
+          whenUse: "Need fast, automatic drift detection with bounded memory.",
+          whenNot: "Recurring seasonal concepts need memory mechanisms beyond simple window cuts.",
+          related: ["Drift Detection", "Stream Adaptive Learning", "VFDT", "CVFDT"] };
+      }
+      if (t.includes("vfdt") || t.includes("cvfdt")) {
+        return { kind: "stream", desc: "Hoeffding-tree stream learners for one-pass, memory-bounded decision tree induction.", formula: "\\epsilon = \\sqrt{\\frac{R^2 \\ln(1/\\delta)}{2n}}",
+          longDesc: "VFDT uses Hoeffding bounds to split with high confidence from partial stream statistics. CVFDT extends VFDT with alternate subtree replacement to adapt under concept drift while retaining stream efficiency.",
+          useCases: ["Fraud detection", "Online clickstream classification", "Sensor analytics"],
+          whenUse: "Need real-time tree learning over high-volume unbounded streams.",
+          whenNot: "When rich non-linear interactions demand more expressive models than a single incremental tree.",
+          related: ["ADWIN", "Drift Detection", "Stream Adaptive Learning", "DenStream"] };
+      }
+      if (t.includes("denstream")) {
+        return { kind: "stream", desc: "Density-based stream clustering with fading micro-clusters and explicit noise handling.", formula: "w_t = \\sum_i 2^{-\\lambda (t - t_i)}",
+          longDesc: "DenStream maintains potential and outlier micro-clusters with exponential decay, prioritizing recent evidence. It discovers arbitrary cluster shapes and is robust to outliers in evolving streams.",
+          useCases: ["IoT event grouping", "Network traffic clustering", "Online anomaly contexts"],
+          whenUse: "Need noise-robust online clustering under drifting distributions.",
+          whenNot: "If clusters are mostly spherical and simpler centroid methods are enough.",
+          related: ["CluStream", "MONIC", "DBSCAN", "Drift Detection"] };
+      }
+      if (t.includes("clustream")) {
+        return { kind: "stream", desc: "Two-phase stream clustering: online micro-clusters plus offline macro-clustering for flexible horizons.", formula: "\\text{MC}_i = (N_i, LS_i, SS_i)",
+          longDesc: "CluStream summarizes incoming points into temporal micro-clusters online, then performs offline macro-clustering on snapshots. This enables high-throughput updates while preserving retrospective analysis.",
+          useCases: ["Customer behavior streams", "Operational telemetry", "Usage pattern mining"],
+          whenUse: "Need scalable online summarization with offline re-clustering at different time windows.",
+          whenNot: "If you require strong noise handling and arbitrary-shape clusters by default.",
+          related: ["DenStream", "MONIC", "K-Means", "Stream Adaptive Learning"] };
+      }
+      if (t.includes("monic")) {
+        return { kind: "stream", desc: "Monitors how clusters evolve over time (split, merge, survive, appear, disappear).", formula: "E_t = \\{\\text{split}, \\text{merge}, \\text{survive}, \\text{appear}, \\text{disappear}\\}",
+          longDesc: "MONIC is an evolution-analysis framework over successive clusterings, not a clustering algorithm itself. It identifies and quantifies transition events between time windows to explain structural concept evolution.",
+          useCases: ["Cluster evolution reports", "Behavioral drift analysis", "Temporal segmentation diagnostics"],
+          whenUse: "You already generate periodic clusters and need interpretable evolution events.",
+          whenNot: "When you need online clustering itself rather than post-hoc evolution monitoring.",
+          related: ["CluStream", "DenStream", "Drift Detection", "Stream Adaptive Learning"] };
+      }
+      if (t.includes("drift") && t.includes("detection")) {
+        return { kind: "stream", desc: "Detects statistically meaningful changes in stream distribution or model error over time.", formula: "P_t(\\mathbf{x}, y) \\neq P_{t+\\Delta}(\\mathbf{x}, y)",
+          longDesc: "Drift detection tracks distributional properties or predictive error to trigger adaptation. It supports sudden, gradual, incremental, and recurring drift scenarios in online ML systems.",
+          useCases: ["Production model monitoring", "Fraud model refresh triggers", "A/B alerting on non-stationary data"],
+          whenUse: "Data and targets evolve over time and stale models cause measurable performance loss.",
+          whenNot: "Offline static datasets where retraining cadence is fixed and drift risk is low.",
+          related: ["ADWIN", "VFDT", "CVFDT", "Stream Adaptive Learning"] };
+      }
+      if (t.includes("stream") && t.includes("adaptive")) {
+        return { kind: "stream", desc: "Online learning paradigm that continuously updates models as stream behavior changes.", formula: "\\theta_{t+1} = \\theta_t - \\eta_t \\nabla_\\theta \\mathcal{L}(x_t, y_t)",
+          longDesc: "Stream adaptive learning combines online updates, drift detection, and model reset/ensemble policies. The goal is stable long-term performance under non-stationary data, bounded memory, and low-latency constraints.",
+          useCases: ["Real-time recommendations", "Network security streams", "Industrial monitoring"],
+          whenUse: "Predictions must stay current as the data-generating process changes continuously.",
+          whenNot: "Batch-only workflows where full retraining is cheap and concept drift is negligible.",
+          related: ["Drift Detection", "ADWIN", "VFDT", "CluStream"] };
+      }
+      if (t.includes("stream") || t.includes("drift") || t.includes("adwin") || t.includes("vfdt") || t.includes("clustream") || t.includes("denstream") || t.includes("monic")) {
         return { kind: "stream", desc: "Processes evolving data online while adapting to concept drift.", formula: "P_t(y \\mid \\mathbf{x}) \\neq P_{t+\\Delta}(y \\mid \\mathbf{x})",
           longDesc: "Stream learning handles data arriving continuously and may adapt to non-stationary distributions. ADWIN detects drift via adaptive windowing; VFDT builds decision trees from streams using Hoeffding bounds.",
           useCases: ["Network intrusion detection", "Financial tick data", "IoT sensors"],
           whenUse: "Data arrives as an unbounded stream; distribution may shift over time.",
           whenNot: "When full dataset is available and concept drift is absent.",
           related: ["ADWIN", "VFDT", "CVFDT", "MONIC Clustering"] };
+      }
+      if (t.includes("advanced") && t.includes("time series")) {
+        return { kind: "wave", desc: "Practical ML forecasting beyond classical ARIMA using lag features, rolling windows, and hybrid models.", formula: "\\hat{y}_{t+h} = f(y_{t}, y_{t-1}, \\ldots, x_t)",
+          longDesc: "Advanced time-series ML extends classical models with supervised feature engineering (lags, windows, seasonality encodings), boosted trees, and deep sequence models. It emphasizes leakage-safe validation, horizon-aware error metrics, and robust adaptation to regime changes.",
+          useCases: ["Demand forecasting", "Energy load prediction", "Traffic volume forecasting"],
+          whenUse: "Need multivariate forecasting with non-linear interactions and operational constraints.",
+          whenNot: "Very short clean univariate series where simple ARIMA/SARIMA already performs well.",
+          related: ["ARIMA", "LSTM", "Regression Evaluation Metrics", "Stream Adaptive Learning"] };
       }
       if (t.includes("arima") || t.includes("sarima") || t.includes("time series")) {
         return { kind: "wave", desc: "Models temporal dependence for forecasting future values.", formula: "y_t = c + \\sum_{i=1}^{p} \\phi_i y_{t-i} + \\sum_{j=1}^{q} \\theta_j e_{t-j}",
@@ -2848,14 +2929,16 @@
       if (t.includes("svm") || t.includes("support vector") || t.includes("kernel")) return ["Breast Cancer", "Digits (sklearn)", "Fashion-MNIST"];
       if (t.includes("cluster") || t.includes("kmeans") || t.includes("dbscan")) return ["Mall Customers", "Wholesale Customers", "MNIST (unsupervised)"];
       if (t.includes("pca") || t.includes("svd") || t.includes("t-sne")) return ["MNIST", "Faces (Olivetti)", "Wine"];
+      if (t.includes("discriminant")) return ["Iris", "Wine", "Digits (sklearn)"];
       if (t.includes("bayes") || t.includes("naive")) return ["20 Newsgroups", "SMS Spam Collection", "IMDB Sentiment"];
       if (t.includes("neural") || t.includes("deep") || t.includes("lstm") || t.includes("backprop") || t.includes("activation") || t.includes("neuron") || t.includes("vanishing") || t.includes("exploding") || (t.includes("delta") && t.includes("rule")) || (t.includes("chain") && t.includes("rule")) || t.includes("vectorization") || (t.includes("teacher") && t.includes("forcing"))) return ["MNIST", "CIFAR-10", "IMDb Reviews"];
-      if (t.includes("time series") || t.includes("arima")) return ["Airline Passengers", "Air Quality (UCI)", "Stock Prices (Yahoo Finance)"];
-      if (t.includes("stream") || t.includes("drift") || t.includes("adwin")) return ["SEA Concepts (synthetic)", "STAGGER (synthetic)", "Electricity Market"];
+      if (t.includes("s3vm") || t.includes("tsvm") || t.includes("semi supervised")) return ["Two Moons (synthetic)", "MNIST (partially labelled)", "CiteSeer"];
+      if (t.includes("advanced") && t.includes("time series")) return ["M4 Competition", "Electricity Load Diagrams", "M5 Forecasting"];
+      if (t.includes("time series") || t.includes("arima") || t.includes("sarima")) return ["Airline Passengers", "Air Quality (UCI)", "Stock Prices (Yahoo Finance)"];
+      if (t.includes("stream") || t.includes("drift") || t.includes("adwin") || t.includes("vfdt") || t.includes("cvfdt") || t.includes("denstream") || t.includes("clustream") || t.includes("monic")) return ["SEA Concepts (synthetic)", "STAGGER (synthetic)", "Electricity Market"];
       if (t.includes("association") || t.includes("apriori") || t.includes("eclat")) return ["Online Retail (UCI)", "Groceries (Kaggle)", "MovieLens"];
       if (t.includes("multi") || t.includes("label")) return ["Emotions Music", "Scene Image (Tsoumakas)", "Medical (NLP)"];
       if (t.includes("active learning") || t.includes("uncertainty") || t.includes("query")) return ["Pool-based experiment (any)", "20 Newsgroups", "Handwritten Digits"];
-      if (t.includes("semi supervised")) return ["Two Moons (synthetic)", "MNIST (partially labelled)", "CiteSeer"];
       if (t.includes("shap") || t.includes("explain")) return ["Titanic", "California Housing", "Bank Marketing"];
       return ["Iris", "Titanic", "Boston Housing"];
     }
@@ -2886,6 +2969,16 @@
       if (t.includes("pca")) return [{ p: "n_components", desc: "Number of components to keep. Or set to variance explained (e.g., 0.95)." }, { p: "svd_solver", desc: "full, arpack, randomized. Use randomized for large datasets." }];
       if (t.includes("svd")) return [{ p: "n_components", desc: "Number of singular vectors to keep. Controls compression level." }, { p: "algorithm", desc: "randomized (fast, approximate) or arpack (exact, slower)." }];
       if (t.includes("discriminant")) return [{ p: "n_components", desc: "Number of discriminant directions (at most C-1 for C classes)." }, { p: "solver", desc: "svd (no covariance matrix), lsqr, eigen." }, { p: "shrinkage", desc: "auto (Ledoit-Wolf) or float. Helps when samples < features." }];
+      if (t.includes("safe") && t.includes("semi") && t.includes("supervised")) return [{ p: "lambda_u", desc: "Weight on unlabeled loss. Start small (e.g., 0.01–0.1) for safety." }, { p: "confidence_threshold", desc: "Use pseudo-labels only above this confidence. Typical: 0.9–0.99." }, { p: "consistency_weight", desc: "Strength of consistency regularization between perturbed views." }];
+      if (t.includes("s3vm") || t.includes("tsvm")) return [{ p: "C_l", desc: "Penalty for labeled margin violations (supervised term)." }, { p: "C_u", desc: "Penalty for unlabeled term. Increase gradually to avoid unstable boundaries." }, { p: "kernel / gamma", desc: "Kernel type and bandwidth; RBF with tuned gamma is a common baseline." }];
+      if (t.includes("adwin")) return [{ p: "delta", desc: "Significance level for change detection. Smaller = fewer false alarms, slower detection." }, { p: "min_window_length", desc: "Minimum samples before attempting split tests." }];
+      if (t.includes("vfdt") || t.includes("cvfdt")) return [{ p: "grace_period", desc: "Samples between split attempts. Larger = cheaper, slower adaptation." }, { p: "split_confidence", desc: "Hoeffding bound confidence (δ). Smaller = more conservative splits." }, { p: "tie_threshold", desc: "Force split if competing attributes are close." }];
+      if (t.includes("denstream")) return [{ p: "epsilon", desc: "Neighborhood radius for density connectivity." }, { p: "beta", desc: "Threshold separating potential vs outlier micro-clusters." }, { p: "lambda", desc: "Fading factor controlling recency emphasis." }];
+      if (t.includes("clustream")) return [{ p: "q (microclusters)", desc: "Number of maintained micro-clusters online." }, { p: "horizon", desc: "Time horizon for snapshot retention and offline macro-clustering." }, { p: "k", desc: "Number of offline macro-clusters." }];
+      if (t.includes("monic")) return [{ p: "window_size", desc: "Time window length for successive clustering snapshots." }, { p: "overlap_threshold", desc: "Minimum overlap to mark cluster survival/match across windows." }, { p: "event_threshold", desc: "Sensitivity for split/merge/appearance events." }];
+      if (t.includes("drift") && t.includes("detection")) return [{ p: "detection_sensitivity", desc: "Higher sensitivity detects smaller changes but increases false alarms." }, { p: "min_instances", desc: "Minimum stream length before monitoring decisions are trusted." }];
+      if (t.includes("stream") && t.includes("adaptive")) return [{ p: "update_rate", desc: "How aggressively online updates are applied." }, { p: "retrain_policy", desc: "When to reset/retrain after drift alarms (immediate, buffered, periodic)." }, { p: "memory_budget", desc: "Bound on retained stream history or model states." }];
+      if (t.includes("advanced") && t.includes("time series")) return [{ p: "lookback_window", desc: "Number of historical timesteps used as features." }, { p: "forecast_horizon", desc: "Steps ahead to predict; affects loss and validation strategy." }, { p: "seasonal_period", desc: "Known season length (e.g., 24 hourly, 7 daily, 12 monthly)." }];
       if (t.includes("kernel") && (t.includes("function") || t.includes("matrix"))) return [{ p: "kernel type", desc: "rbf (Gaussian), poly (polynomial), linear, sigmoid. RBF is a strong default." }, { p: "gamma (γ)", desc: "RBF bandwidth. scale, auto, or specific float. Larger = tighter fit." }, { p: "degree (d)", desc: "Only for polynomial kernel. Degree 2 or 3 is common." }];
       if (t.includes("arima")) return [{ p: "p (AR order)", desc: "Number of lag observations. Check PACF plot." }, { p: "d (differencing)", desc: "Degree of differencing for stationarity. Usually 0, 1, or 2." }, { p: "q (MA order)", desc: "Moving average terms. Check ACF plot." }];
       if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
@@ -2952,6 +3045,56 @@
         return [
           { q: "How does LDA differ from PCA?", a: "PCA maximizes variance (unsupervised); LDA maximizes class separability (supervised) by maximizing the ratio of between-class to within-class scatter." },
           { q: "Why is LDA limited to C-1 dimensions for C classes?", a: "The between-class scatter matrix S_B has at most C-1 non-zero eigenvalues, bounding the number of discriminant directions." },
+        ];
+      if (t.includes("safe") && t.includes("semi") && t.includes("supervised"))
+        return [
+          { q: "What makes Safe SSL different from standard semi-supervised learning?", a: "Safe SSL constrains use of unlabeled data so performance should not be worse than the supervised baseline, prioritizing reliability over aggressive gains." },
+          { q: "When would you prefer Safe SSL over S3VM?", a: "In risk-sensitive settings where negative transfer is unacceptable (medical, finance, compliance workflows)." },
+        ];
+      if (t.includes("s3vm") || t.includes("tsvm"))
+        return [
+          { q: "What is the core assumption behind S3VM/TSVM?", a: "Low-density separation: the true decision boundary should pass through regions with few samples, including unlabeled points." },
+          { q: "Why is S3VM optimization harder than standard SVM?", a: "Including unlabeled terms typically makes the objective non-convex, so training is sensitive to initialization and hyperparameters." },
+        ];
+      if (t.includes("adwin"))
+        return [
+          { q: "How does ADWIN detect concept drift?", a: "It compares statistics of two subwindows inside an adaptive window; if the difference exceeds a concentration bound, drift is signaled and older data is dropped." },
+          { q: "What is the role of delta in ADWIN?", a: "Delta controls false alarm probability. Smaller delta means stricter tests (fewer false positives, slower detection)." },
+        ];
+      if (t.includes("vfdt") || t.includes("cvfdt"))
+        return [
+          { q: "Why can VFDT split nodes before seeing all stream data?", a: "Hoeffding bounds guarantee that with enough samples, the best observed split is very likely the true best split." },
+          { q: "How does CVFDT adapt VFDT for drift?", a: "CVFDT tracks alternate subtrees and can replace stale branches when newer data indicates the concept has changed." },
+        ];
+      if (t.includes("denstream"))
+        return [
+          { q: "Why is DenStream suited for evolving noisy streams?", a: "It uses fading micro-cluster weights so old evidence decays, and it explicitly models outlier micro-clusters for noise robustness." },
+          { q: "How does DenStream differ from DBSCAN?", a: "DBSCAN is batch density clustering, while DenStream is online with temporal decay and incremental micro-cluster maintenance." },
+        ];
+      if (t.includes("clustream"))
+        return [
+          { q: "What are CluStream's two phases?", a: "Online phase maintains micro-cluster summaries; offline phase performs macro-clustering from snapshots for chosen time horizons." },
+          { q: "Why keep snapshots in CluStream?", a: "They enable retrospective analysis and clustering at different temporal granularities without replaying the full raw stream." },
+        ];
+      if (t.includes("monic"))
+        return [
+          { q: "Is MONIC a clustering algorithm?", a: "No. MONIC analyzes transitions between clusterings over time and labels events like split, merge, survive, appear, and disappear." },
+          { q: "What insight does MONIC add beyond static clustering quality metrics?", a: "It explains temporal structural evolution, not just snapshot quality, enabling drift-aware cluster interpretation." },
+        ];
+      if (t.includes("drift") && t.includes("detection"))
+        return [
+          { q: "What are the common drift types in streaming ML?", a: "Sudden, gradual, incremental, and recurring drift; each needs different adaptation speed and memory strategy." },
+          { q: "Why monitor both data and model-error drift?", a: "Feature distribution may shift without immediate error rise (or vice versa), so monitoring both reduces missed degradation events." },
+        ];
+      if (t.includes("stream") && t.includes("adaptive"))
+        return [
+          { q: "What are the core components of a stream-adaptive learning loop?", a: "Online update mechanism, drift detector, and adaptation policy (retrain/reset/ensemble weighting)." },
+          { q: "Why are fixed retraining schedules often insufficient for streams?", a: "Drift is irregular; event-driven adaptation reacts when needed and avoids unnecessary retraining cost." },
+        ];
+      if (t.includes("advanced") && t.includes("time series"))
+        return [
+          { q: "How should validation be done for advanced time-series ML models?", a: "Use chronological splits or walk-forward validation; random shuffling causes leakage and over-optimistic metrics." },
+          { q: "Why can tree/deep models outperform ARIMA on modern forecasting tasks?", a: "They can learn non-linear relationships, exogenous effects, and interaction terms that linear ARIMA-family models cannot capture well." },
         ];
       if (t.includes("svd") && !t.includes("pca"))
         return [
