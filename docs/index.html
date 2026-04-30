@@ -2004,6 +2004,62 @@
           whenNot: "When the oracle is unreliable or labelling cost is negligible.",
           related: ["Uncertainty Sampling", "Query by Committee", "Pool-Based Sampling"] };
       }
+      if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) {
+        return { kind: "matrix", desc: "Decomposes multi-class classification into binary subproblems using One-vs-Rest or One-vs-One strategies.", formula: "\\text{OvR: } K \\text{ classifiers}; \\quad \\text{OvO: } K(K-1)/2 \\text{ classifiers}",
+          longDesc: "OvR trains one classifier per class against all others. OvO trains pairwise classifiers for each class pair and aggregates votes. OvR is cheaper to train; OvO can perform better when class boundaries are tight and imbalanced pairwise margins matter.",
+          useCases: ["Multi-class SVM wrappers", "Linear classifiers on many classes", "Baseline multi-class decomposition"],
+          whenUse: "Model natively supports only binary classification or you want explicit decomposition control.",
+          whenNot: "For very large class counts with expensive base learners, OvO can be computationally prohibitive.",
+          related: ["Softmax", "Problem Transformation Methods", "Multilabel Evaluation Metrics"] };
+      }
+      if (t.includes("problem") && t.includes("transformation")) {
+        return { kind: "matrix", desc: "Framework converting complex output tasks into easier supervised learning problems.", formula: "\\mathcal{T}: (X, Y_{complex}) \\rightarrow (X', Y'_{simple})",
+          longDesc: "Problem transformation methods convert multi-label/multi-target tasks into sets of binary or multi-class tasks. Examples include Binary Relevance, Label Powerset, Classifier Chains, and RAkEL. Choice controls label-dependency modeling vs. scalability.",
+          useCases: ["Multi-label text tagging", "Multi-output healthcare codes", "Large-label-space classification"],
+          whenUse: "Need to reuse strong single-label classifiers for structured output tasks.",
+          whenNot: "When end-to-end models natively support dependencies and large data is available.",
+          related: ["Binary Relevance", "Label Powerset", "RAkEL", "Multitarget Classification"] };
+      }
+      if (t.includes("binary") && t.includes("relevance")) {
+        return { kind: "matrix", desc: "Treats each label independently by training one binary classifier per label.", formula: "f_j: X \\rightarrow \\{0,1\\}, \\quad j=1,\\dots,L",
+          longDesc: "Binary Relevance is simple and scalable: fit L independent models, one per label. It ignores label correlations, which can hurt performance when labels are strongly dependent, but remains a strong baseline due to modularity.",
+          useCases: ["Large-scale multilabel baselines", "Fast deployment pipelines", "Label-wise explainability"],
+          whenUse: "Need scalable training and per-label interpretability.",
+          whenNot: "When label dependencies are critical (e.g., hierarchical or co-occurring labels).",
+          related: ["Label Powerset", "RAkEL", "Classifier Chains", "Multilabel Evaluation Metrics"] };
+      }
+      if (t.includes("label") && t.includes("powerset")) {
+        return { kind: "matrix", desc: "Transforms multilabel prediction into multiclass prediction over unique label combinations.", formula: "Y_{LP} = \\mathcal{P}(L) \\text{ observed combinations}",
+          longDesc: "Label Powerset treats each unique label set as one class, capturing label dependencies exactly. It can explode in class count and suffer from rare-combination sparsity, but works well when label combinations are repetitive.",
+          useCases: ["Small-to-medium multilabel tasks", "Dependency-aware baseline", "Structured tag bundles"],
+          whenUse: "Label combinations are limited and repeated often in training data.",
+          whenNot: "High-cardinality label spaces with many rare combinations.",
+          related: ["Binary Relevance", "RAkEL", "Problem Transformation Methods"] };
+      }
+      if (t.includes("rakel")) {
+        return { kind: "matrix", desc: "Ensemble of Label Powerset models trained on random small label subsets.", formula: "\\hat{y} = \\text{vote}(\\{LP_m(S_m)\\}_{m=1}^{M})",
+          longDesc: "RAkEL mitigates Label Powerset sparsity by sampling small label subsets and training multiple LP classifiers, then aggregating predictions. It captures local label dependencies while scaling better than full LP.",
+          useCases: ["Medium/large multilabel tasks", "Dependency-aware ensembles", "Robust multilabel baselines"],
+          whenUse: "Need better dependency modeling than BR without full LP class explosion.",
+          whenNot: "When inference latency budgets are tight due to ensemble overhead.",
+          related: ["Label Powerset", "Binary Relevance", "Problem Transformation Methods"] };
+      }
+      if (t.includes("multilabel") && t.includes("evaluation")) {
+        return { kind: "chart", desc: "Evaluates multilabel predictions with example-based, label-based, and ranking metrics.", formula: "F1_{micro} = \\frac{2\\cdot TP}{2\\cdot TP + FP + FN}",
+          longDesc: "Common multilabel metrics include Hamming Loss, Subset Accuracy (exact match), micro/macro F1, and ranking metrics such as Precision@k. Metric choice depends on sparsity, imbalance, and whether exact set matching is required.",
+          useCases: ["Model selection for multilabel tasks", "Threshold tuning", "Comparing BR/LP/RAkEL pipelines"],
+          whenUse: "Always report multiple metrics; exact-match alone is often too harsh.",
+          whenNot: "Avoid relying only on subset accuracy when label space is large and sparse.",
+          related: ["Binary Relevance", "Label Powerset", "RAkEL", "ROC-AUC Curves"] };
+      }
+      if (t.includes("multitarget")) {
+        return { kind: "matrix", desc: "Predicts multiple target variables jointly in one model or coordinated set of models.", formula: "\\mathbf{Y} \\in \\mathbb{R}^{n \\times T} \\text{ or } \\{0,1\\}^{n \\times T}",
+          longDesc: "Multitarget classification/regression handles several outputs simultaneously. Joint modeling can exploit target correlations and improve data efficiency compared with independent per-target models.",
+          useCases: ["Multi-task diagnosis", "Joint attribute prediction", "Structured output systems"],
+          whenUse: "Targets are correlated and shared representations can improve generalization.",
+          whenNot: "Unrelated targets with different data regimes may perform better with separate specialized models.",
+          related: ["Problem Transformation Methods", "Multilabel Evaluation Metrics", "Binary Relevance"] };
+      }
       if (t.includes("multi") || t.includes("label") || t.includes("powerset")) {
         return { kind: "matrix", desc: "Learns one or multiple labels for each instance.", formula: "\\mathbf{Y} \\in \\{0,1\\}^{n \\times L}",
           longDesc: "Multi-label classification assigns multiple target labels to a single instance simultaneously. Methods include binary relevance, label powerset, and algorithm adaptation approaches.",
@@ -2946,6 +3002,13 @@
     // ── Dataset suggestions per topic ─────────────────────────────────────
     function datasetsFor(title) {
       const t = title.toLowerCase();
+      if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) return ["Iris", "Wine", "Digits (sklearn)"];
+      if (t.includes("problem") && t.includes("transformation")) return ["Bibtex", "Delicious-200K", "RCV1-v2"];
+      if (t.includes("binary") && t.includes("relevance")) return ["Reuters-21578", "Bibtex", "Mediamill"];
+      if (t.includes("label") && t.includes("powerset")) return ["Yeast", "Emotions", "Scene"];
+      if (t.includes("rakel")) return ["Bibtex", "Corel5k", "Delicious-200K"];
+      if (t.includes("multilabel") && t.includes("evaluation")) return ["Emotions Music", "Scene Image (Tsoumakas)", "Medical (NLP)"];
+      if (t.includes("multitarget")) return ["Solar Flare", "Drug Interaction (multi-output)", "Mulan multi-target sets"];
       if (t.includes("regression") && !t.includes("logistic")) return ["Boston Housing", "California Housing", "Ames Iowa Housing"];
       if (t.includes("logistic") || t.includes("classification")) return ["Iris", "Breast Cancer (Wisconsin)", "Titanic"];
       if (t.includes("tree") || t.includes("forest") || t.includes("ensemble")) return ["Iris", "Adult Income", "Titanic"];
@@ -3008,6 +3071,13 @@
       if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
       if (t.includes("hierarchical")) return [{ p: "linkage", desc: "How to merge clusters: ward (minimize variance), complete (max distance), average, or single." }, { p: "distance_metric", desc: "Distance measure: euclidean, cosine, manhattan, etc." }];
       if (t.includes("silhouette") || t.includes("cohesion")) return [{ p: "metric", desc: "Distance metric for silhouette: euclidean (default), manhattan, cosine." }, { p: "sample_size", desc: "Number of samples to compute (for efficiency on large datasets)." }];
+      if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel"))) return [{ p: "base_estimator", desc: "Binary classifier used in decomposition (SVM, Logistic Regression, etc.)." }, { p: "strategy", desc: "OvR (K models) vs OvO (K(K-1)/2 models) tradeoff between speed and pairwise granularity." }, { p: "class_weight", desc: "Balances minority classes in binary subproblems." }];
+      if (t.includes("problem") && t.includes("transformation")) return [{ p: "method", desc: "Transformation type: Binary Relevance, Label Powerset, Classifier Chains, or RAkEL." }, { p: "base_estimator", desc: "Underlying learner for transformed tasks." }, { p: "threshold", desc: "Decision threshold for converting scores to labels." }];
+      if (t.includes("binary") && t.includes("relevance")) return [{ p: "base_estimator", desc: "Per-label classifier choice (often linear models for scalability)." }, { p: "threshold", desc: "Label-specific probability threshold (global 0.5 is often suboptimal)." }, { p: "class_weight", desc: "Handles per-label imbalance." }];
+      if (t.includes("label") && t.includes("powerset")) return [{ p: "min_combination_freq", desc: "Optional pruning of rare label combinations to reduce class sparsity." }, { p: "base_estimator", desc: "Classifier over transformed multiclass label-combination space." }, { p: "class_weight", desc: "Compensates imbalance across label-combination classes." }];
+      if (t.includes("rakel")) return [{ p: "labelset_size (k)", desc: "Number of labels per random subset model." }, { p: "n_models (m)", desc: "Number of LP models in the ensemble." }, { p: "vote_threshold", desc: "Minimum votes/probability to activate a label." }];
+      if (t.includes("multilabel") && t.includes("evaluation")) return [{ p: "threshold", desc: "Global or per-label threshold used before computing discrete metrics." }, { p: "average", desc: "micro/macro/samples averaging choice for F1-like metrics." }, { p: "k", desc: "Cutoff for ranking metrics such as Precision@k." }];
+      if (t.includes("multitarget")) return [{ p: "shared_representation", desc: "Whether targets share features/model body or use independent heads." }, { p: "target_loss_weights", desc: "Relative weights per target loss in joint optimization." }, { p: "dependency_modeling", desc: "Option to model target correlations (chains, joint decoding, covariance terms)." }];
       if (t.includes("id3")) return [{ p: "max_depth", desc: "Limit tree depth to prevent overfitting. Try: 3–10." }, { p: "min_samples_split", desc: "Min samples required to split. Higher = simpler tree." }, { p: "criterion", desc: "information_gain (ID3 default), gini_impurity, or gain_ratio (C4.5)." }];
       if (t.includes("apriori")) return [{ p: "min_support", desc: "Minimum fraction of transactions containing an itemset. Higher = fewer, stronger patterns." }, { p: "min_confidence", desc: "Minimum rule confidence threshold for generated rules." }, { p: "max_len", desc: "Maximum itemset length to control combinatorial explosion." }];
       if (t.includes("eclat")) return [{ p: "min_support", desc: "Support threshold for keeping frequent itemsets." }, { p: "tidset_representation", desc: "Efficient vertical representation choice (bitset/list) affects memory and speed." }, { p: "max_depth", desc: "Limits recursive itemset growth depth for runtime control." }];
@@ -3183,6 +3253,41 @@
         return [
           { q: "What are support, confidence, and lift?", a: "Support measures frequency, confidence measures directional reliability P(B|A), and lift measures dependence beyond chance." },
           { q: "Why are association rules not causal by default?", a: "They capture co-occurrence patterns, not intervention effects; confounding and popularity can create misleading rules." },
+        ];
+      if (t.includes("ovr") || t.includes("ovo") || (t.includes("multiclass") && !t.includes("multilabel")))
+        return [
+          { q: "How do OvR and OvO differ computationally?", a: "OvR trains K classifiers for K classes; OvO trains K(K-1)/2 pairwise classifiers. OvO can be more expensive but sometimes yields better pairwise discrimination." },
+          { q: "When should you prefer OvR over OvO?", a: "For large K or expensive base estimators, OvR is typically faster and easier to maintain while still strong in practice." },
+        ];
+      if (t.includes("problem") && t.includes("transformation"))
+        return [
+          { q: "Why use problem transformation methods in multilabel learning?", a: "They let you reuse mature single-label algorithms by converting multilabel outputs into equivalent supervised subtasks." },
+          { q: "What is the main tradeoff across BR, LP, and RAkEL?", a: "BR scales well but ignores label dependencies; LP captures dependencies but can explode class space; RAkEL balances both via subset ensembles." },
+        ];
+      if (t.includes("binary") && t.includes("relevance"))
+        return [
+          { q: "What is Binary Relevance's key assumption?", a: "Each label is predicted independently from others, so inter-label correlations are ignored." },
+          { q: "Why is Binary Relevance still a strong baseline?", a: "It is simple, scalable to many labels, parallelizable, and offers per-label interpretability and debugging." },
+        ];
+      if (t.includes("label") && t.includes("powerset"))
+        return [
+          { q: "How does Label Powerset model label dependencies?", a: "It treats each unique label combination as one multiclass target, preserving exact dependency structure in training." },
+          { q: "What is Label Powerset's main weakness?", a: "Many rare combinations create severe class sparsity and poor generalization to unseen label sets." },
+        ];
+      if (t.includes("rakel"))
+        return [
+          { q: "How does RAkEL reduce Label Powerset sparsity?", a: "It trains many LP models on random small label subsets and aggregates votes, reducing class explosion while keeping local dependencies." },
+          { q: "What do k and m control in RAkEL?", a: "k is label subset size per model; m is number of subset models. Larger m improves robustness but increases training/inference cost." },
+        ];
+      if (t.includes("multilabel") && t.includes("evaluation"))
+        return [
+          { q: "Why is subset accuracy often too harsh in multilabel tasks?", a: "It requires exact match of the full label set; one missed minor label marks the whole example wrong." },
+          { q: "When do you choose micro-F1 vs macro-F1?", a: "Micro-F1 emphasizes frequent labels (global counts), while macro-F1 treats each label equally and highlights rare-label performance." },
+        ];
+      if (t.includes("multitarget"))
+        return [
+          { q: "How is multitarget different from multilabel classification?", a: "Multilabel usually means multiple binary labels for one task; multitarget is broader and can include mixed output types or multiple distinct targets predicted jointly." },
+          { q: "When does joint multitarget modeling help?", a: "When targets are correlated so shared representation and cross-target signal improve sample efficiency and generalization." },
         ];
       if (t.includes("lazy") && !t.includes("knn"))
         return [
