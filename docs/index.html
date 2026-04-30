@@ -2462,7 +2462,7 @@
       }
       if (t.includes("chain") && t.includes("rule")) {
         return { kind: "network", desc: "Calculus rule enabling gradient computation through composed functions: the product of local partial derivatives.", formula: "\\frac{d\\mathcal{L}}{d\\mathbf{W}^{(l)}} = \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{a}^{(l)}} \\cdot \\frac{\\partial \\mathbf{a}^{(l)}}{\\partial \\mathbf{z}^{(l)}} \\cdot \\frac{\\partial \\mathbf{z}^{(l)}}{\\partial \\mathbf{W}^{(l)}}",
-          longDesc: "The chain rule states d/dx[f(g(x))] = f'(g(x))·g'(x). In multi-layer networks, the gradient of the loss w.r.t. any weight decomposes into a product of local Jacobians along the path from that weight to the output. This decomposition is the mathematical foundation that makes backpropagation computationally efficient.",
+          longDesc: "The chain rule states \\(\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)\\). In multi-layer networks, the gradient of the loss w.r.t. any weight decomposes into a product of local Jacobians along the path from that weight to the output. This decomposition is the mathematical foundation that makes backpropagation computationally efficient.",
           useCases: ["Deriving backpropagation", "Understanding gradient flow through layers", "Implementing custom autograd layers"],
           whenUse: "The mathematical backbone of all gradient-based learning; applies whenever differentiable functions are composed.",
           whenNot: "Not a technique to choose — a mathematical rule underlying all deep learning optimisation.",
