@@ -1876,6 +1876,22 @@
           whenNot: "When feature interactions across many rules are important — decision trees capture the full joint structure.",
           related: ["Rule-Based Classifier", "Decision Trees", "ID3 Algorithm", "RIPPER"] };
       }
+      if (t.includes("hunt")) {
+        return { kind: "tree", desc: "Recursive tree-building procedure underpinning ID3, C4.5, and CART.", formula: "\\text{if } D \\text{ pure}: \\text{leaf}; \\text{ else } A^*=\\arg\\max_A IG(D,A) \\rightarrow \\text{split recursively}",
+          longDesc: "Hunt's Algorithm is the recursive partitioning skeleton used by ID3, C4.5, and CART. Starting at the root with the full training set, it picks the best attribute A* by an impurity criterion, creates child branches, and recurses on each partition. Recursion terminates when a node is pure, too small, or reaches a depth limit. The choice of impurity measure (entropy → ID3, Gini → CART, gain ratio → C4.5) distinguishes the concrete algorithms built on this framework.",
+          useCases: ["Foundation of all decision tree learning algorithms", "Understanding ID3/CART/C4.5 mechanics", "Teaching recursive tree construction"],
+          whenUse: "Conceptually central whenever building a decision tree; Hunt's procedure is the backbone specialised by ID3, CART, and C4.5.",
+          whenNot: "Not used as a standalone implementation; choose ID3/CART/C4.5 for real-world use with concrete stopping and pruning rules.",
+          related: ["Decision Trees", "ID3 Algorithm", "Impurity Measures", "Reduced Error Pruning"] };
+      }
+      if (t.includes("reduced") && t.includes("pruning")) {
+        return { kind: "tree", desc: "Post-pruning that replaces subtrees with majority-class leaves when doing so does not increase validation error.", formula: "\\text{Prune node } n \\text{ if } err_{val}(T_{pruned}) \\leq err_{val}(T)",
+          longDesc: "Reduced Error Pruning (REP) simplifies a fully grown decision tree in a bottom-up pass. For each non-leaf node, it tests whether replacing its subtree with a majority-class leaf improves or ties accuracy on a held-out pruning set. If accuracy does not drop, the subtree is removed. REP is computationally cheap but requires a separate pruning set, reducing available training data.",
+          useCases: ["Simplifying overgrown decision trees", "Improving generalisation on noisy data", "Reducing tree depth for interpretability"],
+          whenUse: "After growing a full decision tree when a pruning validation set is available and the tree shows overfitting.",
+          whenNot: "When training data is scarce — prefer cost-complexity pruning (CART's ccp_alpha) to avoid wasting data on a separate pruning set.",
+          related: ["Decision Trees", "Hunt's Algorithm", "Cross Validation", "Hyperparameter Tuning"] };
+      }
       if (t.includes("tree") || t.includes("impurity")) {
         return { kind: "tree", desc: "Splits data recursively by maximizing information gain.", formula: "IG(S, A) = H(S) - \\sum_{v \\in Values(A)} \\frac{|S_v|}{|S|} H(S_v)",
           longDesc: "Decision trees recursively partition the feature space by selecting splits that maximise purity (information gain, Gini impurity, or gain ratio). They produce interpretable if-then rules.",
@@ -1884,7 +1900,15 @@
           whenNot: "Prone to overfitting on high-dimensional data without pruning.",
           related: ["Random Forest", "Pruning", "Impurity Measures", "Rule-Based Classifier"] };
       }
-      if (t.includes("random forest") || t.includes("ensemble") || t.includes("bagging") || t.includes("boosting")) {
+      if (t.includes("random") && t.includes("forest")) {
+        return { kind: "tree", desc: "Ensemble of decorrelated decision trees trained on bootstrap samples with random feature subsets.", formula: "\\hat{y}_{RF} = \\text{majority}\\{h_t(\\mathbf{x})\\}_{t=1}^T, \\quad h_t \\leftarrow \\text{Bootstrap}(D,\\,\\lfloor\\sqrt{d}\\rfloor\\text{-feats})",
+          longDesc: "Random Forest grows T decision trees independently, each on a bootstrap sample of the training data. At every split, only a random subset of \\(\\lfloor\\sqrt{d}\\rfloor\\) features is evaluated, decorrelating the trees and reducing variance. Predictions are aggregated by majority vote (classification) or averaging (regression). Out-of-Bag (OOB) examples — ≈36.8% of data not drawn into each bootstrap — provide a free internal validation estimate without a separate hold-out set.",
+          useCases: ["Tabular classification and regression", "Feature importance ranking", "Medical diagnosis", "Fraud detection"],
+          whenUse: "Strong baseline for tabular data with minimal tuning; handles mixed feature types, missing values, and high dimensionality well.",
+          whenNot: "When a single interpretable model is required; for very large datasets, gradient boosting (XGBoost/LightGBM) often achieves better accuracy.",
+          related: ["Decision Trees", "Ensemble Methods", "Gradient Boosting", "Bagging"] };
+      }
+      if (t.includes("ensemble") || t.includes("bagging") || t.includes("boosting")) {
         return { kind: "line", desc: "Combines multiple weak learners into a strong learner.", formula: "\\hat{y} = \\frac{1}{T}\\sum_{t=1}^T h_t(\\mathbf{x})",
           longDesc: "Ensemble methods combine predictions from many models. Bagging reduces variance (Random Forest), Boosting reduces bias (AdaBoost, Gradient Boosting), and Stacking combines heterogeneous learners.",
           useCases: ["Kaggle competitions", "Fraud detection", "Medical imaging"],
@@ -1995,6 +2019,54 @@
           whenUse: "When false positives and false negatives have asymmetric business cost and class priors are known.",
           whenNot: "When costs/priors are unknown or unstable; then prefer cost-agnostic summaries first (ROC-AUC, PR-AUC).",
           related: ["ROC AUC", "Class Imbalance", "Precision-Recall"] };
+      }
+      if (t.includes("underfitting") || (t.includes("overfitting") && !t.includes("neural") && !t.includes("tree") && !t.includes("ridge") && !t.includes("lasso") && !t.includes("polynomial"))) {
+        return { kind: "chart", desc: "Bias-variance tradeoff: underfitting = high bias, overfitting = high variance.", formula: "\\text{MSE} = \\text{Bias}^2[\\hat{f}] + \\text{Var}[\\hat{f}] + \\sigma^2",
+          longDesc: "Underfitting (high bias) occurs when a model is too simple to capture the underlying pattern — poor on both train and test. Overfitting (high variance) occurs when a model memorises training noise — low train error but high test error. The bias-variance decomposition shows Expected Error = Bias² + Variance + irreducible noise. Learning curves (train vs. validation loss as dataset size grows) diagnose which regime the model is in.",
+          useCases: ["Model complexity selection", "Regularisation decision-making", "Learning curve analysis", "Diagnosing model failures"],
+          whenUse: "Fundamental to every ML project — always compare train vs. validation loss before finalising a model.",
+          whenNot: "Not a direct algorithm; once diagnosed, address with regularisation, pruning, ensemble methods, or more data.",
+          related: ["Cross Validation", "Regularization", "Hyperparameter Tuning", "Reduced Error Pruning"] };
+      }
+      if (t.includes("random") && t.includes("sampling") && !t.includes("forest")) {
+        return { kind: "chart", desc: "Drawing random subsets of data for evaluation or resampling-based learning.", formula: "D_s \\sim \\text{Uniform}(D,\\, m), \\quad |D_s| = m",
+          longDesc: "Random sampling draws m examples uniformly from D. Simple random sampling without replacement and bootstrap sampling (with replacement, ~63.2% unique examples) are the two key variants. It underpins bootstrap evaluation, bagging, SGD mini-batch formation, and large-scale preprocessing. Stratified random sampling additionally preserves class proportions.",
+          useCases: ["Bootstrap evaluation", "Bagging / Random Forest tree construction", "SGD mini-batch formation", "Large-scale data preprocessing"],
+          whenUse: "When the full dataset is too large for exact computation, or when multiple independent samples are needed for ensemble or statistical estimation.",
+          whenNot: "When data is very small and every example matters; when class proportions must be exactly preserved (use stratified sampling).",
+          related: ["Bootstrap Evaluation", "Cross Validation", "Bagging", "Random Forest"] };
+      }
+      if (t.includes("nested") && t.includes("cross")) {
+        return { kind: "chart", desc: "Two-loop cross-validation providing an unbiased generalisation estimate while tuning hyperparameters.", formula: "\\hat{E} = \\frac{1}{K_o}\\sum_{i=1}^{K_o}\\min_{\\lambda} CV_{inner}(D_{train}^{(i)}, \\lambda)",
+          longDesc: "Nested Cross-Validation uses an outer loop (K_o folds) for unbiased performance reporting and an inner loop (K_i folds) for hyperparameter selection. For each outer fold, the inner CV selects λ* on the outer training partition only; the chosen model is evaluated on the outer test fold. This ensures reported performance is not contaminated by the hyperparameter search, eliminating the optimistic bias of standard CV-then-test.",
+          useCases: ["Unbiased model evaluation with hyperparameter tuning", "Small-sample scientific benchmarking", "Algorithm comparison studies"],
+          whenUse: "When you need a statistically rigorous generalisation estimate AND are tuning hyperparameters; essential for small datasets.",
+          whenNot: "Computationally expensive (K_o × K_i × fit_cost); not needed when data is large enough for a stable separate test set.",
+          related: ["Cross Validation", "Holdout Method", "Hyperparameter Tuning", "Bootstrap Evaluation"] };
+      }
+      if (t.includes("holdout") || (t.includes("hold") && t.includes("out") && !t.includes("hold-out"))) {
+        return { kind: "chart", desc: "Single train-test split to estimate generalisation performance.", formula: "D = D_{train} \\cup D_{test}, \\quad D_{train} \\cap D_{test} = \\emptyset",
+          longDesc: "The Holdout Method partitions the dataset once into a training set (70–80%) and a test set (20–30%). The model is trained on D_train and evaluated once on D_test. It is fast and simple but produces a high-variance estimate when data is scarce. In practice, a three-way split (train / validation / test) separates model selection from final reporting.",
+          useCases: ["Quick model evaluation on large datasets", "Final performance reporting", "Baseline evaluation in industry pipelines"],
+          whenUse: "When data is abundant (≥10 000 examples) giving a stable estimate; or for fast iteration during development.",
+          whenNot: "On small datasets — use k-fold cross-validation for lower-variance estimates with full data utilisation.",
+          related: ["Cross Validation", "Nested Cross Validation", "Bootstrap Evaluation", "Underfitting Overfitting"] };
+      }
+      if (t.includes("hyperparameter")) {
+        return { kind: "chart", desc: "Searching the hyperparameter space to minimise validation error.", formula: "\\lambda^* = \\arg\\min_{\\lambda \\in \\Lambda} \\hat{E}_{val}(h_{\\lambda})",
+          longDesc: "Hyperparameter tuning finds the configuration λ* that minimises estimated generalisation error. Grid Search evaluates all combinations on a predefined grid. Random Search samples configurations at random (often more efficient in high dimensions). Bayesian Optimisation builds a surrogate model of the objective to guide search toward promising regions. All tuning must be performed inside a cross-validation loop to avoid test-set leakage.",
+          useCases: ["Optimising learning rate, regularisation strength, tree depth", "Neural architecture search", "Model selection pipelines", "AutoML frameworks"],
+          whenUse: "Always tune at least the most sensitive hyperparameters before reporting final model performance.",
+          whenNot: "For exploratory work where a reasonable default suffices; when the model is already at practical performance limits.",
+          related: ["Cross Validation", "Nested Cross Validation", "Grid Search", "Bootstrap Evaluation"] };
+      }
+      if (t.includes("bootstrap")) {
+        return { kind: "chart", desc: "Resampling with replacement to estimate model performance and confidence intervals.", formula: "\\hat{\\theta}_{.632} = 0.368\\,\\hat{\\theta}_{train} + 0.632\\,\\hat{\\theta}_{oob}",
+          longDesc: "Bootstrap evaluation draws B datasets of size n with replacement from D. Each D^(b) trains the model; Out-of-Bag (OOB) examples — ≈36.8% of D not drawn — form the test set. The .632 estimator corrects for optimistic bias: err_.632 = 0.368 × train_err + 0.632 × oob_err. The empirical distribution of θ̂^(b) directly yields percentile confidence intervals for any performance metric.",
+          useCases: ["Confidence intervals for accuracy/AUC", "Small-sample model evaluation", "Ensemble learning (bagging)", "Statistical tests on model differences"],
+          whenUse: "When confidence intervals on performance metrics are needed, or when data is too small for stable k-fold estimates.",
+          whenNot: "On large datasets where k-fold CV provides stable estimates more cheaply; when computational budget is tight.",
+          related: ["Cross Validation", "Holdout Method", "Random Sampling", "Bagging"] };
       }
       if (t.includes("cross") || t.includes("hold-out") || t.includes("validation")) {
         return { kind: "chart", desc: "Estimates generalization error by evaluating on unseen data.", formula: "E_{gen} = \\mathbb{E}[L(h, D_{test})]",
@@ -3278,6 +3350,15 @@
       if (t.includes("multitarget")) return ["Solar Flare", "Drug Interaction (multi-output)", "Mulan multi-target sets"];
       if (t.includes("regression") && !t.includes("logistic")) return ["Boston Housing", "California Housing", "Ames Iowa Housing"];
       if (t.includes("logistic") || t.includes("classification")) return ["Iris", "Breast Cancer (Wisconsin)", "Titanic"];
+      if (t.includes("hunt")) return ["Iris (2-class subset)", "Titanic", "Congressional Voting Records (UCI)"];
+      if (t.includes("reduced") && t.includes("pruning")) return ["Iris", "Titanic", "ID3 tree on Mushroom (UCI)"];
+      if (t.includes("random") && t.includes("forest")) return ["Adult Income (UCI)", "Titanic", "Breast Cancer Wisconsin"];
+      if (t.includes("underfitting") || (t.includes("overfitting") && !t.includes("neural") && !t.includes("ridge") && !t.includes("lasso"))) return ["Synthetic polynomial (sklearn)", "Iris", "California Housing"];
+      if (t.includes("random") && t.includes("sampling") && !t.includes("forest")) return ["Any moderate tabular dataset", "Iris", "Boston Housing"];
+      if (t.includes("nested") && t.includes("cross")) return ["Iris", "Breast Cancer Wisconsin", "Wine (UCI)"];
+      if (t.includes("holdout") || (t.includes("hold") && t.includes("out") && !t.includes("hold-out"))) return ["Iris", "Titanic", "Adult Income"];
+      if (t.includes("hyperparameter")) return ["Iris", "Breast Cancer Wisconsin", "Boston Housing"];
+      if (t.includes("bootstrap")) return ["Iris", "Pima Indians Diabetes", "Adult Income"];
       if (t.includes("tree") || t.includes("forest") || t.includes("ensemble")) return ["Iris", "Adult Income", "Titanic"];
       if (t.includes("impurity")) return ["Iris", "Titanic", "Adult Income (categorical)"];
       if ((t.includes("rule") && t.includes("based")) || t.includes("rule-based")) return ["Titanic", "Mushroom (UCI)", "Congressional Voting Records"];
@@ -3341,6 +3422,15 @@
       if (t.includes("polynomial")) return [{ p: "degree", desc: "Polynomial degree. Degree 2 or 3 is a common starting point; higher degrees overfit." }, { p: "include_bias", desc: "Whether to include a bias column (intercept term). Usually true." }, { p: "interaction_only", desc: "If true, only cross-terms are created, not squared individual features." }];
       if (t.includes("isotonic")) return [{ p: "increasing", desc: "True = monotone increasing fit; False = decreasing; auto = infers from data." }, { p: "out_of_bounds", desc: "How to handle x values outside training range: nan, clip, or raise." }];
       if (t.includes("logistic")) return [{ p: "C", desc: "Inverse of regularisation strength. Small C = strong penalty. Try: 0.01, 0.1, 1." }, { p: "solver", desc: "liblinear (small), lbfgs (multi-class), saga (large data)." }];
+      if (t.includes("hunt")) return [{ p: "max_depth", desc: "Depth limit for the recursively grown tree. Prevents unbounded growth." }, { p: "min_samples_split", desc: "Minimum examples to attempt a split. Higher = simpler tree." }, { p: "impurity_criterion", desc: "entropy (ID3), gini (CART), or gain_ratio (C4.5) — governs split selection." }];
+      if (t.includes("reduced") && t.includes("pruning")) return [{ p: "pruning_set_fraction", desc: "Fraction of training data held out as pruning validation set (typically 0.2–0.3)." }, { p: "min_accuracy_delta", desc: "Minimum accuracy improvement required to keep a subtree (often 0 — any tie prunes)." }, { p: "depth_limit", desc: "Optional cap on how deep REP traversal descends bottom-up." }];
+      if (t.includes("random") && t.includes("forest")) return [{ p: "n_estimators", desc: "Number of trees. More = better until diminishing returns. Try: 100–500." }, { p: "max_features", desc: "Features per split. sqrt(d) for classification, d/3 for regression." }, { p: "max_depth", desc: "Depth of each tree. None (full) or limit to reduce overfitting." }];
+      if (t.includes("underfitting") || (t.includes("overfitting") && !t.includes("neural") && !t.includes("ridge") && !t.includes("lasso"))) return [{ p: "model_complexity", desc: "Primary lever: polynomial degree, tree depth, number of neurons. Increase to fix underfitting; decrease or regularise to fix overfitting." }, { p: "regularisation_strength", desc: "L1/L2 penalty (alpha/C). Increase to reduce overfitting." }, { p: "early_stopping_rounds", desc: "Stop training when validation loss plateaus to avoid overfitting (used in boosting and neural nets)." }];
+      if (t.includes("random") && t.includes("sampling") && !t.includes("forest")) return [{ p: "sample_size (m)", desc: "Number of examples drawn per sample. Larger = more stable estimates but more compute." }, { p: "with_replacement", desc: "Bootstrap (True) or simple random sample (False). True gives OOB estimation." }, { p: "random_state", desc: "Seed for reproducibility of the sampling procedure." }];
+      if (t.includes("nested") && t.includes("cross")) return [{ p: "k_outer", desc: "Outer fold count for performance reporting. Typically 5–10." }, { p: "k_inner", desc: "Inner fold count for hyperparameter selection. Typically 3–5." }, { p: "hp_search_strategy", desc: "Grid, random, or Bayesian search inside the inner loop." }];
+      if (t.includes("holdout") || (t.includes("hold") && t.includes("out") && !t.includes("hold-out"))) return [{ p: "test_size", desc: "Fraction of data reserved for testing (typical: 0.2–0.3)." }, { p: "random_state", desc: "Seed for reproducible splitting." }, { p: "stratify", desc: "Whether to preserve class proportions in the split (recommended for imbalanced data)." }];
+      if (t.includes("hyperparameter")) return [{ p: "search_strategy", desc: "grid_search (exhaustive), random_search (efficient high-D), or bayesian_optimisation (sequential model-based)." }, { p: "cv_folds", desc: "Cross-validation folds per configuration. 5-fold is a common default." }, { p: "n_iter (budget)", desc: "Max configurations evaluated in random/Bayesian search. Higher = better coverage." }];
+      if (t.includes("bootstrap")) return [{ p: "B (n_bootstraps)", desc: "Number of bootstrap resamples. More = more stable CI. Typical: 200–1000." }, { p: "estimator_type", desc: ".632 (bias-corrected) vs simple OOB. .632+ adds further correction for extreme models." }, { p: "confidence_level", desc: "Alpha level for percentile CI (typically 0.95 giving 2.5th–97.5th percentiles)." }];
       if (t.includes("tree")) return [{ p: "max_depth", desc: "Limit tree depth to prevent overfitting. Try: 3–10." }, { p: "min_samples_split", desc: "Min samples to split a node. Higher = simpler tree." }, { p: "criterion", desc: "gini or entropy — usually similar results." }];
       if (t.includes("random forest") || t.includes("forest")) return [{ p: "n_estimators", desc: "Number of trees. More = better until diminishing returns. Try: 100–500." }, { p: "max_features", desc: "Features per split. sqrt(d) for classification, d/3 for regression." }, { p: "max_depth", desc: "Depth of each tree. None (full) or limit to reduce overfitting." }];
       if (t.includes("knn") || t.includes("neighbor")) return [{ p: "n_neighbors (k)", desc: "Number of neighbours. Small k = complex boundary; large k = smooth. Try: 3, 5, 11." }, { p: "weights", desc: "uniform or distance — distance weights closer points more." }, { p: "metric", desc: "euclidean (default), manhattan, minkowski." }];
@@ -3587,6 +3677,51 @@
         return [
           { q: "Why use log-loss instead of MSE for classification?", a: "MSE gives flat gradients for wrong confident predictions; log-loss penalises them heavily, making training more effective." },
           { q: "How do you handle multi-class logistic regression?", a: "Use Softmax (multinomial) or One-vs-Rest (OvR) strategy." },
+        ];
+      if (t.includes("hunt"))
+        return [
+          { q: "What is Hunt's Algorithm's key contribution to decision tree learning?", a: "It provides the recursive Greedy Top-Down partitioning framework used by all major tree learners (ID3, CART, C4.5). The framework separates the induction procedure from the concrete choice of split criterion and stopping rule." },
+          { q: "When does Hunt's algorithm terminate recursion?", a: "When all examples in a node belong to one class (pure leaf), when no attributes remain, when the node contains fewer than min_samples examples, or when a maximum depth limit is reached." },
+        ];
+      if (t.includes("reduced") && t.includes("pruning"))
+        return [
+          { q: "What is the basic pruning test in Reduced Error Pruning?", a: "Replace the subtree rooted at node n with a majority-class leaf; keep the pruning if accuracy on the pruning validation set does not decrease. The simplification is applied bottom-up across all non-leaf nodes." },
+          { q: "Why does REP require a separate pruning set?", a: "To obtain an unbiased assessment of whether each subtree generalises — evaluating on training data would never justify pruning since the full tree fits the training set perfectly or near-perfectly." },
+        ];
+      if (t.includes("random") && t.includes("forest"))
+        return [
+          { q: "How does Random Forest reduce variance compared to a single tree?", a: "By averaging T decorrelated trees. Each tree is trained on an independent bootstrap sample with random feature subsets at splits, reducing inter-tree correlation. Averaging uncorrelated estimators reduces variance by ~1/T." },
+          { q: "What is Out-of-Bag (OOB) error and why is it useful?", a: "OOB error is estimated using the ≈36.8% of training examples not drawn into each tree's bootstrap. Each example is predicted only by trees that did not see it — providing a free internal cross-validation estimate without a separate hold-out set." },
+        ];
+      if (t.includes("underfitting") || (t.includes("overfitting") && !t.includes("neural") && !t.includes("tree") && !t.includes("ridge") && !t.includes("lasso")))
+        return [
+          { q: "How do you detect underfitting vs overfitting from learning curves?", a: "Underfitting: both train and validation error are high and similar, converging slowly. Overfitting: train error is low but validation error is much higher — the gap widens as model complexity grows. The goal is both errors converging to a low value." },
+          { q: "What is the bias-variance decomposition?", a: "Expected MSE = Bias²(f̂) + Var(f̂) + σ². Bias² comes from wrong assumptions (under-complex model); Var comes from sensitivity to training data (over-complex model). Regularisation, pruning, and ensembles are tools to navigate this tradeoff." },
+        ];
+      if (t.includes("random") && t.includes("sampling") && !t.includes("forest"))
+        return [
+          { q: "What is the difference between simple random sampling and bootstrap sampling?", a: "Simple random sampling draws without replacement — each example can appear at most once. Bootstrap sampling draws with replacement — the same example may appear multiple times. Bootstrap samples retain ~63.2% unique examples per sample on average." },
+          { q: "Why does bootstrap sampling leave ~36.8% of data out-of-bag?", a: "The probability that a specific example is NOT selected in n draws with replacement is (1 − 1/n)^n → 1/e ≈ 0.368 as n → ∞. These OOB examples form a natural free validation set." },
+        ];
+      if (t.includes("nested") && t.includes("cross"))
+        return [
+          { q: "Why is standard single-loop CV insufficient when tuning hyperparameters?", a: "The test fold is used to choose λ*, making it no longer an unbiased estimate of generalisation error. This optimistic bias grows with the number of configurations tried. Nested CV separates selection (inner loop) from estimation (outer loop)." },
+          { q: "What does the outer loop of nested CV estimate?", a: "The expected generalisation error of the model selection pipeline — the combined procedure of hyperparameter tuning + fitting — not of any single fixed model." },
+        ];
+      if (t.includes("holdout") || (t.includes("hold") && t.includes("out") && !t.includes("hold-out")))
+        return [
+          { q: "What is the main weakness of the holdout method compared to k-fold CV?", a: "High variance — the estimate depends on which examples happen to land in the test split. k-fold CV uses all data for both training and testing across folds, providing a lower-variance estimate with no data wasted." },
+          { q: "When is the holdout method acceptable?", a: "When data is large (≥10 000 examples) so the single-split estimate is stable, or when training cost makes repeated k-fold fitting prohibitive (e.g., deep learning on large datasets)." },
+        ];
+      if (t.includes("hyperparameter"))
+        return [
+          { q: "Why should hyperparameters never be selected by performance on the test set?", a: "Evaluating many configurations on the test set makes it part of the model selection process; performance becomes an optimistic estimate of true generalisation (test-set leakage). Use a validation set or cross-validation for selection and keep the test set sealed until final reporting." },
+          { q: "Why does random search often outperform grid search in high dimensions?", a: "In high-dimensional spaces, many hyperparameters are relatively unimportant. Random search samples each dimension independently, exploring a much richer set of values for the important dimensions than a grid that evaluates few values per axis (Bergstra & Bengio, 2012)." },
+        ];
+      if (t.includes("bootstrap"))
+        return [
+          { q: "Why is the 0.632 bootstrap estimator preferred over the raw OOB estimate?", a: "The pure OOB estimate uses only ~63.2% of data for training per tree, so models appear worse than when trained on the full set — a pessimistic bias. The .632 estimator mixes 36.8% training error + 63.2% OOB error, approximating the leave-one-out expected error on the full training set." },
+          { q: "How do you compute a 95% confidence interval using the bootstrap?", a: "Compute θ̂^(b) for B bootstrap resamples, then report the 2.5th and 97.5th percentiles of the empirical distribution of θ̂^(b). No normality assumption needed — this is a non-parametric percentile interval." },
         ];
       if (t.includes("decision tree") || (t.includes("id3") && !t.includes("id3 algorithm")))
         return [
