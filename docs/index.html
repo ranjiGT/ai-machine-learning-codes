@@ -1852,6 +1852,30 @@
           whenNot: "Cannot handle continuous features or label noise natively; use C4.5, CART, or Scikit-learn DecisionTreeClassifier instead.",
           related: ["Decision Trees", "Impurity Measures", "Information Gain", "Random Forest"] };
       }
+      if (t.includes("impurity") && !t.includes("tree")) {
+        return { kind: "bars", desc: "Metrics that quantify class homogeneity at a tree node to guide split selection.", formula: "\\text{Gini}(S)=1-\\sum_c p_c^2, \\quad H(S)=-\\sum_c p_c\\log_2 p_c, \\quad \\text{GR}=\\frac{IG}{IV}\n",
+          longDesc: "Impurity measures evaluate how mixed the class distribution is at a tree node. Entropy (used by ID3) measures information content; Gini impurity (used by CART) measures probability of misclassification; Gain Ratio (used by C4.5) normalises information gain by the intrinsic value of an attribute to reduce bias toward high-cardinality features. Lower impurity = purer = better split.",
+          useCases: ["Decision tree split selection", "Feature importance computation", "Understanding ID3 vs CART differences"],
+          whenUse: "Whenever building or evaluating a decision tree; Gini is preferred for speed, entropy for theoretical interpretability.",
+          whenNot: "Impurity measures apply only to classification trees; for regression use MSE/MAE reduction.",
+          related: ["ID3 Algorithm", "Decision Trees", "Information Gain", "Gain Ratio"] };
+      }
+      if ((t.includes("rule") && t.includes("based")) || (t.includes("rule-based") && t.includes("classifier"))) {
+        return { kind: "tree", desc: "Classifies instances using an ordered set of if-then rules derived from training data.", formula: "\\text{Rule: } (A_1=v_1) \\wedge \\cdots \\wedge (A_k=v_k) \\Rightarrow y=c",
+          longDesc: "A rule-based classifier represents knowledge as a set of if-then rules: each rule has an antecedent (conjunction of attribute-value conditions) and a consequent (class label). Rules can be extracted from decision trees (by traversing root-to-leaf paths) or learned directly via sequential covering. Coverage is the fraction of examples a rule matches; accuracy is the fraction it correctly classifies among those it covers.",
+          useCases: ["Medical expert systems", "Fraud detection rule sets", "Interpretable production classifiers"],
+          whenUse: "When human-readable, auditable rules are required for compliance or expert review.",
+          whenNot: "When overlapping or highly complex rules are needed — decision trees or SVMs typically perform better with less manual effort.",
+          related: ["Sequential Covering Algorithm", "Decision Trees", "ID3 Algorithm", "Hunt's Algorithm"] };
+      }
+      if ((t.includes("sequential") && t.includes("covering")) || (t.includes("sequential") && t.includes("algorithm"))) {
+        return { kind: "tree", desc: "Iteratively learns one rule at a time, removes covered examples, then repeats.", formula: "\\text{Covering loop: } \\texttt{while } D \\neq \\emptyset \\text{ learn rule, remove covered, add to } R",
+          longDesc: "Sequential Covering (also called Separate-and-Conquer) builds a rule list one rule at a time. In each iteration it learns the best rule for the remaining examples, removes all examples covered by that rule, and repeats until all positive examples are covered or a stopping criterion is met. This greedy approach trades global optimality for speed and interpretability. Variants include RIPPER (with pruning) and CN2.",
+          useCases: ["Rule induction from structured datasets", "Producing decision lists", "Expert system knowledge acquisition"],
+          whenUse: "When an ordered rule list is preferred over a full decision tree; effective for binary classification with interpretability requirements.",
+          whenNot: "When feature interactions across many rules are important — decision trees capture the full joint structure.",
+          related: ["Rule-Based Classifier", "Decision Trees", "ID3 Algorithm", "RIPPER"] };
+      }
       if (t.includes("tree") || t.includes("impurity")) {
         return { kind: "tree", desc: "Splits data recursively by maximizing information gain.", formula: "IG(S, A) = H(S) - \\sum_{v \\in Values(A)} \\frac{|S_v|}{|S|} H(S_v)",
           longDesc: "Decision trees recursively partition the feature space by selecting splits that maximise purity (information gain, Gini impurity, or gain ratio). They produce interpretable if-then rules.",
@@ -1931,6 +1955,14 @@
           whenUse: "When you need 2D/3D visualization of complex, non-linear manifolds.",
           whenNot: "For large datasets (>100k samples) or when you need interpretable coordinates; PCA is faster.",
           related: ["PCA", "UMAP", "Dimensionality Reduction"] };
+      }
+      if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network"))) {
+        return { kind: "bayes", desc: "A directed acyclic graphical model encoding conditional dependencies among random variables via Bayes' theorem.", formula: "P(X_1,\\ldots,X_n)=\\prod_{i=1}^n P(X_i \\mid \\text{parents}(X_i))",
+          longDesc: "A Bayesian Belief Network (BBN, also Bayesian Network) is a DAG where nodes are random variables and edges encode direct probabilistic dependencies. Each node has a Conditional Probability Table (CPT) \\(P(X_i \\mid \\text{pa}(X_i))\\). The joint distribution factorises as the product of all CPTs. Inference (computing posterior \\(P(X \\mid \\text{evidence})\\)) uses variable elimination or belief propagation. Unlike Naive Bayes, BBNs do not assume feature independence and can model complex conditional structures.",
+          useCases: ["Medical diagnosis systems", "Fault detection in engineering", "Fraud risk modelling"],
+          whenUse: "When causal or conditional dependency structure among variables is known or learnable and probabilistic reasoning is required.",
+          whenNot: "Intractable for very dense graphs; learning structure from data is NP-hard; prefer simpler models when no structural knowledge is available.",
+          related: ["Naive Bayes", "Laplace Correction", "Probabilistic Graphical Models", "Variable Elimination"] };
       }
       if (t.includes("bayes") || t.includes("naive")) {
         return { kind: "bayes", desc: "Uses prior and likelihood to update posterior belief.", formula: "P(y \\mid \\mathbf{x}) = \\frac{P(\\mathbf{x} \\mid y)P(y)}{P(\\mathbf{x})}",
@@ -2420,6 +2452,14 @@
           whenNot: "Small/tabular datasets — gradient-boosted trees typically outperform DNNs with far less effort.",
           related: ["Backpropagation Algorithm", "Gradient Descent", "Activation Functions", "Generalization Neural Networks"] };
       }
+      if ((t.includes("feed") && t.includes("forward")) || t.includes("feedforward") || (t.includes("ffnn") || t.includes("feed-forward"))) {
+        return { kind: "network", desc: "Neural network where information flows in one direction from input to output without cycles.", formula: "\\hat{\\mathbf{y}} = \\text{softmax}\\!\\left(\\mathbf{W}^{(L)}\\sigma(\\cdots\\sigma(\\mathbf{W}^{(1)}\\mathbf{x}+\\mathbf{b}^{(1)})\\cdots)+\\mathbf{b}^{(L)}\\right)",
+          longDesc: "A Feed-Forward Neural Network (FFNN / MLP) is the foundational deep learning architecture. Data flows strictly forward: input layer → hidden layers → output layer. Each hidden layer applies an affine transformation \\(\\mathbf{z}^{(l)}=\\mathbf{W}^{(l)}\\mathbf{a}^{(l-1)}+\\mathbf{b}^{(l)}\\) followed by a non-linear activation \\(\\mathbf{a}^{(l)}=\\sigma(\\mathbf{z}^{(l)})\\). With sufficient width the Universal Approximation Theorem guarantees it can represent any continuous function. Training uses backpropagation to compute exact gradients layer-by-layer via the chain rule.",
+          useCases: ["Tabular classification and regression", "Baseline deep learning architecture", "Function approximation in RL"],
+          whenUse: "When inputs are fixed-size vectors; strong default before trying recurrent or convolutional architectures.",
+          whenNot: "For sequential data (use RNN/LSTM) or spatial data with translation invariance (use CNN); FFNNs lose these inductive biases.",
+          related: ["Backpropagation Algorithm", "Activation Functions", "Gradient Descent", "Artificial Neural Networks"] };
+      }
       if (t.includes("gradient") || t.includes("backprop") || t.includes("delta") || t.includes("neural") || t.includes("relu") || t.includes("lstm")) {
         return { kind: "network", desc: "Optimizes neural weights via gradient-based learning.", formula: "\\mathbf{w} \\leftarrow \\mathbf{w} - \\eta \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{w}}",
           longDesc: "Artificial neural networks are universal function approximators composed of layers of parameterised neurons. Backpropagation computes gradients via the chain rule; optimisers like SGD or Adam update weights.",
@@ -2547,6 +2587,22 @@
           whenUse: "When the feature space is best defined by pairwise similarity rather than explicit feature vectors.",
           whenNot: "Gram matrix is O(n²) memory and O(n³) solve time; impractical for n > 50k without approximations (Nyström, Random Fourier Features).",
           related: ["SVM", "Kernel PCA", "Linear Learning Machines", "SVD"] };
+      }
+      if (t.includes("non") && t.includes("linear") && t.includes("svm")) {
+        return { kind: "line", desc: "SVM extended to non-linearly separable data via kernel trick and soft-margin formulation.", formula: "\\min_{\\mathbf{w},b,\\boldsymbol{\\xi}} \\frac{1}{2}\\|\\mathbf{w}\\|^2 + C\\sum_i \\xi_i \\text{ s.t. } y_i(\\mathbf{w}^T\\phi(\\mathbf{x}_i)+b) \\geq 1-\\xi_i",
+          longDesc: "Non-linear SVMs use two key extensions over the hard-margin SVM: (1) the kernel trick — replacing \\(\\mathbf{x}_i^T\\mathbf{x}_j\\) with \\(k(\\mathbf{x}_i, \\mathbf{x}_j) = \\phi(\\mathbf{x}_i)^T\\phi(\\mathbf{x}_j)\\) implicitly lifting data into a higher-dimensional space where classes become linearly separable; (2) soft-margin (slack variables \\(\\xi_i \\geq 0\\)) that allows some misclassification, controlled by the regularisation parameter \\(C\\). Common kernels: RBF/Gaussian, polynomial, sigmoid. The dual formulation makes training depend only on inner products, so only support vectors matter.",
+          useCases: ["Handwritten digit recognition", "Bioinformatics (gene expression)", "Text and image classification"],
+          whenUse: "When classes are not linearly separable; RBF kernel is a strong default for moderately sized datasets.",
+          whenNot: "Large datasets (n > 100k) — kernel SVMs scale as O(n²) to O(n³); prefer SGD-linear SVM or deep learning.",
+          related: ["SVM", "Maximal Margin Classifier", "Kernel Functions", "Class Imbalance"] };
+      }
+      if (t.includes("maximal margin") && !t.includes("svm")) {
+        return { kind: "line", desc: "Hard-margin SVM: finds the unique hyperplane with maximum geometric margin for linearly separable data.", formula: "\\max_{\\mathbf{w},b} \\frac{2}{\\|\\mathbf{w}\\|} \\;\\Leftrightarrow\\; \\min_{\\mathbf{w}} \\frac{1}{2}\\|\\mathbf{w}\\|^2 \\text{ s.t. } y_i(\\mathbf{w}^T\\mathbf{x}_i+b)\\geq 1",
+          longDesc: "The Maximal Margin Classifier is the conceptual foundation of SVMs. Given a linearly separable dataset, infinitely many hyperplanes separate the classes; the MMC chooses the one that maximises the geometric margin \\(\\gamma = 2/\\|\\mathbf{w}\\|\\). Only the training points lying exactly on the margin boundaries (the support vectors) determine the solution — all other points are irrelevant. The QP dual is solved in terms of Lagrange multipliers \\(\\alpha_i\\); points with \\(\\alpha_i > 0\\) are the support vectors.",
+          useCases: ["Teaching SVM foundations", "Linearly separable toy problems", "Prototype for kernel extension"],
+          whenUse: "Understanding or illustrating the geometric intuition behind SVMs.",
+          whenNot: "Real datasets are rarely linearly separable; use soft-margin SVM or non-linear SVM in practice.",
+          related: ["SVM", "Non-Linear SVM", "Kernel Functions", "Lagrange Duality"] };
       }
       if (t.includes("svm") || t.includes("maximal margin") || t.includes("support vector") || t.includes("kernel")) {
         return { kind: "line", desc: "Finds the maximum-margin hyperplane separating classes.", formula: "\\min_{\\mathbf{w}} \\frac{1}{2}\\|\\mathbf{w}\\|^2 \\text{ s.t. } y_i(\\mathbf{w}^T\\mathbf{x}_i+b) \\geq 1",
@@ -3215,9 +3271,17 @@
       if (t.includes("regression") && !t.includes("logistic")) return ["Boston Housing", "California Housing", "Ames Iowa Housing"];
       if (t.includes("logistic") || t.includes("classification")) return ["Iris", "Breast Cancer (Wisconsin)", "Titanic"];
       if (t.includes("tree") || t.includes("forest") || t.includes("ensemble")) return ["Iris", "Adult Income", "Titanic"];
+      if (t.includes("impurity")) return ["Iris", "Titanic", "Adult Income (categorical)"];
+      if ((t.includes("rule") && t.includes("based")) || t.includes("rule-based")) return ["Titanic", "Mushroom (UCI)", "Congressional Voting Records"];
+      if (t.includes("sequential") && t.includes("covering")) return ["Titanic", "Congressional Voting Records", "Lymphography (UCI)"];
       if (t.includes("knn") || t.includes("neighbor")) return ["Iris", "Wine Quality", "MNIST (small)"];
       if (t.includes("svm") || t.includes("support vector") || t.includes("kernel")) return ["Breast Cancer", "Digits (sklearn)", "Fashion-MNIST"];
-      if (t.includes("unsupervised") && t.includes("learning") && t.includes("cluster")) return ["Mall Customers", "Wholesale Customers", "Iris (features only)"];
+      if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network"))) return ["Asia Network (bnlearn)", "Alarm Network (medical)", "Chest Clinic (pathfinder)"];
+      if (t.includes("bayes") || t.includes("naive")) return ["20 Newsgroups", "SMS Spam Collection", "IMDB Sentiment"];
+      if ((t.includes("feed") && t.includes("forward")) || t.includes("feedforward") || t.includes("ffnn")) return ["MNIST", "CIFAR-10", "Tabular: Adult Income"];
+      if (t.includes("non") && t.includes("linear") && t.includes("svm")) return ["Breast Cancer (non-linear boundary)", "Two Moons (synthetic)", "Digits (sklearn)"];
+      if (t.includes("maximal margin")) return ["Linearly separable synthetic (sklearn make_classification)", "Iris (2 classes, 2 features)", "Breast Cancer (2-class subset)"];
+      if (t.includes("neural") || t.includes("deep") || t.includes("lstm") || t.includes("backprop") || t.includes("activation") || t.includes("neuron") || t.includes("vanishing") || t.includes("exploding") || (t.includes("delta") && t.includes("rule")) || (t.includes("chain") && t.includes("rule")) || t.includes("vectorization") || (t.includes("teacher") && t.includes("forcing"))) return ["MNIST", "CIFAR-10", "IMDb Reviews"];
       if (t.includes("bisecting") && (t.includes("kmeans") || t.includes("k-means"))) return ["20 Newsgroups TF-IDF", "Reuters-21578 TF-IDF", "MNIST (embeddings)"];
       if (t.includes("cluster similarity") || t.includes("clutser similarity")) return ["Iris (with labels)", "Digits (sklearn)", "Synthetic blobs/moons"];
       if (t.includes("fuzzy") && (t.includes("cmeans") || t.includes("c-means"))) return ["Iris", "Wine Quality", "Customer Segmentation (overlap)"];
@@ -3300,6 +3364,13 @@
       if (t.includes("kernel") && (t.includes("function") || t.includes("matrix"))) return [{ p: "kernel type", desc: "rbf (Gaussian), poly (polynomial), linear, sigmoid. RBF is a strong default." }, { p: "gamma (γ)", desc: "RBF bandwidth. scale, auto, or specific float. Larger = tighter fit." }, { p: "degree (d)", desc: "Only for polynomial kernel. Degree 2 or 3 is common." }];
       if (t.includes("arima")) return [{ p: "p (AR order)", desc: "Number of lag observations. Check PACF plot." }, { p: "d (differencing)", desc: "Degree of differencing for stationarity. Usually 0, 1, or 2." }, { p: "q (MA order)", desc: "Moving average terms. Check ACF plot." }];
       if (t.includes("naive") || t.includes("bayes")) return [{ p: "alpha (Laplace)", desc: "Smoothing parameter. Typical: 0, 0.1, or 1. Higher = more smoothing." }, { p: "fit_prior", desc: "Whether to learn class priors from data. Usually true." }];
+      if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network"))) return [{ p: "structure (DAG)", desc: "Learned vs expert-specified graph; structure learning is NP-hard so often domain knowledge is used." }, { p: "CPT estimation method", desc: "MLE, MAP (Bayesian parameter estimation with Dirichlet prior), or EM for missing data." }, { p: "inference algorithm", desc: "Variable elimination (exact), belief propagation (exact trees), or Gibbs sampling (approximate)." }];
+      if ((t.includes("feed") && t.includes("forward")) || t.includes("feedforward") || t.includes("ffnn")) return [{ p: "learning_rate (η)", desc: "Step size for gradient descent. Typical: 1e-4 to 1e-2; use a schedule (cosine, step)." }, { p: "hidden_layers & units", desc: "Start with 1–3 layers of 64–512 units; deeper for more complex functions." }, { p: "activation function", desc: "ReLU (default hidden), Sigmoid/Softmax (output). Avoid sigmoid/tanh in deep hidden layers." }, { p: "dropout", desc: "Regularise with dropout 0.2–0.5 between dense layers." }];
+      if (t.includes("non") && t.includes("linear") && t.includes("svm")) return [{ p: "C", desc: "Soft-margin penalty. Small C allows more violations (wider margin); large C = fewer violations." }, { p: "kernel", desc: "rbf (default for non-linear), poly, sigmoid. RBF is the go-to non-linear kernel." }, { p: "gamma (γ)", desc: "RBF/poly influence width. scale (1/(n_features·Var(X))) or specific float. Large γ = tight fit." }];
+      if (t.includes("maximal margin")) return [{ p: "C (if soft margin)", desc: "Hard MMC has no C; soft extension uses C to trade margin width vs. training errors." }, { p: "kernel", desc: "For linearly separable data: no kernel needed. Add RBF/poly to extend to non-linear case." }, { p: "tolerance", desc: "KKT condition tolerance in QP solver; tighter = more precise support vector identification." }];
+      if ((t.includes("rule") && t.includes("based")) || t.includes("rule-based")) return [{ p: "min_coverage", desc: "Minimum fraction of training examples a rule must cover to be retained." }, { p: "min_accuracy", desc: "Minimum rule accuracy (precision) threshold." }, { p: "pruning", desc: "Post-pruning (IREP, RIPPER) reduces overfitting by simplifying rule antecedents." }];
+      if (t.includes("sequential") && t.includes("covering")) return [{ p: "beam_width", desc: "Number of candidate rules retained during rule refinement (1 = greedy hill climb)." }, { p: "min_coverage", desc: "Minimum example coverage to consider a rule valid." }, { p: "stopping_criterion", desc: "Min accuracy or coverage threshold at which the covering loop terminates." }];
+      if (t.includes("impurity")) return [{ p: "criterion", desc: "entropy (ID3), gini (CART), or gain_ratio (C4.5). Gini is faster; entropy is theoretically motivated." }, { p: "min_impurity_decrease", desc: "Minimum impurity reduction needed to split a node. Higher = simpler tree." }, { p: "class_weight", desc: "Adjusts impurity computation for imbalanced classes; use 'balanced' or manual weights." }];
       if (t.includes("linkage")) return [{ p: "linkage", desc: "single, complete, average, or ward linkage rule." }, { p: "distance_metric", desc: "Distance definition used by linkage updates." }, { p: "cut_threshold", desc: "Dendrogram cutoff used for final partition." }];
       if (t.includes("cluster validation")) return [{ p: "internal_metric", desc: "silhouette, Davies-Bouldin, or Calinski-Harabasz." }, { p: "external_metric", desc: "purity, Rand/ARI, or Jaccard when labels exist." }, { p: "stability_resamples", desc: "Bootstrap/subsample runs for robustness checks." }];
       if ((t.includes("cohesion") && t.includes("separation")) || (t.includes("clusters") && t.includes("cohesion"))) return [{ p: "cohesion_metric", desc: "Within-cluster compactness definition (SSE/mean distance)." }, { p: "separation_metric", desc: "Between-cluster separation definition (centroid/min/max)." }, { p: "balance_weight", desc: "Weighting between compactness and separation in composite indices." }];
@@ -3517,10 +3588,48 @@
           { q: "How does Random Forest reduce variance?", a: "By averaging many decorrelated trees trained on bootstrap samples with random feature subsets." },
           { q: "What is Out-of-Bag (OOB) error?", a: "Error estimated using samples not selected in each bootstrap; a free cross-validation estimate." },
         ];
+      if (t.includes("non") && t.includes("linear") && t.includes("svm"))
+        return [
+          { q: "What is the difference between hard-margin and soft-margin SVM?", a: "Hard-margin requires linear separability with no violations. Soft-margin allows slack variables ξᵢ controlled by C, permitting some misclassification to handle noise and non-linearly separable data." },
+          { q: "How does the RBF kernel make SVM non-linear?", a: "k(x, x') = exp(−γ||x−x'||²) maps points to an infinite-dimensional space; in that space classes may be linearly separable, allowing SVM to find a non-linear boundary in the original space." },
+          { q: "What is the dual formulation and why is it used?", a: "The dual QP depends only on inner products k(xᵢ, xⱼ), making the kernel trick possible. Most training points have αᵢ=0; only support vectors (αᵢ>0) affect the decision boundary." },
+        ];
+      if (t.includes("maximal margin"))
+        return [
+          { q: "Why is the maximum-margin classifier theoretically appealing?", a: "Maximising the margin minimises an upper bound on generalisation error. Larger margin → more tolerance for test-set perturbations → better expected performance." },
+          { q: "What are support vectors and how do they determine the boundary?", a: "Support vectors are the training points lying exactly on the margin planes (yᵢ(wᵀxᵢ+b)=1). They are the only points that influence w and b; removing non-support-vector points leaves the solution unchanged." },
+        ];
       if (t.includes("svm") || t.includes("support vector"))
         return [
           { q: "What is the kernel trick?", a: "Implicitly maps data to a higher-dimensional space using a kernel function, enabling non-linear separation without explicit computation." },
           { q: "What does the C hyperparameter control?", a: "Trade-off between maximising margin and minimising classification error. Small C = softer margin." },
+        ];
+      if (t.includes("feed") && t.includes("forward") || t.includes("feedforward") || t.includes("ffnn"))
+        return [
+          { q: "What does the Universal Approximation Theorem guarantee for FFNNs?", a: "A single hidden layer with enough neurons can approximate any continuous function to arbitrary precision. In practice, depth is more parameter-efficient than width for complex functions." },
+          { q: "How does backpropagation compute gradients in an FFNN?", a: "It applies the chain rule layer by layer backwards from the loss to the inputs. Each layer's weight gradient is the outer product of its input activation and the upstream error signal (delta)." },
+          { q: "Why does an FFNN need non-linear activations?", a: "Without them, stacking linear layers is equivalent to a single linear transformation. Non-linearities (ReLU, sigmoid) enable the network to learn non-linear decision boundaries." },
+        ];
+      if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network")))
+        return [
+          { q: "How does a Bayesian Belief Network encode the joint distribution?", a: "Via the chain rule of probability combined with the Markov condition: P(X₁,…,Xₙ) = ∏ P(Xᵢ | parents(Xᵢ)). This factorises an n-variable joint into small local CPTs." },
+          { q: "How does BBN differ from Naive Bayes?", a: "Naive Bayes assumes all features are conditionally independent given the class. A BBN models the actual conditional dependency structure via an explicit DAG, removing false independence assumptions." },
+          { q: "What is the difference between parameter learning and structure learning in BBNs?", a: "Parameter learning estimates CPT values (easy: MLE/MAP) given a fixed graph. Structure learning finds the best DAG (NP-hard; typically done with score-based or constraint-based search)." },
+        ];
+      if ((t.includes("rule") && t.includes("based")) || t.includes("rule-based"))
+        return [
+          { q: "How do you measure the quality of a rule?", a: "By its coverage (fraction of examples it matches) and accuracy (precision among matched examples). Good rules have high accuracy over sufficient coverage." },
+          { q: "What is rule ordering and why does it matter?", a: "In an ordered rule list (decision list), the first matching rule fires. Order matters because rules may overlap; unordered sets need conflict resolution (e.g., majority vote)." },
+        ];
+      if (t.includes("sequential") && t.includes("covering"))
+        return [
+          { q: "What is the difference between Sequential Covering and ID3?", a: "ID3 builds a full tree top-down using recursive partitioning. Sequential Covering learns one rule at a time, removes covered examples, and repeats — producing a rule list rather than a tree." },
+          { q: "Why does Sequential Covering sometimes outperform a single decision tree?", a: "Each rule is learned on the remaining uncovered examples, allowing specialised rules for different regions of the feature space without being constrained by earlier splits." },
+        ];
+      if (t.includes("impurity"))
+        return [
+          { q: "What is the difference between entropy and Gini impurity?", a: "Entropy = −Σ pᵢ log₂(pᵢ) from information theory. Gini = 1 − Σ pᵢ². Both reach 0 at a pure node; Gini is computationally cheaper and slightly prefers balanced splits." },
+          { q: "What is Gain Ratio and when is it preferred over Information Gain?", a: "Gain Ratio = IG / IV(A) where IV(A) is the intrinsic value of attribute A. It normalises IG, reducing bias toward high-cardinality attributes like IDs or timestamps." },
         ];
       if (t.includes("knn") || t.includes("neighbor"))
         return [
@@ -3771,6 +3880,12 @@
         return [
           { q: "What does each principal component represent?", a: "A direction of maximum remaining variance in the data, orthogonal to all previous components." },
           { q: "When should you NOT use PCA?", a: "When features are already interpretable and you need them to stay meaningful; PCA creates linear combinations." },
+        ];
+      if ((t.includes("bayesian") && t.includes("belief")) || (t.includes("bayesian") && t.includes("network")))
+        return [
+          { q: "How does a Bayesian Belief Network encode the joint distribution?", a: "Via P(X₁,…,Xₙ) = ∏ P(Xᵢ | parents(Xᵢ)). Each node stores a CPT; the full joint is the product of all CPTs." },
+          { q: "How is BBN different from Naive Bayes?", a: "Naive Bayes assumes conditional independence of all features. A BBN explicitly models dependencies via a DAG — far more expressive." },
+          { q: "What makes structure learning hard in BBNs?", a: "Finding the optimal DAG is NP-hard; in practice score-based (BIC/MDL) or constraint-based (PC algorithm) search is used with complexity trade-offs." },
         ];
       if (t.includes("bayes") || t.includes("naive"))
         return [
