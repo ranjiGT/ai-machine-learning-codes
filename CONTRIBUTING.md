@@ -13,6 +13,20 @@ Thanks for contributing to this learning repository.
 - Notebook names use snake_case and end with `_starter.ipynb`
 - Optional helper scripts go in `src/`
 
+## Notebook Quality Standard
+
+All new or updated notebooks should follow the repository quality standard:
+
+- Template: `docs/notebook_quality_template.md`
+- Rubric: `docs/notebook_quality_rubric.md`
+- Contributor checklist: `docs/notebook_contributor_checklist.md`
+- Review sheet: `docs/notebook_review_sheet.md`
+
+Before opening a PR, verify your notebook against the checklist and review sheet.
+Recommended minimums:
+- Quick scorecard: at least 8/10
+- Full rubric score: at least 80/100
+
 ## First-Time Setup
 
 After cloning and installing dependencies, run these once:
@@ -29,6 +43,9 @@ chmod +x .githooks/commit-msg
 - Notebook runs from top to bottom without errors.
 - Notebook outputs are **not** committed (nbstripout handles this automatically).
 - Code has clear section headers and short explanations.
+- Notebook follows the quality template and includes baseline + evaluation + failure analysis.
+- Notebook includes production lens and interview lens sections.
+- `docs/notebook_review_sheet.md` is completed in the PR description.
 - Add or update the topic tile in `README.md` (include difficulty tag).
 - Keep dependencies minimal; add new packages to `requirements.txt` if needed.
 
