@@ -491,6 +491,31 @@
     .modal-notebook-link:hover { background: rgba(8,145,178,0.22); }
     .modal-notebook-link svg { width: 15px; height: 15px; }
 
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .modal-youtube-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.35);
+      color: #fca5a5;
+      border-radius: 9px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.15s;
+    }
+
+    .modal-youtube-link:hover { background: rgba(239,68,68,0.22); }
+    .modal-youtube-link svg { width: 15px; height: 15px; }
+
     .illus {
       width: 56px;
       height: 56px;
@@ -1210,9 +1235,14 @@
         padding-right: 28px;
       }
 
-      .modal-notebook-link {
+      .modal-notebook-link,
+      .modal-youtube-link {
         width: 100%;
         justify-content: center;
+      }
+
+      .modal-actions {
+        flex-direction: column;
       }
     }
 
@@ -1654,6 +1684,42 @@
       "111_semi_supervised_learning", "112_safe_semi_supervised_learning", "113_s3vm_tsvm", "114_softmax_activation_function", "116_advanced_time_series_ml", "117_stream_adaptive_learning", "118_denstream", "119_adwin", "120_vfdt_cvfdt",
       "121_drift_detection", "122_monic", "123_shap_values", "124_arima_sarima", "125_clustream"
     ];
+
+    // Exact topic-video mappings currently available in README.
+    // Topics not listed here fall back to channel search for that topic title.
+    const TOPIC_YOUTUBE_URLS = {
+      "01_linear_regression": "https://www.youtube.com/watch?v=e9VYOWWP6zM",
+      "02_logistic_regression": "https://www.youtube.com/watch?v=S4IG2wv9Lnk",
+      "03_decision_trees": "https://www.youtube.com/watch?v=k3SYtpv5y6Y",
+      "04_random_forest": "https://www.youtube.com/watch?v=p2arCEdJ8Fk",
+      "05_knn": "https://www.youtube.com/watch?v=Pqo9o0286Qs",
+      "06_pca": "https://www.youtube.com/watch?v=7bpjiA2VDZE",
+      "07_naive_bayes": "https://www.youtube.com/watch?v=AkPSgAh3q4g",
+      "08_underfitting_overfitting": "https://www.youtube.com/watch?v=WxINg-eof2M",
+      "09_reduced_error_pruning": "https://www.youtube.com/watch?v=4VAOjWCHzXk",
+      "10_random_sampling": "https://www.youtube.com/watch?v=zWvGgThvZ7g",
+      "11_cross_validation": "https://www.youtube.com/watch?v=bPqliS8U3XE",
+      "12_nested_cross_validation": "https://www.youtube.com/watch?v=X6HeBURppHc",
+      "13_holdout_method": "https://www.youtube.com/watch?v=4NnI3SBuww4",
+      "14_hyperparameter_tuning": "https://www.youtube.com/watch?v=cyIINCqyi5g",
+      "15_bootstrap_evaluation": "https://www.youtube.com/watch?v=CAGIcnxB-PU",
+      "16_ensemble_methods": "https://www.youtube.com/watch?v=SZbEZcdyOWU",
+      "17_hunts_algorithm": "https://www.youtube.com/watch?v=-kfOyPwGxww",
+      "18_impurity_measures": "https://www.youtube.com/watch?v=kgCLE2FOQGU",
+      "19_rule_based_classifier": "https://www.youtube.com/watch?v=fmZaVTpRO-Q",
+      "20_sequential_covering_algorithm": "https://www.youtube.com/watch?v=wgyvJCGOSj8",
+      "21_bayesian_belief_networks": "https://www.youtube.com/watch?v=ibKIrRGUxG4",
+      "22_artificial_neural_networks": "https://www.youtube.com/watch?v=1BZm5RAljn0",
+      "23_feed_forward_neural_networks": "https://www.youtube.com/watch?v=6AK7qC2XGHY",
+      "24_support_vector_machine": "https://www.youtube.com/watch?v=nyFFTge142U",
+      "25_maximal_margin_classifier": "https://www.youtube.com/watch?v=2b2YuHwm_hw",
+      "26_non_linear_svm": "https://www.youtube.com/watch?v=qjErFs0tepw"
+    };
+
+    function youtubeUrlForTopic(slug, title) {
+      if (TOPIC_YOUTUBE_URLS[slug]) return TOPIC_YOUTUBE_URLS[slug];
+      return `https://www.youtube.com/@RanjiRaj18/search?query=${encodeURIComponent(title)}`;
+    }
 
     const cards = document.getElementById("cards");
     const topicGrid = document.getElementById("topic-grid");
@@ -4209,6 +4275,7 @@
       const modal = document.getElementById("topic-modal");
       const content = document.getElementById("modal-content");
       const notebookUrl = `https://github.com/ranjiGT/ai-machine-learning-codes/tree/main/notebooks/${slug}`;
+      const youtubeUrl = youtubeUrlForTopic(slug, title);
       const useCasesHTML = p.useCases ? p.useCases.map(u => `<span class="modal-tag">${u}</span>`).join("") : "";
       const relatedHTML = p.related ? p.related.map(r => `<span class="modal-tag">${r}</span>`).join("") : "";
       const datasets = datasetsFor(title);
@@ -4258,12 +4325,20 @@
         ${hparamsHTML ? `<div class="modal-section"><h4>Key Hyperparameters</h4>${hparamsHTML}</div>` : ""}
         ${relatedHTML ? `<div class="modal-section"><h4>Related Topics</h4><div class="modal-tags">${relatedHTML}</div></div>` : ""}
         ${qaHTML ? `<div class="modal-section"><h4>Interview Q&amp;A</h4>${qaHTML}</div>` : ""}
-        <a class="modal-notebook-link" href="${notebookUrl}" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
-          Open Notebook in GitHub
-        </a>
+        <div class="modal-actions">
+          <a class="modal-notebook-link" href="${notebookUrl}" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Open Notebook in GitHub
+          </a>
+          <a class="modal-youtube-link" href="${youtubeUrl}" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.7V8.3L16 12l-6.4 3.7Z"/>
+            </svg>
+            Watch Topic on YouTube
+          </a>
+        </div>
       `;
       modal.classList.add("open");
       if (window.MathJax && window.MathJax.typesetPromise) {
